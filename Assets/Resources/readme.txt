@@ -1,0 +1,1 @@
+This folder is intended for containing only prefabs that are run/instantiated at runtime in the game thorugh scripts with having no refences in the editor
