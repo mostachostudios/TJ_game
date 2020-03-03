@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayAudioAction : Action
+{
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+    public bool loop = false;
+    public float volume = 100.0f;
+
+
+    protected override void StartDerived()
+    {
+        audioSource.clip = audioClip;
+        audioSource.loop = loop;
+        audioSource.volume = volume;
+        audioSource.time = 0;
+        audioSource.Play();
+    }
+
+    protected override bool UpdateDerived()
+    {
+        return audioSource.isPlaying;
+    }
+
+    protected override Action CloneDerived()
+    {
+        PlayAudioAction clone = new PlayAudioAction();
+        clone.audioSource = this.audioSource;
+        clone.audioClip = this.audioClip;
+        clone.loop = this.loop;
+        clone.volume = this.volume;
+        return clone;
+    }
+}
