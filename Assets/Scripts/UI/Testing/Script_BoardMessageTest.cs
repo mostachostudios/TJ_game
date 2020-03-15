@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Script_BoardMessageTest : MonoBehaviour
 {
-    Script_CanvasMenu m_script_CanvasMenu;
+    Script_MenuController m_Script_MenuController;
 
     void Awake()
     {
-        GameObject gameObject = GameObject.FindWithTag("CanvasMenu");
-        m_script_CanvasMenu = gameObject.GetComponent<Script_CanvasMenu>();
+        m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
     }
 
     // Update is called once per frame
@@ -17,7 +16,7 @@ public class Script_BoardMessageTest : MonoBehaviour
     {
         if (Input.GetKeyUp("m"))
         {
-            m_script_CanvasMenu.ShowBoardMessage("Message sent from gameplay");
+            m_Script_MenuController.ShowBoardMessage("Message sent from gameplay");
         }
     }
 }
