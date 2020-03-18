@@ -7,15 +7,18 @@ using UnityEngine.Rendering.PostProcessing;
 public class Script_Countdown : MonoBehaviour
 {
     [Header("Settings")]
-    [Tooltip("Remaining time available")] [SerializeField] float m_TimeLeft = 120.0f;
-    
-    [Header("Audio clips")]
+    [Tooltip("Remaining time available")] 
+    [SerializeField] float m_TimeLeft = 120.0f;
+    [Tooltip("Time added to TimeLeft each time user gets to a at check point")]
+    [SerializeField] float m_IncreaseTime = 40.0f;
+
+    [Header("Audio Clips")]
     [SerializeField] AudioClip m_TickTock;
     [SerializeField] AudioClip m_HeartBeatSlow;
     [SerializeField] AudioClip m_HeartBeatMid;
     [SerializeField] AudioClip m_HeartBeatFast;
 
-    [Header("Post-Process effect")]
+    [Header("Post-Process Effect")]
     [Tooltip("A post process effect applied when the time is over (and so is the game)")]
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
@@ -35,7 +38,7 @@ public class Script_Countdown : MonoBehaviour
     private AudioSource m_AudioSourceTickTock;
     private PostProcessVolume m_PostProcessVolume; // Reference to Post Process Volume added at runtime
     private ColorGrading m_ColorGrading; // Reference used to update saturation color in PostProcess
-    private Text m_TextCountdown;
+    private Script_UIController m_Script_UIController;
     private Script_MenuController m_Script_MenuController;
 
     void Awake()
@@ -57,15 +60,14 @@ public class Script_Countdown : MonoBehaviour
         // https://answers.unity.com/questions/1355103/modifying-the-new-post-processing-stack-through-co.html
         m_PostProcessVolume.profile.TryGetSettings<ColorGrading>(out m_ColorGrading);
 
-        m_TextCountdown = GameObject.FindWithTag("TextCountdown").GetComponent<Text>();
-
+        m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
         m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
     }
 
     void Update()
     {
         m_TimeLeft -= Time.deltaTime;
-        m_TextCountdown.text = (m_TimeLeft).ToString("0");
+        m_Script_UIController.SetTextCountdown((m_TimeLeft).ToString("0"));
 
         if (!m_AudioSourceTickTock.isPlaying)
         {
@@ -112,9 +114,9 @@ public class Script_Countdown : MonoBehaviour
         }
     }
 
-    public void IncreaseTime(float time)
+    public void IncreaseTime()
     {
-        m_TimeLeft += time;
+        m_TimeLeft += m_IncreaseTime;
     }
 }
 

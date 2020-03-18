@@ -10,7 +10,7 @@ public class Script_PauseController : MonoBehaviour
     [Tooltip("A refence to the Menu gameObject in the scene")]
     [SerializeField] GameObject m_Menu;
 
-    [Tooltip("A Render texture needed to temporary store a camera snapshot when the game is paused")] 
+    [Tooltip("A render texture needed to temporary store a camera snapshot when the game is paused")] 
     [SerializeField] RenderTexture m_RenderTexture;
     [Tooltip("A post process effect applied when the menu window pops up")] 
     [SerializeField] PostProcessProfile m_PostProcessProfile;

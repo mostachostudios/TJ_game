@@ -100,7 +100,7 @@ public class Script_MenuController : MonoBehaviour
         switch (option)
         {
             case EndOption.Win:
-                m_TextBoard.text = "Congrats! You managed to escape on time.";
+                m_TextBoard.text = "Congratulations\n\nYou managed to escape on time.";
                 m_AudioSource.clip = m_AudioWin;
                 break;
             case EndOption.Lose:
