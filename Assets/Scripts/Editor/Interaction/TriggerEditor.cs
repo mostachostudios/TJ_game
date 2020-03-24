@@ -28,8 +28,6 @@ public class TriggerEditor : EditorWithSubEditors<ConditionEditor, Condition>
 
     private const float removeTriggerButtonWidth = 30f;
 
-    private readonly float verticalSpacing = EditorGUIUtility.standardVerticalSpacing;
-
     private void OnEnable()
     {
         trigger = (Trigger)target;
@@ -162,10 +160,10 @@ public class TriggerEditor : EditorWithSubEditors<ConditionEditor, Condition>
 
         EditorUtils.DrawHorizontalLine(Color.gray, 2, 10, 10);
 
-        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + verticalSpacing));
+        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing));
 
         Rect leftAreaRect = fullWidthRect;
-        leftAreaRect.y += verticalSpacing * 0.5f;
+        leftAreaRect.y += EditorGUIUtility.standardVerticalSpacing * 0.5f;
         leftAreaRect.width *= 0.5f;
         leftAreaRect.width -= controlSpacing * 0.5f;
         leftAreaRect.height = dropAreaHeight;

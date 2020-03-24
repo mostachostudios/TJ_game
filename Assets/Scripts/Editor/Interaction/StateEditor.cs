@@ -39,8 +39,6 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
     private const float stateButtonWidth = 30f;
     private const float removeStateButtonWidth = 30f;
 
-    private readonly float verticalSpacing = EditorGUIUtility.standardVerticalSpacing;
-
     private void OnEnable()
     {
         state = (State)target;
@@ -217,10 +215,10 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
         defaultColor = GUI.color;
         GUI.color = Color.grey; // Change background dragging box color
 
-        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + verticalSpacing));
+        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing));
 
         Rect leftAreaRect = fullWidthRect;
-        leftAreaRect.y += verticalSpacing * 0.5f;
+        leftAreaRect.y += EditorGUIUtility.standardVerticalSpacing * 0.5f;
         leftAreaRect.width *= 0.5f;
         leftAreaRect.width -= controlSpacing * 0.5f;
         leftAreaRect.height = dropAreaHeight;
@@ -267,10 +265,10 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
         GUI.color = Color.grey; // Change background dragging box color
         TriggersNewButtonGUI();
 
-        fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + verticalSpacing));
+        fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing));
 
         leftAreaRect = fullWidthRect;
-        leftAreaRect.y += verticalSpacing * 0.5f;
+        leftAreaRect.y += EditorGUIUtility.standardVerticalSpacing * 0.5f;
         leftAreaRect.width *= 0.5f;
         leftAreaRect.width -= controlSpacing * 0.5f;
         leftAreaRect.height = dropAreaHeight;
@@ -488,7 +486,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
 
     private void TriggersNewButtonGUI()
     {
-        if (GUILayout.Button("New Trigger", GUILayout.Width(100), GUILayout.Height(dropAreaHeight + verticalSpacing)))
+        if (GUILayout.Button("New Trigger", GUILayout.Width(100), GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing)))
         {
             Trigger newTrigger = new Trigger();
             newTrigger.name = "CustomTrigger";

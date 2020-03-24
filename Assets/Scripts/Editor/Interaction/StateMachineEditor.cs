@@ -21,8 +21,6 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
     private const float dropAreaHeight = 50f;
     private const float controlSpacing = 5f;
 
-    private readonly float verticalSpacing = EditorGUIUtility.standardVerticalSpacing;
-
     private void OnEnable()
     {
         stateMachine = (StateMachine)target;
@@ -91,10 +89,10 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
         // Add new triggers buttons 
         StatesNewButtonGUI();
 
-        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + verticalSpacing));
+        Rect fullWidthRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing));
 
         Rect leftAreaRect = fullWidthRect;
-        leftAreaRect.y += verticalSpacing * 0.5f;
+        leftAreaRect.y += EditorGUIUtility.standardVerticalSpacing * 0.5f;
         leftAreaRect.width *= 0.5f;
         leftAreaRect.width -= controlSpacing * 0.5f;
         leftAreaRect.height = dropAreaHeight;
@@ -135,7 +133,7 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
 
     private void StatesNewButtonGUI()
     {
-        if (GUILayout.Button("New State", GUILayout.Width(100), GUILayout.Height(dropAreaHeight + verticalSpacing)))
+        if (GUILayout.Button("New State", GUILayout.Width(100), GUILayout.Height(dropAreaHeight + EditorGUIUtility.standardVerticalSpacing)))
         {
             State newState = new State();
             newState.name = "CustomState";

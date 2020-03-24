@@ -7,7 +7,7 @@ using UnityEditor;
 public class StateMachine : MonoBehaviour
 {
     public State initialState;
-    
+
     public State[] states = new State[0];
 
     private State currentState;
@@ -22,7 +22,11 @@ public class StateMachine : MonoBehaviour
 #if UNITY_EDITOR
         RegisterInstance();
 #endif
-        if(initialState == null)
+
+        if (Application.isPlaying == false)
+            return;
+
+        if (initialState == null)
         {
             throw new UnityException("State Machine must have an initial state");
         }
@@ -58,7 +62,7 @@ public class StateMachine : MonoBehaviour
         if (toDoList.Count == 0)
         {
             // We finish all ToDo tasks, so refill with current state actions
-            if(nextState == null)
+            if (nextState == null)
             {
                 FillToDoList(currentState.actions);
             }
@@ -80,9 +84,9 @@ public class StateMachine : MonoBehaviour
 
         // Do action, following FIFO approach
         Action actionToDo = toDoList.Peek();
-        if(actionToDo.HasStarted()) // If it has been started, just update it
+        if (actionToDo.HasStarted()) // If it has been started, just update it
         {
-            if(actionToDo.Update()) // If it just finished after this update, pass to the next action
+            if (actionToDo.Update()) // If it just finished after this update, pass to the next action
             {
                 actionToDo.Reset();
                 toDoList.Dequeue();
@@ -90,7 +94,11 @@ public class StateMachine : MonoBehaviour
         }
         else // Start the action
         {
-            actionToDo.Start();
+            if (actionToDo.Start()) // If started and finished at the same time, then deque and NEXT!
+            {
+                actionToDo.Reset();
+                toDoList.Dequeue();
+            }
         }
     }
 
@@ -128,7 +136,7 @@ public class StateMachine : MonoBehaviour
             toDoList.Enqueue(action);
         }
     }
-    
+
 #if UNITY_EDITOR
     //catch duplication of this GameObject
     [SerializeField]
@@ -176,14 +184,14 @@ public class StateMachine : MonoBehaviour
 
     static void CopyTo(StateMachine sourceStateMachine, StateMachine targetStateMachine)
     {
-        if(sourceStateMachine == targetStateMachine)
+        if (sourceStateMachine == targetStateMachine)
         {
             throw new UnityException("Source and target state machines are the same");
         }
 
         targetStateMachine.states = new State[sourceStateMachine.states.Length];
 
-        for(int i = 0; i < sourceStateMachine.states.Length; i++)
+        for (int i = 0; i < sourceStateMachine.states.Length; i++)
         {
             targetStateMachine.states[i] = new State();
             targetStateMachine.states[i] = sourceStateMachine.states[i].Clone();
@@ -191,7 +199,7 @@ public class StateMachine : MonoBehaviour
 
         for (int i = 0; i < sourceStateMachine.states.Length; i++)
         {
-            if(sourceStateMachine.currentState == sourceStateMachine.states[i])
+            if (sourceStateMachine.currentState == sourceStateMachine.states[i])
             {
                 targetStateMachine.currentState = targetStateMachine.states[i];
                 break;

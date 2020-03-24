@@ -17,20 +17,16 @@ public abstract class Action : ScriptableObject
         //finished = false;
     }
 
-    public void Start()
+    public bool Start()
     {
         started = true;
-        StartDerived();
+
+        return (!waitToFinish || StartDerived());
     }
 
     public bool Update()
     {
-        if(!waitToFinish || UpdateDerived())
-        {
-            //finished = true;
-            return true;
-        }
-        return false;
+        return UpdateDerived();
     }
 
     public Action Clone()
@@ -44,7 +40,7 @@ public abstract class Action : ScriptableObject
 
     // Making it pure abstract to avoid forgetting implement it (even if we waste a bit of performance)
     // protected abstract void ResetDerived(); // Maybe reset not required, let's see what future requires
-    protected abstract void StartDerived();
+    protected abstract bool StartDerived();
     protected abstract bool UpdateDerived();
     protected abstract Action CloneDerived();
 }

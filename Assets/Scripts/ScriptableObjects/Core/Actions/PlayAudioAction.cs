@@ -10,13 +10,15 @@ public class PlayAudioAction : Action
     public float volume = 100.0f;
 
 
-    protected override void StartDerived()
+    protected override bool StartDerived()
     {
         audioSource.clip = audioClip;
         audioSource.loop = loop;
         audioSource.volume = volume;
         audioSource.time = 0;
         audioSource.Play();
+
+        return false;
     }
 
     protected override bool UpdateDerived()

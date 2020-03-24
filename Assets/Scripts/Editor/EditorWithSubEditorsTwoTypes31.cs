@@ -23,17 +23,25 @@ public abstract class EditorWithSubEditorsTwoTypes31<TEditor1, TTarget1, TEditor
         CleanupEditors1(0);
         CleanupEditors1(1);
         CleanupEditors1(2);
+
+        subEditors1 = null;
+
         CleanupEditors2();
     }
 
     private void CheckAndCreateSubEditors(TTarget1[] subEditorTargets, int index)
     {
-        if (subEditors1[index] != null && subEditors1[index].Length == subEditorTargets.Length)
+        if (subEditors1 != null && subEditors1[index] != null && subEditors1[index].Length == subEditorTargets.Length)
         {
             return;
         }
 
         CleanupEditors1(index);
+
+        if(subEditors1 == null)
+        {
+            subEditors1 = new TEditor1[3][];
+        }
 
         subEditors1[index] = new TEditor1[subEditorTargets.Length];
 
@@ -64,7 +72,7 @@ public abstract class EditorWithSubEditorsTwoTypes31<TEditor1, TTarget1, TEditor
 
     private void CleanupEditors1(int index)
     {
-        if (subEditors1[index] == null)
+        if (subEditors1 == null || subEditors1[index] == null)
             return;
 
         for (int i = 0; i < subEditors1[index].Length; i++)
