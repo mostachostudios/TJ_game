@@ -1,13 +1,13 @@
 
-ASWD or Arrow Buttons:    -----------------    Movement  
-Space Bar:    -------------------------------    Jump
-Shift:   -------------------------------------    Run
-Alt: + Move   --------------------------------   Crouch
-Ctrl + Move:   -------------------------------   Crawl
-Tab:   ---------------------------------------   Stealth
-Return or Left Mouse Button + Move:   ------   Push
-Right Mouse Button:   -----------------------   Change Camera Angle
-M:   ----------------------------------------   Pause and resume game
+ASWD or ARROW Buttons   ------------------   Movement
+SPACE BAR  --------------------------------   Jump
+SHIFT  -------------------------------------   Run
+ALT + Move  --------------------------------   Crouch
+CTRL + Move  ------------------------------   Crawl
+TAB  ---------------------------------------   Stealth
+INTRO or LEFT Mouse Button + Move  -------   Push
+RIGHT Mouse Button  -----------------------   Change Camera Angle
+M (ESC in Build)  ----------------------------   Pause and Resume Game
 
 
 

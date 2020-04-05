@@ -41,7 +41,8 @@ public class Script_PauseController : MonoBehaviour
     {
         if (m_allow_pause) // Prevents user from pressing escape before first exec play
         {
-            if (Input.GetKeyUp(KeyCode.M)) 
+            //TODO change this by using conditional compilation such as #if UNITY_EDITOR #endif or another one for better performance 
+            if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
             {
                 m_paused = !m_paused;
                 SetPause();

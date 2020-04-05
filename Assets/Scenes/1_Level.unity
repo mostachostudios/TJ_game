@@ -6856,7 +6856,7 @@ Transform:
   - {fileID: 1161885153}
   - {fileID: 904989149}
   - {fileID: 1411405956}
-  - {fileID: 2023832608}
+  - {fileID: 554968428}
   - {fileID: 1789758093}
   - {fileID: 814854006}
   - {fileID: 1128571414}
@@ -6864,7 +6864,7 @@ Transform:
   - {fileID: 1995447209}
   - {fileID: 424324369}
   - {fileID: 270439537}
-  - {fileID: 554968428}
+  - {fileID: 2023832608}
   - {fileID: 3841947}
   - {fileID: 998699591}
   - {fileID: 1472659776}
@@ -27617,13 +27617,31 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\nASWD or Arrow Buttons:    -----------------    Movement  \r\nSpace Bar:   
-    -------------------------------    Jump\r\nShift:   -------------------------------------   
-    Run\r\nAlt: + Move   --------------------------------   Crouch\r\nCtrl + Move:  
-    -------------------------------   Crawl\r\nTab:   ---------------------------------------  
-    Stealth\r\nReturn or Left Mouse Button + Move:   ------   Push\r\nRight Mouse
-    Button:   -----------------------   Change Camera Angle\r\nM:   ----------------------------------------  
-    Pause and resume game"
+  m_Text: '
+
+    ASWD or ARROW Buttons   ------------------   Movement
+
+    SPACE
+    BAR  --------------------------------   Jump
+
+    SHIFT  -------------------------------------  
+    Run
+
+    ALT + Move  --------------------------------   Crouch
+
+    CTRL +
+    Move  ------------------------------   Crawl
+
+    TAB  ---------------------------------------  
+    Stealth
+
+    INTRO or LEFT Mouse Button + Move  -------   Push
+
+    RIGHT Mouse
+    Button  -----------------------   Change Camera Angle
+
+    M (ESC in Build) 
+    ----------------------------   Pause and Resume Game'
 --- !u!222 &1749223632
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -266,7 +266,7 @@ public class Script_PlayerController : MonoBehaviour
     // y no cambiará de estado!
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (Input.GetKey(KeyCode.Return) || Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetMouseButton(0))
         {
             var body = hit.collider.attachedRigidbody;
             if (body != null && !body.isKinematic)
