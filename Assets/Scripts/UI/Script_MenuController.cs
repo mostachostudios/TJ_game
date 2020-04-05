@@ -28,9 +28,27 @@ public class Script_MenuController : MonoBehaviour
 
     //TODO Handle the following board messages in a proper way 
     private string m_INFO = "Messages info";
-    private string m_INPUT = "Input info";
-    private string m_CREDITS = "Made with Unity by...";
 
+    private string m_INPUT = "\n"+
+                                "ASWD or Arrow Buttons:    -----------------    Movement\n" +
+                                "Space Bar:    -------------------------------    Jump\n" +
+                                "Shift:   -------------------------------------    Run\n" +
+                                "Alt: + Move   --------------------------------   Crouch\n" +
+                                "Ctrl + Move:   -------------------------------   Crawl\n" +
+                                "Tab:   ---------------------------------------   Stealth\n" +
+                                "Return or Left Mouse Button + Move:   ------   Push\n" +
+                                "Right Mouse Button:   -----------------------   Change Camera Angle\n" +
+                                "M:   ----------------------------------------   Pause and resume game";
+
+    private string m_CREDITS = "                                      Mostacho Studios\n" +
+                                "\n" +
+                                "Twitter: @StudiosMostacho\n" +
+                                "Itchio: mostachostudios\n" +
+                                "Github: mostachostudios\n" +
+                                "\n" +
+                                "Made with Unity\n" +
+                                "Thanks to all the 3D community for  providing some free wonderful assets. Resources are: (to be completed)";
+    
     private bool m_firstExec = true;
 
     public enum EndOption
@@ -53,6 +71,7 @@ public class Script_MenuController : MonoBehaviour
 
         m_AudioSource = gameObject.AddComponent<AudioSource>();
         m_AudioSource.playOnAwake = false;
+        m_AudioSource.volume = 0.3f;
 
         m_Script_PauseController = GameObject.FindWithTag("RootGame").GetComponent<Script_PauseController>();
     }

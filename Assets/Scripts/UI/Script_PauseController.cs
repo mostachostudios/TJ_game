@@ -41,7 +41,7 @@ public class Script_PauseController : MonoBehaviour
     {
         if (m_allow_pause) // Prevents user from pressing escape before first exec play
         {
-            if (Input.GetKeyUp("escape")) 
+            if (Input.GetKeyUp(KeyCode.M)) 
             {
                 m_paused = !m_paused;
                 SetPause();
@@ -54,12 +54,16 @@ public class Script_PauseController : MonoBehaviour
         if (m_paused)
         {
             // Render current frame to a texture linked to camera so it gets blended with Menu settings 
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             m_Menu.SetActive(true);
             RenderMenuBackground();
             m_World.SetActive(false);
         }
         else
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             m_World.SetActive(true);
             m_Menu.SetActive(false);
         }
@@ -81,7 +85,8 @@ public class Script_PauseController : MonoBehaviour
     public void PauseGame()
     {
         m_paused = true;
-
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         m_Menu.SetActive(true);
         RenderMenuBackground();
         m_World.SetActive(false);
@@ -90,6 +95,8 @@ public class Script_PauseController : MonoBehaviour
     public void ResumeGame()
     {
         m_paused = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         m_World.SetActive(true);
         m_Menu.SetActive(false);
     }

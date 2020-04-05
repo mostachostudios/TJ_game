@@ -14,7 +14,7 @@ public class Script_BoardMessageTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp("m"))
+        if (Input.GetKeyUp(KeyCode.N))
         {
             m_Script_MenuController.ShowBoardMessage("Message sent from gameplay");
         }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Script_CheckpointsManager : MonoBehaviour
 {
-    //TODO Remove Serialize attribute once debug is completed.
-    [SerializeField] List<GameObject> checkpoints;
+    [SerializeField] AudioClip m_AudioReward;
+    List<GameObject> checkpoints;
 
     private int currentCheckpoint;
+
+    private AudioSource m_AudioSourceReward;
 
     private Script_UIController m_Script_UIController;
     private Script_MenuController m_Script_MenuController;
@@ -15,8 +17,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
     void Awake()
     {
-        checkpoints.Clear();// Prevents adding checkpoints more than once in case they were added in edit mode
-
+        checkpoints = new List<GameObject>();
         currentCheckpoint = 0;
 
         var checkpointList = GameObject.FindGameObjectsWithTag("Checkpoint");
@@ -26,6 +27,11 @@ public class Script_CheckpointsManager : MonoBehaviour
             checkpoint.SetActive(false);
             checkpoints.Add(checkpoint);
         }
+
+        m_AudioSourceReward = gameObject.AddComponent<AudioSource>();
+        m_AudioSourceReward.playOnAwake = false;
+        m_AudioSourceReward.clip = m_AudioReward;
+        m_AudioSourceReward.volume = 0.2f;
 
         m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
         m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
@@ -71,6 +77,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
             m_Script_UIController.SetTextCheckpointReward(rewardMessage);
             m_Script_Countdown.IncreaseTime();
+            m_AudioSourceReward.Play();
             checkpoints[currentCheckpoint].SetActive(true);
         }
     }

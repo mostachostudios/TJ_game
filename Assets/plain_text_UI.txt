@@ -1,0 +1,21 @@
+
+ASWD or Arrow Buttons:    -----------------    Movement  
+Space Bar:    -------------------------------    Jump
+Shift:   -------------------------------------    Run
+Alt: + Move   --------------------------------   Crouch
+Ctrl + Move:   -------------------------------   Crawl
+Tab:   ---------------------------------------   Stealth
+Return or Left Mouse Button + Move:   ------   Push
+Right Mouse Button:   -----------------------   Change Camera Angle
+M:   ----------------------------------------   Pause and resume game
+
+
+
+                                      Mostacho Studios
+
+Twitter: @StudiosMostacho
+Itchio: mostachostudios
+Github: mostachostudios
+
+Made with Unity
+Thanks to all the 3D community for  providing some free wonderful assets. Resources are: (to be completed)

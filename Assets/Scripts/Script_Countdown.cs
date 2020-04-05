@@ -46,7 +46,7 @@ public class Script_Countdown : MonoBehaviour
         m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
         m_AudioSourceTickTock.playOnAwake = false;
         m_AudioSourceTickTock.clip = m_TickTock;
-        m_AudioSourceTickTock.volume = 0.1f;
+        m_AudioSourceTickTock.volume = 0.2f;
         m_AudioSourceHeartBeat = gameObject.AddComponent<AudioSource>();
         m_AudioSourceHeartBeat.playOnAwake = false;
 
@@ -71,8 +71,7 @@ public class Script_Countdown : MonoBehaviour
 
         if (!m_AudioSourceTickTock.isPlaying)
         {
-            // TODO check if this is framerate independent
-            m_AudioSourceTickTock.PlayDelayed(0.18f); // Delayed need for having the current selected clock sound loop smoothly
+            m_AudioSourceTickTock.Play();
         }
 
         CheckRemainingTime();
@@ -117,6 +116,11 @@ public class Script_Countdown : MonoBehaviour
     public void IncreaseTime()
     {
         m_TimeLeft += m_IncreaseTime;
+    }
+
+    public void DecreaseTime(float time)
+    {
+        m_TimeLeft -= time;
     }
 }
 
