@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Script_MenuController : MonoBehaviour
 {
+    [Header("Background Image Texture")]
+    [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_RawImageBackground;
+    [Tooltip("Texture to be used in pause mode")] [SerializeField] RenderTexture m_RawImageBackgroundTexture;
+
     [Header("Menu Buttons")]
     [SerializeField] GameObject m_ButtonPlay;
     [SerializeField] GameObject m_ButtonInfo;
@@ -18,7 +22,6 @@ public class Script_MenuController : MonoBehaviour
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
     [SerializeField] AudioClip m_AudioWin;
-
     [Tooltip("Audio clip to be played when player loses the game")]
     [SerializeField] AudioClip m_AudioLose;
 
@@ -83,6 +86,10 @@ public class Script_MenuController : MonoBehaviour
             var text = m_ButtonPlay.GetComponentInChildren<Text>();
             text.text = "RESUME!";
             m_firstExec = false;
+            RawImage background = m_RawImageBackground;
+            background.texture = m_RawImageBackgroundTexture;
+            background.color = new Color(background.color.r, background.color.g, background.color.b, 1f);
+            background.SetNativeSize();
             m_Script_PauseController.AllowPauseGame(true);
         }
         m_Script_PauseController.ResumeGame();
