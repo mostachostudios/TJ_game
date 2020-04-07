@@ -9,10 +9,12 @@ public class Script_PauseController : MonoBehaviour
     [SerializeField] GameObject m_World;
     [Tooltip("A refence to the Menu gameObject in the scene")]
     [SerializeField] GameObject m_Menu;
+    [Tooltip("A refence to the UI gameObject in the scene")]
+    [SerializeField] GameObject m_UI;
 
-    [Tooltip("A render texture needed to temporary store a camera snapshot when the game is paused")] 
+    [Tooltip("A render texture needed to temporary store a camera snapshot when the game is paused")]
     [SerializeField] RenderTexture m_RenderTexture;
-    [Tooltip("A post process effect applied when the menu window pops up")] 
+    [Tooltip("A post process effect applied when the menu window pops up")]
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
 
@@ -21,8 +23,12 @@ public class Script_PauseController : MonoBehaviour
     private bool m_allow_pause = false;
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
 
+    private MonoBehaviour[] m_WorldMonoBehaviours;
+
     void Awake()
     {
+        m_WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
+
         m_MainCamera = GameObject.FindWithTag("MainCamera");
 
         m_Menu.layer = LayerMask.NameToLayer("PostProcessingMenu");
@@ -54,19 +60,11 @@ public class Script_PauseController : MonoBehaviour
     {
         if (m_paused)
         {
-            // Render current frame to a texture linked to camera so it gets blended with Menu settings 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            m_Menu.SetActive(true);
-            RenderMenuBackground();
-            m_World.SetActive(false);
+            PauseGame();
         }
         else
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            m_World.SetActive(true);
-            m_Menu.SetActive(false);
+            ResumeGame();
         }
     }
 
@@ -74,31 +72,47 @@ public class Script_PauseController : MonoBehaviour
     {
         var camera = m_MainCamera.GetComponent<Camera>();
         camera.targetTexture = m_RenderTexture;
-        
+
         var postProcessLayer = m_MainCamera.GetComponent<PostProcessLayer>();
         var currentLayer = postProcessLayer.volumeLayer.value;
-        postProcessLayer.volumeLayer.value = LayerMask.GetMask("PostProcessingWorld","PostProcessingMenu");
+        postProcessLayer.volumeLayer.value = LayerMask.GetMask("PostProcessingWorld", "PostProcessingMenu");
         camera.Render();
         camera.targetTexture = null;
         postProcessLayer.volumeLayer.value = currentLayer;
     }
 
+    void SetActiveScripts(bool active)
+    {
+        foreach (var monoBehaviour in m_WorldMonoBehaviours)
+        {
+            monoBehaviour.enabled = active;
+        }
+    }
+
     public void PauseGame()
     {
         m_paused = true;
+        Time.timeScale = 0f;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         m_Menu.SetActive(true);
         RenderMenuBackground();
-        m_World.SetActive(false);
+        SetActiveScripts(false);
+        m_MainCamera.SetActive(false);
+        m_UI.SetActive(false);
     }
 
     public void ResumeGame()
     {
         m_paused = false;
+        Time.timeScale = 1f;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        m_World.SetActive(true);
+        SetActiveScripts(true);
+        m_MainCamera.SetActive(true);
+        m_UI.SetActive(true);
         m_Menu.SetActive(false);
     }
 

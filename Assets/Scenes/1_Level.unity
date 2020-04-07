@@ -6108,6 +6108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_World: {fileID: 1826682807}
   m_Menu: {fileID: 552606245}
+  m_UI: {fileID: 910640947}
   m_RenderTexture: {fileID: 8400000, guid: 1c6223f2c21ca9344834a36ffebe78da, type: 2}
   m_PostProcessProfile: {fileID: 11400000, guid: 5ab00aba65967a740bb987fec67585c2,
     type: 2}
@@ -6123,6 +6124,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1826682809}
+  - {fileID: 910640949}
   - {fileID: 552606247}
   - {fileID: 1606608186}
   m_Father: {fileID: 0}
@@ -10079,7 +10081,7 @@ Transform:
   - {fileID: 1818669931}
   - {fileID: 1845159545}
   m_Father: {fileID: 310691897}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &553657489 stripped
 Transform:
@@ -12257,8 +12259,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -286}
-  m_SizeDelta: {x: 213.3003, y: -26.017395}
+  m_AnchoredPosition: {x: 8, y: -287.7543}
+  m_SizeDelta: {x: 213.3003, y: -22.508575}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712260869
 MonoBehaviour:
@@ -15761,8 +15763,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467484126}
-  m_Father: {fileID: 1826682809}
-  m_RootOrder: 3
+  m_Father: {fileID: 310691897}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &911637936
 PrefabInstance:
@@ -25515,7 +25517,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 310691897}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1606608187
 MonoBehaviour:
@@ -28385,7 +28387,6 @@ Transform:
   - {fileID: 1140364412}
   - {fileID: 1378867822}
   - {fileID: 174112584}
-  - {fileID: 910640949}
   m_Father: {fileID: 310691897}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28662,9 +28663,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 100
+  far clip plane: 100.01
+  field of view: 0.00001
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
