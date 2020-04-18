@@ -1,0 +1,3 @@
+https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/
+https://wip-studios.itch.io/katharsis/devlog/64758/programming-marcel-spatial-ground-ui-sprite-vs-decal-vs-projector
+http://nuke.yellow-ant.net/creating-procedural-textures-via-uv-map-with-expression-node-2/

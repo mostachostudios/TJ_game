@@ -8,6 +8,7 @@ TagManager:
   - Menu
   - Checkpoint
   - UI
+  - CameraTarget
   layers:
   - Default
   - TransparentFX
@@ -19,16 +20,16 @@ TagManager:
   - 
   - PostProcessingWorld
   - PostProcessingMenu
+  - ConeOfSight
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Obstacle
+  - Ground
   - 
   - 
   - 
