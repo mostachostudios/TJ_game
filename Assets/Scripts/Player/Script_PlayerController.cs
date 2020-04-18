@@ -76,6 +76,7 @@ public class Script_PlayerController : MonoBehaviour
         SetState("isIdle");
 
         m_ySpeed = 0.0f;
+        m_Speed = 0.0f;
     }
 
     void Update()
@@ -97,8 +98,6 @@ public class Script_PlayerController : MonoBehaviour
         bool isStealth = Input.GetKey(KeyCode.Tab);
         bool isCrawling = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
         bool isCrouch = Input.GetKey(KeyCode.LeftAlt);
-
-        m_Speed = m_walkSpeed; // default speed value
 
         // Restore initial collider values in case they were modified
         m_characterController.radius = m_initColliderRadius;
@@ -158,6 +157,7 @@ public class Script_PlayerController : MonoBehaviour
                 {
                     SetState("isWalking");
                     CheckJumping();
+                    m_Speed = m_walkSpeed;
                 }
             }
         }
@@ -173,6 +173,7 @@ public class Script_PlayerController : MonoBehaviour
                 SetState("isIdle");
                 CheckJumping();
             }
+            m_Speed = 0f;
         }
     }
 
@@ -288,6 +289,7 @@ public class Script_PlayerController : MonoBehaviour
     public void SetFalling()
     {
         m_isPlayerFrozen = true;
+        m_Speed = 0f;
         SetState("isFalling");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFalling));
     }
@@ -295,6 +297,7 @@ public class Script_PlayerController : MonoBehaviour
     public void SetFallingDown()
     {
         m_isPlayerFrozen = true;
+        m_Speed = 0f;
         SetState("isFallingDown");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFallingDown));
     }
@@ -302,6 +305,7 @@ public class Script_PlayerController : MonoBehaviour
     public void SetTerrified()
     {
         m_isPlayerFrozen = true;
+        m_Speed = 0f;
         SetState("isTerrified");
         StartCoroutine(WaitUntilNotFrozen(m_TimeTerrified));
     }
@@ -315,6 +319,15 @@ public class Script_PlayerController : MonoBehaviour
     public bool IsPlayerFrozen()
     {
         return m_isPlayerFrozen;
+    }
+
+    /// <summary>
+    /// Current player speed. Might be used to approximately guess current player state
+    /// </summary>
+    /// <returns></returns>
+    public float CurrentSpeed()
+    {
+        return m_Speed;
     }
 
     /// <summary>
