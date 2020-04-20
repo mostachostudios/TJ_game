@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class Action : ScriptableObject
 {
+    public State parentState;
+
+    public bool enabled = true;
+
     protected bool started   = false; 
     //protected bool finished = false; // Not required by now
 

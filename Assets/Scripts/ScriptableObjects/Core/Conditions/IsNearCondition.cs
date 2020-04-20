@@ -12,6 +12,7 @@ public class IsNearCondition : Condition
     {
         return Vector3.Distance(origin.position, target.position) <= radius;
     }
+
     public override Condition Clone()
     {
         IsNearCondition clone = new IsNearCondition();

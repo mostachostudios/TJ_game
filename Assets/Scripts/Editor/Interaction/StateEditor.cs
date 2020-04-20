@@ -94,6 +94,10 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
 
         actionsProperty.isExpanded = EditorGUILayout.Foldout(actionsProperty.isExpanded, nameProperty.stringValue);
 
+        state.enabled = GUILayout.Toggle(state.enabled, new GUIContent("Enabled", "Check this state triggers"), GUILayout.Width(100));
+
+        state.loop = GUILayout.Toggle(state.loop, new GUIContent("Loop", "Do 'Actions' in loop"), GUILayout.Width(100));
+
         // != null in case of just editting scriptableobject wihtout state machine
         if (statesProperty != null)
         {
@@ -348,6 +352,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
         {
             Type actionType = actionTypes[selectedActionIndex];
             Action newAction = ActionEditor.CreateAction(actionType);
+            newAction.parentState = state;
 
             // Only if editting scriptable object without state machine
             if (statesProperty == null)
@@ -398,6 +403,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
                     Type actionType = script.GetClass();
 
                     Action newAction = ActionEditor.CreateAction(actionType);
+                    newAction.parentState = editor.state;
 
                     // Only if editting scriptable object without state machine
                     if (editor.statesProperty == null)
@@ -490,6 +496,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
         {
             Trigger newTrigger = new Trigger();
             newTrigger.name = "CustomTrigger";
+            newTrigger.parentState = state;
 
             int instanceNumber = 1;
             bool ok = false;
@@ -545,6 +552,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
             }
 
             Trigger newTrigger = newTriggerTemplate.Clone();
+            newTrigger.parentState = state;
 
             // Only if editting scriptable object without state machine
             if (statesProperty == null)
@@ -601,6 +609,7 @@ public class StateEditor : EditorWithSubEditorsTwoTypes31<ActionEditor, Action, 
                     }
 
                     Trigger newTrigger = newTriggerTemplate.Clone();
+                    newTrigger.parentState = editor.state;
 
                     // Only if editting scriptable object without state machine
                     if (editor.statesProperty == null)

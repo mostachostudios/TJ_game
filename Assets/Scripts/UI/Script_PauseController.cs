@@ -18,7 +18,7 @@ public class Script_PauseController : MonoBehaviour
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
 
-    private GameObject m_MainCamera;
+    //private GameObject m_MainCamera;
 
     private bool m_allow_pause = false;
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
@@ -29,7 +29,7 @@ public class Script_PauseController : MonoBehaviour
     {
         m_WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
 
-        m_MainCamera = GameObject.FindWithTag("MainCamera");
+        //m_MainCamera = GameObject.FindWithTag("MainCamera");
 
         m_Menu.layer = LayerMask.NameToLayer("PostProcessingMenu");
 
@@ -70,6 +70,7 @@ public class Script_PauseController : MonoBehaviour
 
     void RenderMenuBackground()
     {
+        /*
         var camera = m_MainCamera.GetComponent<Camera>();
         camera.targetTexture = m_RenderTexture;
 
@@ -79,6 +80,7 @@ public class Script_PauseController : MonoBehaviour
         camera.Render();
         camera.targetTexture = null;
         postProcessLayer.volumeLayer.value = currentLayer;
+        */
     }
 
     void SetActiveScripts(bool active)
@@ -99,7 +101,7 @@ public class Script_PauseController : MonoBehaviour
         m_Menu.SetActive(true);
         RenderMenuBackground();
         SetActiveScripts(false);
-        m_MainCamera.SetActive(false);
+        //m_MainCamera.SetActive(false);
         m_UI.SetActive(false);
     }
 
@@ -111,7 +113,7 @@ public class Script_PauseController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         SetActiveScripts(true);
-        m_MainCamera.SetActive(true);
+        //m_MainCamera.SetActive(true);
         m_UI.SetActive(true);
         m_Menu.SetActive(false);
     }

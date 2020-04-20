@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Condition : ScriptableObject
 {
+    public Trigger parentTrigger;
+
     abstract public bool Check();
     public abstract Condition Clone();
 }
