@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//https://github.com/joscanper/unity_coneofsightfx
 //[ExecuteAlways]
 public class Script_ConeOfSightRenderer : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         //if (Application.isPlaying)
         //{
-            m_Material = renderer.material;  // This generates a copy of the material
+            //m_Material = renderer.material;  // This generates a copy of the material
+            m_Material = new Material(renderer.material);
             renderer.material = m_Material;     
         //}
         //else

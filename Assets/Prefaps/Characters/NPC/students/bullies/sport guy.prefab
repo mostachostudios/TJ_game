@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 5735082685102145158}
   - component: {fileID: 5921911954668817037}
   m_Layer: 0
-  m_Name: Hearing
+  m_Name: Hearing Far
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ Projector:
   m_AspectRatio: 1
   m_Orthographic: 1
   m_OrthographicSize: 1.75685
-  m_Material: {fileID: 2100000, guid: 0eba8a9160e330e4bb32540ce2bd8f9a, type: 2}
+  m_Material: {fileID: 2100000, guid: 3bdc6ac56cc02f447990c20c36d84cbb, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 460599
@@ -1181,6 +1181,56 @@ Transform:
   m_Father: {fileID: 6173246273662300204}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6205557331335991756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2893386179021128671}
+  - component: {fileID: 4910141883743566206}
+  m_Layer: 0
+  m_Name: Hearing Close
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2893386179021128671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205557331335991756}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.58, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5262162597782656347}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!119 &4910141883743566206
+Projector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205557331335991756}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.01
+  m_FarClipPlane: 0.76
+  m_FieldOfView: 60
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 1
+  m_Material: {fileID: 2100000, guid: 0eba8a9160e330e4bb32540ce2bd8f9a, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 460599
 --- !u!1 &6477457781550153890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,6 +1671,7 @@ Transform:
   - {fileID: 5691467933421483997}
   - {fileID: 874374505505839365}
   - {fileID: 5735082685102145158}
+  - {fileID: 2893386179021128671}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1684,9 +1735,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ViewDistance: 11.31
   m_ViewAngle: 95
-  m_HearDistance: 8.57
   m_HearMinSpeed: 0.31
-  m_PlayerDetected: 0
+  m_HearDistanceClose: 4.22
+  m_HearDistanceFar: 8.57
+  m_DurationHearFar: 10
+  m_EnteredHearFar: 0
+  m_FinishedHearFar: 0
+  m_GradientHearFar:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!1 &9179490663100666669
 GameObject:
   m_ObjectHideFlags: 0

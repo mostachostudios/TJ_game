@@ -314,6 +314,7 @@ public class Script_PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeFrozen);
         m_isPlayerFrozen = false;
+        yield return null;
     }
 
     public bool IsPlayerFrozen()
