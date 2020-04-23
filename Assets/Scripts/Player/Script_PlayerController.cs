@@ -286,28 +286,31 @@ public class Script_PlayerController : MonoBehaviour
         }
     }
 
-    public void SetFalling()
+    public float SetFalling()
     {
         m_isPlayerFrozen = true;
         m_Speed = 0f;
         SetState("isFalling");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFalling));
+        return m_TimeFalling;
     }
 
-    public void SetFallingDown()
+    public float SetFallingDown()
     {
         m_isPlayerFrozen = true;
         m_Speed = 0f;
         SetState("isFallingDown");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFallingDown));
+        return m_TimeFallingDown;
     }
 
-    public void SetTerrified()
+    public float SetTerrified()
     {
         m_isPlayerFrozen = true;
         m_Speed = 0f;
         SetState("isTerrified");
         StartCoroutine(WaitUntilNotFrozen(m_TimeTerrified));
+        return m_TimeTerrified;
     }
 
     IEnumerator WaitUntilNotFrozen(float timeFrozen)
