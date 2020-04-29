@@ -53,7 +53,7 @@ public class TriggerEditor : EditorWithSubEditors<ConditionEditor, Condition>
 
     public override void SubEditorSetup(ConditionEditor conditionEditor)
     {
-        conditionEditor.parentTrigger = trigger;
+        conditionEditor.trigger = trigger;
         conditionEditor.statesProperty = statesProperty;
         conditionEditor.conditionEditors = subEditors;
         conditionEditor.conditionsProperty = conditionsProperty;
@@ -234,6 +234,7 @@ public class TriggerEditor : EditorWithSubEditors<ConditionEditor, Condition>
         {
             Type conditionType = conditionTypes[selectedIndex];
             Condition newCondition = ConditionEditor.CreateCondition(conditionType);
+            newCondition.parentTrigger = trigger;
 
             // Only if editting scriptable object without state machine
             if (statesProperty == null)
@@ -273,6 +274,7 @@ public class TriggerEditor : EditorWithSubEditors<ConditionEditor, Condition>
                     Type conditionType = script.GetClass();
 
                     Condition newCondition = ConditionEditor.CreateCondition(conditionType);
+                    newCondition.parentTrigger = editor.trigger;
 
                     // Only if editting scriptable object without state machine
                     if (editor.statesProperty == null)

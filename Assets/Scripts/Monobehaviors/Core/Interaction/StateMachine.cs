@@ -48,11 +48,12 @@ public class StateMachine : MonoBehaviour
             // Check if any other state should be triggered
             foreach (State state in states)
             {
-                if (state != currentState)
+                if (state.enabled && state != currentState)
                 {
                     if (state.CheckTriggers())
                     {
                         SmoothChangeState(state);
+                        break;
                     }
                 }
             }
@@ -64,7 +65,14 @@ public class StateMachine : MonoBehaviour
             // We finish all ToDo tasks, so refill with current state actions
             if (nextState == null)
             {
-                FillToDoList(currentState.actions);
+                if(currentState.loop)
+                {
+                    FillToDoList(currentState.actions);
+                }
+                else
+                {
+                    return; // No loop, do nothing, just keep waiting until some trigger awakes
+                }
             }
             // If we have to change state and there isn't any exit action left, fill with next state tasks
             else
@@ -82,23 +90,44 @@ public class StateMachine : MonoBehaviour
             }
         }
 
+
         // Do action, following FIFO approach
         Action actionToDo = toDoList.Peek();
-        if (actionToDo.HasStarted()) // If it has been started, just update it
+
+        // Update while the actions that we just started, are considered finished
+        while (true)
         {
-            if (actionToDo.Update()) // If it just finished after this update, pass to the next action
+            if (actionToDo.HasStarted()) // If it has been started, just update it
             {
-                actionToDo.Reset();
-                toDoList.Dequeue();
+                if (actionToDo.Update()) // If it just finished after this update, pass to the next action
+                {
+                    actionToDo.Reset();
+                    toDoList.Dequeue();
+                }
+                else
+                {
+                    break;
+                }
             }
-        }
-        else // Start the action
-        {
-            if (actionToDo.Start()) // If started and finished at the same time, then deque and NEXT!
+            else // Start the action
             {
-                actionToDo.Reset();
-                toDoList.Dequeue();
+                if (actionToDo.Start()) // If started and finished at the same time, then deque and NEXT!
+                {
+                    actionToDo.Reset();
+                    toDoList.Dequeue();
+                }
+                else
+                {
+                    break;
+                }
             }
+
+            if(toDoList.Count == 0)
+            {
+                break;
+            }
+
+            actionToDo = toDoList.Peek();
         }
     }
 
@@ -133,7 +162,10 @@ public class StateMachine : MonoBehaviour
     {
         foreach (Action action in actions)
         {
-            toDoList.Enqueue(action);
+            if (action.enabled)
+            {
+                toDoList.Enqueue(action);
+            }
         }
     }
 
@@ -195,6 +227,7 @@ public class StateMachine : MonoBehaviour
         {
             targetStateMachine.states[i] = new State();
             targetStateMachine.states[i] = sourceStateMachine.states[i].Clone();
+            targetStateMachine.states[i].parentStateMachine = targetStateMachine;
         }
 
         for (int i = 0; i < sourceStateMachine.states.Length; i++)

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 [CustomEditor(typeof(Condition), true)]
 public class ConditionEditor : Editor
 {
-    public Trigger parentTrigger;
+    public Trigger trigger;
     public bool showCondition = true;
 
     public SerializedProperty statesProperty = null;
@@ -17,7 +17,7 @@ public class ConditionEditor : Editor
 
     protected const float buttonWidth = 30f;
 
-    protected static readonly string[] fieldsToIgnore = new string[] { "m_Script" };
+    protected static readonly string[] fieldsToIgnore = new string[] { "parentTrigger", "m_Script" };
 
     private void OnEnable()
     {

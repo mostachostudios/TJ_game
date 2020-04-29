@@ -67,7 +67,7 @@ public class OrConditionEditor : ConditionEditor
             // Only if editting scriptable object without state machine
             if (statesProperty == null)
             {
-                AssetDatabase.AddObjectToAsset(newCondition, base.parentTrigger);
+                AssetDatabase.AddObjectToAsset(newCondition, base.trigger);
                 AssetDatabase.SaveAssets();
                 //AssetDatabase.ImportAsset("Assets/Scripts/ScriptableObjects/Core/Triggers/" + trigger.name + ".asset");
             }
@@ -139,7 +139,7 @@ public class OrConditionEditor : ConditionEditor
 
     public void SubEditorSetup(ConditionEditor conditionEditor)
     {
-        conditionEditor.parentTrigger = parentTrigger;
+        conditionEditor.trigger = trigger;
         conditionEditor.conditionEditors = subEditors;
         conditionEditor.conditionsProperty = childrenConditionsProperty;
     }

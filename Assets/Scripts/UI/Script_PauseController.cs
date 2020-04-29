@@ -80,7 +80,7 @@ public class Script_PauseController : MonoBehaviour
         postProcessLayer.volumeLayer.value = LayerMask.GetMask("PostProcessingWorld", "PostProcessingMenu");
         camera.Render();
         camera.targetTexture = null;
-        postProcessLayer.volumeLayer.value = currentLayer;
+        postProcessLayer.volumeLayer.value = currentLayer;       
     }
 
     void SetActiveScripts(bool active)

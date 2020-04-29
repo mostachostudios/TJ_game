@@ -15,7 +15,7 @@ public class ActionEditor : Editor
 
     private const float buttonWidth = 30f;
 
-    private static readonly string[] fieldsToIgnore = new string[] { "waitToFinish", "m_Script" };
+    private static readonly string[] fieldsToIgnore = new string[] { "parentState", "enabled", "waitToFinish", "m_Script" };
 
     private void OnEnable()
     {
@@ -37,6 +37,8 @@ public class ActionEditor : Editor
 
         // Regex to change from "PlayAudioAction" to "Play Audio Action"
         showAction = EditorGUILayout.Foldout(showAction, Regex.Replace(action.GetType().Name, "(\\B[A-Z])", " $1"));
+
+        action.enabled = GUILayout.Toggle(action.enabled, new GUIContent("Enabled", "Enable/Disable this action"), GUILayout.Width(100));
 
         action.waitToFinish = GUILayout.Toggle(action.waitToFinish, new GUIContent("Wait to finish", "Wait for this action to finish"), GUILayout.Width(100));
 

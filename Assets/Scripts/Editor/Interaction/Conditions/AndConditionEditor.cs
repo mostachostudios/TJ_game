@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(AndCondition))]
 public class AndConditionEditor : ConditionEditor
 {
-    private AndCondition orCondition;
+    private AndCondition andCondition;
 
     public SerializedProperty childrenConditionsProperty;
     private const string onChildrenConditionsPropName = "conditions";
@@ -19,14 +19,14 @@ public class AndConditionEditor : ConditionEditor
 
     protected override void Init()
     {
-        orCondition = (AndCondition)target;
+        andCondition = (AndCondition)target;
 
         childrenConditionsProperty = serializedObject.FindProperty(onChildrenConditionsPropName);
     }
 
     protected override void DrawCondition()
     {
-        CheckAndCreateSubEditors(orCondition.conditions);
+        CheckAndCreateSubEditors(andCondition.conditions);
 
         serializedObject.Update();
 
@@ -37,7 +37,6 @@ public class AndConditionEditor : ConditionEditor
         EditorGUILayout.EndVertical();
 
         serializedObject.ApplyModifiedProperties();
-
     }
 
     private void ExpandedGUI()
@@ -67,7 +66,7 @@ public class AndConditionEditor : ConditionEditor
             // Only if editting scriptable object without state machine
             if (statesProperty == null)
             {
-                AssetDatabase.AddObjectToAsset(newCondition, base.parentTrigger);
+                AssetDatabase.AddObjectToAsset(newCondition, base.trigger);
                 AssetDatabase.SaveAssets();
                 //AssetDatabase.ImportAsset("Assets/Scripts/ScriptableObjects/Core/Triggers/" + trigger.name + ".asset");
             }
@@ -139,7 +138,7 @@ public class AndConditionEditor : ConditionEditor
 
     public void SubEditorSetup(ConditionEditor conditionEditor)
     {
-        conditionEditor.parentTrigger = parentTrigger;
+        conditionEditor.trigger = trigger;
         conditionEditor.conditionEditors = subEditors;
         conditionEditor.conditionsProperty = childrenConditionsProperty;
     }

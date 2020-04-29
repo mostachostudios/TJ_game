@@ -137,6 +137,7 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
         {
             State newState = new State();
             newState.name = "CustomState";
+            newState.parentStateMachine = stateMachine;
 
             int instanceNumber = 1;
             bool ok = false;
@@ -184,6 +185,7 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
             }
 
             State newState = newStateTemplate.Clone();
+            newState.parentStateMachine = stateMachine;
             statesProperty.AddToObjectArray(newState);
         }
 
@@ -232,6 +234,7 @@ public class StateMachineEditor : EditorWithSubEditors<StateEditor, State>
                     }
 
                     State newState = newStateTemplate.Clone();
+                    newState.parentStateMachine = editor.stateMachine;
 
                     editor.statesProperty.AddToObjectArray(newState);
                 }

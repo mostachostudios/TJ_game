@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/Trigger")]
 public class Trigger : ScriptableObject
 {
+    public State parentState;
+
     public Condition[] conditions = new Condition[0];
 
     public bool Check()
