@@ -22,12 +22,11 @@ public class Script_Countdown : MonoBehaviour
     [Tooltip("A post process effect applied when the time is over (and so is the game)")]
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
-    // TODO refactor this by using Triggers, Condictions and Actions
     [Header("Slot values for different fatigue/anxiety levels according to remaining time. (To be refactored by using triggers and conditions)")]
-    [SerializeField] float m_Slot3 = 115.0f;
-    [SerializeField] float m_Slot2 = 105.0f;
-    [SerializeField] float m_Slot1 = 90.0f;
-    [SerializeField] float m_Slot0 = 85.0f;
+    [SerializeField] float m_Slot3 = 90.0f;
+    [SerializeField] float m_Slot2 = 60.0f;
+    [SerializeField] float m_Slot1 = 30.0f;
+    [SerializeField] float m_Slot0 = 0.0f;
 
     [Header("Color saturation in Post-Process effect. (To be refactored by using triggers and conditions)")]
     [SerializeField] int m_SaturationSlot3 = 0;

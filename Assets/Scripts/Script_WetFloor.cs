@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//https://www.youtube.com/watch?v=mBGUY7EUxXQ&list=PLX2vGYjWbI0QGyfO8PKY1pC8xcRb0X-nP&index=21&t=0s
-//https://gitlab.science.ru.nl/ru/NDL-OVR/-/tree/0191c3cfc079d79230989c5a3a01c487c3441d54/Assets%2FScripts%2FEnemy
-//https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
-//https://answers.unity.com/questions/1088188/change-color-gradually.html
-
-// Requires both isTrigger Collider and Rigidbody either in player or in enemy 
-//[ExecuteAlways]
 public class Script_WetFloor : MonoBehaviour
 {
 	[SerializeField] float m_SpeedFallDown = 1.01f;

@@ -18,7 +18,8 @@ public class Script_PauseController : MonoBehaviour
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
 
-    private GameObject m_MainCamera;
+    private GameObject m_ActiveCamera;
+    private Script_CameraSwitcher m_Script_CameraSwitcher;
 
     private bool m_allow_pause = false;
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
@@ -29,7 +30,8 @@ public class Script_PauseController : MonoBehaviour
     {
         m_WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
 
-        m_MainCamera = GameObject.FindWithTag("MainCamera");
+        //m_ActiveCamera = GameObject.FindWithTag("MainCamera");
+        m_Script_CameraSwitcher = m_World.GetComponentInChildren<Script_CameraSwitcher>();
 
         m_Menu.layer = LayerMask.NameToLayer("PostProcessingMenu");
 
@@ -45,7 +47,7 @@ public class Script_PauseController : MonoBehaviour
 
     void Update()
     {
-        if (m_allow_pause) // Prevents user from pressing escape before first exec play
+        if (m_allow_pause)
         {
             //TODO change this by using conditional compilation such as #if UNITY_EDITOR #endif or another one for better performance 
             if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
@@ -70,10 +72,10 @@ public class Script_PauseController : MonoBehaviour
 
     void RenderMenuBackground()
     {
-        var camera = m_MainCamera.GetComponent<Camera>();
+        var camera = m_ActiveCamera.GetComponent<Camera>();
         camera.targetTexture = m_RenderTexture;
 
-        var postProcessLayer = m_MainCamera.GetComponent<PostProcessLayer>();
+        var postProcessLayer = m_ActiveCamera.GetComponent<PostProcessLayer>();
         var currentLayer = postProcessLayer.volumeLayer.value;
         postProcessLayer.volumeLayer.value = LayerMask.GetMask("PostProcessingWorld", "PostProcessingMenu");
         camera.Render();
@@ -91,6 +93,8 @@ public class Script_PauseController : MonoBehaviour
 
     public void PauseGame()
     {
+        m_ActiveCamera = m_Script_CameraSwitcher.GetActiveCamera();
+
         m_paused = true;
         Time.timeScale = 0f;
 
@@ -99,7 +103,7 @@ public class Script_PauseController : MonoBehaviour
         m_Menu.SetActive(true);
         RenderMenuBackground();
         SetActiveScripts(false);
-        m_MainCamera.SetActive(false);
+        m_ActiveCamera.SetActive(false);
         m_UI.SetActive(false);
     }
 
@@ -111,7 +115,8 @@ public class Script_PauseController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         SetActiveScripts(true);
-        m_MainCamera.SetActive(true);
+        m_ActiveCamera = m_Script_CameraSwitcher.GetActiveCamera();
+        m_ActiveCamera.SetActive(true);
         m_UI.SetActive(true);
         m_Menu.SetActive(false);
     }
