@@ -9,6 +9,9 @@ TagManager:
   - Checkpoint
   - UI
   - CameraTarget
+  - FreeCamera
+  - World
+  - EventSystem
   layers:
   - Default
   - TransparentFX

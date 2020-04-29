@@ -134,4 +134,16 @@ public class Script_CameraController : MonoBehaviour
         m_isOrbit = false;
         m_Script_PlayerController.UsingOrbitCamera(m_isOrbit);
     }
+
+    void OnEnable()
+    {
+        if (m_isOrbit)
+        {
+            SetOrbitCamera();
+        }
+        else
+        {
+            SetZenitCamera();
+        }
+    }
 }

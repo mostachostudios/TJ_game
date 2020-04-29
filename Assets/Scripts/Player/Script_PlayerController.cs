@@ -24,7 +24,7 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_pushSpeed = 0.6f;
     [SerializeField] float m_jumpSpeed = 1.8f;
 
-    [Header("Inactive time")]
+    [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
     [SerializeField] float m_TimeFallingDown = 5f;
     [SerializeField] float m_TimeTerrified = 8f;
@@ -32,14 +32,14 @@ public class Script_PlayerController : MonoBehaviour
     private CharacterController m_characterController;
     private Animator m_animator;
 
-    private Vector3 m_movement;
+    //private Vector3 m_movement;
     private float m_ySpeed;
     private float m_Speed;
     private List<string> m_AnimationStates;
     // TODO save current's player state somewhere (so it can be checked from outside)
 
     private bool m_isPushing = false;
-    private bool m_allowJump = false;
+    private bool m_isJumping = false;
 
     private bool m_isPlayerFrozen = false;
 
@@ -48,6 +48,7 @@ public class Script_PlayerController : MonoBehaviour
     private Vector3 m_initColliderCenter;
 
     private bool m_isOrbitCamera = true;
+
     void Awake()
     {
         m_characterController = gameObject.GetComponent<CharacterController>();
@@ -73,7 +74,7 @@ public class Script_PlayerController : MonoBehaviour
         m_AnimationStates.Add("isFallingDown");
         m_AnimationStates.Add("isTerrified");
 
-        SetState("isIdle");
+        SetAnimatorState("isIdle");
 
         m_ySpeed = 0.0f;
         m_Speed = 0.0f;
@@ -83,12 +84,11 @@ public class Script_PlayerController : MonoBehaviour
     {
         if (!m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
         {
-            SetAnimation();
-            MoveCharacther();
+            ApplyAnimationAndMovement();
         }
     }
 
-    private void SetAnimation()
+    private void ApplyAnimationAndMovement()
     {
         // Checking if isMoving this way might introduce a bit delay/lag since GetAxis returns != 0 even after a short time the user has stopping pressing the keyboard 
         //bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0001f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.0001f;
@@ -99,65 +99,50 @@ public class Script_PlayerController : MonoBehaviour
         bool isCrawling = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
         bool isCrouch = Input.GetKey(KeyCode.LeftAlt);
 
-        // Restore initial collider values in case they were modified
-        m_characterController.radius = m_initColliderRadius;
-        m_characterController.height = m_initColliderHeight;
-        m_characterController.center = m_initColliderCenter;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 direction = Vector3.forward * vertical + Vector3.right * horizontal;
 
         // TODO FIX problem with some transitions (push and run, etc) // Use ignore buffer if key was pressed before, or search for a similar way
-        // Sets animantion
         if (isMoving) // Character is moving
         {
             if (m_isPushing)
             {
-                SetState("isPushing");
-                m_Speed = m_pushSpeed;
+                MovePush(direction);
             }
             else if (isStealth)
             {
-                SetState("isStealth");
-                m_Speed = m_stealthSpeed;
+                MoveStealth(direction);
             }
             else if (isCrawling)
             {
-                SetState("isCrawling");
-                SetCrawl();
-                m_Speed = m_crawlSpeed;
+                MoveCrawl(direction);
             }
             else if (isCrouch)
             {
-                SetState("isCrouchWalking");
-                SetCrouch();
-                m_Speed = m_crouchSpeed;
+                MoveCrouch(direction);
             }
             else
             {
-                if (m_isOrbitCamera && Input.GetAxis("Horizontal") > 0f) // Right dodge
-                { 
-                    SetState("isDodgingRight");
-                    m_Speed = m_dodgeSpeed;
-                }
-                else if (m_isOrbitCamera && Input.GetAxis("Horizontal") < 0f) // Left dodge
+                if (m_isOrbitCamera && horizontal > 0f)
                 {
-                    SetState("isDodgingLeft");
-                    m_Speed = m_dodgeSpeed;
+                    MoveDodgeRight(direction);
                 }
-                else if (m_isOrbitCamera && Input.GetAxis("Vertical") < 0f) // Backward Walking
+                else if (m_isOrbitCamera && horizontal < 0f)
                 {
-                    SetState("isBackwardWalking");
-                    m_Speed = m_backwardWalkSpeed;
+                    MoveDodgeLeft(direction);
+                }
+                else if (m_isOrbitCamera && vertical < 0f)
+                {
+                    MoveBackwards(direction);
                 }
                 else if (isRunning)
                 {
-                    SetState("isRunning");
-                    CheckJumping();
-                    m_Speed = m_runSpeed;
+                    MoveRun(direction);
                 }
-                else // Walking forward
+                else
                 {
-                    SetState("isWalking");
-                    CheckJumping();
-                    m_Speed = m_walkSpeed;
+                    MoveWalk(direction);
                 }
             }
         }
@@ -165,102 +150,47 @@ public class Script_PlayerController : MonoBehaviour
         {
             if (isCrouch || isCrawling)
             {
-                SetState("isCrouchIdle");
                 SetCrouch();
             }
             else
             {
-                SetState("isIdle");
-                CheckJumping();
+                SetIdle();
             }
-            m_Speed = 0f;
         }
     }
 
-    private void SetState(string state)
+    private void MoveCharacther(Vector3 nextMovement)
     {
-        foreach (string entry in m_AnimationStates)
+        Vector3 movement;
+        if (nextMovement != Vector3.zero)
         {
-            m_animator.SetBool(entry, false);
-        }
-        m_animator.SetBool(state, true);
-    }
-
-    private void CheckJumping()
-    {
-        //TODO CHECK NO funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
-        if (Input.GetButtonDown("Jump"))
-        {
-            m_animator.SetTrigger("isJumping");
-            m_allowJump = true;
-        }
-    }
-
-    private void SetCrouch()
-    {
-        //This values are calculated based on initial collider properties. If changed in editor, then these should be recalculated as well.
-        m_characterController.radius = 0.25f;
-        m_characterController.height = 1.0f;
-        m_characterController.center = new Vector3(m_characterController.center.x, 0.5f, m_characterController.center.z);
-    }
-
-    private void SetCrawl()
-    {
-        //This values are calculated based on initial collider properties. If changed in editor, then these should be recalculated as well.
-        m_characterController.radius = 0.2f;
-        m_characterController.height = 0.2f;
-        m_characterController.center = new Vector3(m_characterController.center.x, 0.20f, m_characterController.center.z);
-    }
-
-    private void MoveCharacther()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        if (m_isOrbitCamera)
-        {
-            m_movement = Vector3.forward * vertical + Vector3.right * horizontal;
-
-            m_movement = transform.TransformDirection(m_movement);
-            m_movement *= m_Speed;
-
-            if (m_characterController.isGrounded)
-            {
-                m_ySpeed = 0.0f;
-                if (m_allowJump) // Jumping is only active depending animation state (forward walk, run and idle)
-                {
-                    m_ySpeed = m_jumpSpeed;
-                    m_allowJump = false;
-                }
-            }
-
-            m_ySpeed += m_gravity * Time.deltaTime;
-            m_movement.y = m_ySpeed;
-
-            m_characterController.Move(m_movement * Time.deltaTime);
+            movement = m_isOrbitCamera ? transform.TransformDirection(nextMovement) : nextMovement;
         }
         else
         {
-            m_movement = new Vector3(horizontal, 0.0f, vertical);
-            m_movement *= m_Speed;
-
-            if (m_characterController.isGrounded)
-            {
-                m_ySpeed = 0.0f;
-                if (m_allowJump) // Jumping is only active depending animation state (forward walk, run and idle)
-                {
-                    m_ySpeed = m_jumpSpeed;
-                    m_allowJump = false;
-                }
-            }
-
-            transform.LookAt(transform.position + m_movement);
-
-            m_ySpeed += m_gravity * Time.deltaTime;
-            m_movement.y = m_ySpeed;
-
-            m_characterController.Move(m_movement * Time.deltaTime);
+            movement = transform.forward;
         }
+        
+        if (!m_isOrbitCamera)
+        {
+            transform.LookAt(transform.position + movement);
+        }
+
+        if (m_characterController.isGrounded)
+        {
+            m_ySpeed = 0.0f;
+            if (m_isJumping) // Jumping is only active depending animation state (forward walk, run and idle)
+            {
+                m_ySpeed = m_jumpSpeed;
+                m_isJumping = false;
+            }
+        }
+
+        movement *= m_Speed;
+        m_ySpeed += m_gravity * Time.deltaTime;
+        movement.y = m_ySpeed;
+
+        m_characterController.Move(movement * Time.deltaTime);
     }
 
     //TODO FIX si el usuario continua haciendo push y se sale del alcance del objeto, continuará el pushing aunque no esté tocando nada
@@ -286,39 +216,189 @@ public class Script_PlayerController : MonoBehaviour
         }
     }
 
-    public void SetFalling()
+    public void MovePush(Vector3 direction = new Vector3())
+    {
+        ResetCollider();
+        SetAnimatorState("isPushing");
+        m_Speed = m_pushSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void MoveStealth(Vector3 direction = new Vector3())
+    {
+        ResetCollider();
+        SetAnimatorState("isStealth");
+        m_Speed = m_stealthSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void MoveCrawl(Vector3 direction = new Vector3())
+    {
+        SetCrawlCollider();
+        SetAnimatorState("isCrawling");
+        m_Speed = m_crawlSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void MoveCrouch(Vector3 direction = new Vector3())
+    {
+        SetCrouchCollider();
+        SetAnimatorState("isCrouchWalking");
+        m_Speed = m_crouchSpeed;
+        MoveCharacther(direction);
+    }
+
+    private void MoveDodgeLeft(Vector3 direction)
+    {
+        ResetCollider();
+        SetAnimatorState("isDodgingLeft");
+        m_Speed = m_dodgeSpeed;
+        MoveCharacther(direction);
+    }
+
+    private void MoveDodgeRight(Vector3 direction)
+    {
+        ResetCollider();
+        SetAnimatorState("isDodgingRight");
+        m_Speed = m_dodgeSpeed;
+        MoveCharacther(direction);
+    }
+
+    private void MoveBackwards(Vector3 direction)
+    {
+        ResetCollider();
+        SetAnimatorState("isBackwardWalking");
+        m_Speed = m_backwardWalkSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void MoveRun(Vector3 direction = new Vector3())
+    {
+        ResetCollider();
+        CheckJumping();
+        SetAnimatorState("isRunning");
+        m_Speed = m_runSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void MoveWalk(Vector3 direction = new Vector3())
+    {
+        ResetCollider();
+        CheckJumping();
+        SetAnimatorState("isWalking");
+        m_Speed = m_walkSpeed;
+        MoveCharacther(direction);
+    }
+
+    public void SetCrouch()
+    {
+        SetCrouchCollider();
+        SetAnimatorState("isCrouchIdle");
+        m_Speed = 0f;
+        MoveCharacther(Vector3.zero);
+    }
+
+    public void SetIdle()
+    {
+        ResetCollider();
+        CheckJumping();
+        SetAnimatorState("isIdle");
+        m_Speed = 0f;
+        MoveCharacther(Vector3.zero);
+    }
+
+    public void Jump()
+    {
+        if (m_characterController.isGrounded)
+        {
+            m_animator.SetTrigger("isJumping");
+            m_isJumping = true;
+        }
+    }
+
+    private void CheckJumping()
+    {
+        //TODO CHECK NO funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
+    }
+
+    public float SetFalling()
     {
         m_isPlayerFrozen = true;
+        SetAnimatorState("isFalling");
         m_Speed = 0f;
-        SetState("isFalling");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFalling));
+        return m_TimeFalling;
     }
 
-    public void SetFallingDown()
+    public float SetFallingDown()
     {
         m_isPlayerFrozen = true;
+        SetAnimatorState("isFallingDown");
         m_Speed = 0f;
-        SetState("isFallingDown");
         StartCoroutine(WaitUntilNotFrozen(m_TimeFallingDown));
+        return m_TimeFallingDown;
     }
 
-    public void SetTerrified()
+    public float SetTerrified()
     {
         m_isPlayerFrozen = true;
+        SetAnimatorState("isTerrified");
         m_Speed = 0f;
-        SetState("isTerrified");
         StartCoroutine(WaitUntilNotFrozen(m_TimeTerrified));
+        return m_TimeTerrified;
     }
 
     IEnumerator WaitUntilNotFrozen(float timeFrozen)
     {
         yield return new WaitForSeconds(timeFrozen);
         m_isPlayerFrozen = false;
+        yield return null;
+    }
+
+    private void SetAnimatorState(string state)
+    {
+        foreach (string entry in m_AnimationStates)
+        {
+            m_animator.SetBool(entry, false);
+        }
+        m_animator.SetBool(state, true);
+    }
+
+    private void SetCrouchCollider()
+    {
+        //This values are calculated based on initial collider properties. If changed in editor, then these should be recalculated as well.
+        m_characterController.radius = 0.25f;
+        m_characterController.height = 1.0f;
+        m_characterController.center = new Vector3(m_characterController.center.x, 0.5f, m_characterController.center.z);
+    }
+
+    private void SetCrawlCollider()
+    {
+        //This values are calculated based on initial collider properties. If changed in editor, then these should be recalculated as well.
+        m_characterController.radius = 0.2f;
+        m_characterController.height = 0.2f;
+        m_characterController.center = new Vector3(m_characterController.center.x, 0.20f, m_characterController.center.z);
+    }
+
+    private void ResetCollider()
+    {
+        m_characterController.radius = m_initColliderRadius;
+        m_characterController.height = m_initColliderHeight;
+        m_characterController.center = m_initColliderCenter;
     }
 
     public bool IsPlayerFrozen()
     {
         return m_isPlayerFrozen;
+    }
+
+    public void FreezePlayer(bool freeze)
+    {
+        m_isPlayerFrozen = freeze;
     }
 
     /// <summary>
