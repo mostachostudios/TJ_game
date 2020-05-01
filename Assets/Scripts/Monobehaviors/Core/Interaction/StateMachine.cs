@@ -140,6 +140,7 @@ public class StateMachine : MonoBehaviour
         toDoList.Clear();
 
         // Fill TO-DO actions list with current state's actions
+        FillToDoList(currentState.onEnterActions);
         FillToDoList(currentState.actions);
     }
 
