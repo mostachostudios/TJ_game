@@ -25,7 +25,7 @@ public abstract class Action : ScriptableObject
     {
         started = true;
 
-        return (!waitToFinish || StartDerived());
+        return (StartDerived() || !waitToFinish);
     }
 
     public bool Update()
