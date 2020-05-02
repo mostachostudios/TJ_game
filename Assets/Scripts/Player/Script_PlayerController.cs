@@ -29,6 +29,12 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_TimeFallingDown = 5f;
     [SerializeField] float m_TimeTerrified = 8f;
 
+    [Header("SFX")]
+    [SerializeField] AudioClip m_StepFootClip;
+    [SerializeField] AudioClip m_StepFootRunClip;
+
+    private AudioSource m_AudioSource;
+
     private CharacterController m_characterController;
     private Animator m_animator;
 
@@ -54,6 +60,9 @@ public class Script_PlayerController : MonoBehaviour
         m_characterController = gameObject.GetComponent<CharacterController>();
         m_animator = gameObject.GetComponent<Animator>();
 
+        m_AudioSource = gameObject.GetComponent<AudioSource>();
+        m_AudioSource.clip = m_StepFootClip;
+
         m_initColliderRadius = m_characterController.radius;
         m_initColliderHeight = m_characterController.height;
         m_initColliderCenter = m_characterController.center;
@@ -73,6 +82,8 @@ public class Script_PlayerController : MonoBehaviour
         m_AnimationStates.Add("isFalling");
         m_AnimationStates.Add("isFallingDown");
         m_AnimationStates.Add("isTerrified");
+        m_AnimationStates.Add("isSeatIdle");
+        //m_AnimationStates.Add("isSitToStand");
 
         SetAnimatorState("isIdle");
 
@@ -161,36 +172,59 @@ public class Script_PlayerController : MonoBehaviour
 
     private void MoveCharacther(Vector3 nextMovement)
     {
-        Vector3 movement;
-        if (nextMovement != Vector3.zero)
+        if (m_characterController.enabled)
         {
-            movement = m_isOrbitCamera ? transform.TransformDirection(nextMovement) : nextMovement;
-        }
-        else
-        {
-            movement = transform.forward;
-        }
-        
-        if (!m_isOrbitCamera)
-        {
-            transform.LookAt(transform.position + movement);
-        }
-
-        if (m_characterController.isGrounded)
-        {
-            m_ySpeed = 0.0f;
-            if (m_isJumping) // Jumping is only active depending animation state (forward walk, run and idle)
+            Vector3 movement;
+            if (nextMovement != Vector3.zero)
             {
-                m_ySpeed = m_jumpSpeed;
-                m_isJumping = false;
+                movement = m_isOrbitCamera ? transform.TransformDirection(nextMovement) : nextMovement;
+            }
+            else
+            {
+                movement = transform.forward;
+            }
+
+            if (!m_isOrbitCamera)
+            {
+                transform.LookAt(transform.position + movement);
+            }
+
+            if (m_characterController.isGrounded)
+            {
+                m_ySpeed = 0.0f;
+                if (m_isJumping) // Jumping is only active depending animation state (forward walk, run and idle)
+                {
+                    m_ySpeed = m_jumpSpeed;
+                    m_isJumping = false;
+                }
+            }
+
+            movement *= m_Speed;
+            m_ySpeed += m_gravity * Time.deltaTime;
+            movement.y = m_ySpeed;
+
+            m_characterController.Move(movement * Time.deltaTime);
+
+            //TODO finish this
+            if (m_Speed > 1.5f)
+            {
+                if (!m_AudioSource.isPlaying)
+                {
+                    m_AudioSource.clip = m_StepFootRunClip;
+                    m_AudioSource.Play();
+                    //m_AudioSource.PlayDelayed(0.1f);
+                }
+            }
+            else if (m_Speed > 0.0f)
+            {
+                if (!m_AudioSource.isPlaying)
+                {
+                    //m_AudioSource.Play
+                    m_AudioSource.clip = m_StepFootClip;
+                    m_AudioSource.PlayDelayed(0.1f);
+                }
             }
         }
-
-        movement *= m_Speed;
-        m_ySpeed += m_gravity * Time.deltaTime;
-        movement.y = m_ySpeed;
-
-        m_characterController.Move(movement * Time.deltaTime);
     }
 
     //TODO FIX si el usuario continua haciendo push y se sale del alcance del objeto, continuará el pushing aunque no esté tocando nada
@@ -359,7 +393,7 @@ public class Script_PlayerController : MonoBehaviour
         yield return null;
     }
 
-    private void SetAnimatorState(string state)
+    public void SetAnimatorState(string state)
     {
         foreach (string entry in m_AnimationStates)
         {

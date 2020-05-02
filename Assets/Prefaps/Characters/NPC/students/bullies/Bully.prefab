@@ -2014,6 +2014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca3bbe1047ccb8499d1507e21a89b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Active: 1
   m_ViewDistance: 0.62
   m_ViewAngle: 110
   m_HearMinSpeed: 0.31

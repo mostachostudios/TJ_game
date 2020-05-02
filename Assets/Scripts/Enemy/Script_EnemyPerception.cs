@@ -12,10 +12,12 @@ public class Script_EnemyPerception : MonoBehaviour
 {
 	private bool m_PlayerDetected;
 
+
 	[Header("Sight")]
 	[SerializeField] float m_ViewDistance = 2f;
 	[SerializeField] [Range(0.01f, 179f)] float m_ViewAngle = 90f;
 	[Header("Hearing")]
+	[SerializeField] bool m_RenderArea = true;
 	[Tooltip("Minimun speed player movement that can be heard")]
 	[SerializeField] float m_HearMinSpeed = 0.31f;
 	[Tooltip("Inner hearing radius - Player is detected immediately if moving over Hear Min Speed")]
@@ -28,6 +30,7 @@ public class Script_EnemyPerception : MonoBehaviour
 	[SerializeField] bool m_EnteredHearFar = false;
 	[SerializeField] bool m_FinishedHearFar = false;
 	[SerializeField] Gradient m_GradientHearFar;
+
 	private float m_TimeHearFar = 0f;
 	private Material m_MaterialHearFar;
 	private IEnumerator m_CoroutineHearFar;
@@ -56,14 +59,18 @@ public class Script_EnemyPerception : MonoBehaviour
 		m_Script_ConeOfSightRenderer.m_ScaledViewDistance = m_ViewDistance * transform.localScale.x;
 		m_Script_ConeOfSightRenderer.m_ViewDistance = m_ViewDistance;
 		m_Script_ConeOfSightRenderer.m_ViewAngle = m_ViewAngle;
-	}
 
-	private void Start()
-	{
 		m_MaterialHearFar = new Material(m_Projectors[0].material); // This generates a copy of the material
 		m_Projectors[0].material = m_MaterialHearFar;
+
+		foreach(var projector in m_Projectors)
+		{
+			projector.enabled = m_RenderArea;
+		}
+
 	}
 
+	//TODO to be removed for better performance once parameter adjustment, or just make sure this executes in Build environment, not in release.
 	private void Update()
 	{
 		//#if UNITY_EDITOR
@@ -80,6 +87,10 @@ public class Script_EnemyPerception : MonoBehaviour
 		m_Projectors[0].orthographicSize = m_HearDistanceFar * transform.localScale.x;
 		m_Projectors[1].orthographicSize = m_HearDistanceClose * transform.localScale.x;
 
+		foreach (var projector in m_Projectors)
+		{
+			projector.enabled = m_RenderArea;
+		}
 		//		}
 		//#endif
 
@@ -108,17 +119,17 @@ public class Script_EnemyPerception : MonoBehaviour
 					if (hit.collider.gameObject == m_Player)
 					{
 						m_PlayerDetected = true;
-						Debug.Log("Player Sight Detected");
+						//Debug.Log("Player Sight Detected");
 					}
-					else
-					{
-						Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
-					}
+					//else
+					//{
+						//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
+					//}
 				}
-				else
-				{
-					Debug.Log("Cone: No hit");
-				}
+				//else
+				//{
+					//Debug.Log("Cone: No hit");
+				//}
 			}
 
 			//Check hearing (Only if not already detected)
@@ -129,7 +140,7 @@ public class Script_EnemyPerception : MonoBehaviour
 					if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
 					{
 						m_PlayerDetected = true;
-						Debug.Log("Player Hearing Close Detected");
+						//Debug.Log("Player Hearing Close Detected");
 					}
 				}
 				else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
@@ -140,7 +151,7 @@ public class Script_EnemyPerception : MonoBehaviour
 						m_EnteredHearFar = true;
 						m_CoroutineHearFar = EnteredHearFar();
 						StartCoroutine(m_CoroutineHearFar);
-						Debug.Log("Player Entered Hear Far Circle");
+						//Debug.Log("Player Entered Hear Far Circle");
 					}
 					if (m_FinishedHearFar)
 					{
@@ -148,7 +159,7 @@ public class Script_EnemyPerception : MonoBehaviour
 						{
 							m_PlayerDetected = true;
 
-							Debug.Log("Player Hearing Far Detected");
+							//Debug.Log("Player Hearing Far Detected");
 						}
 					}
 				}
@@ -159,7 +170,7 @@ public class Script_EnemyPerception : MonoBehaviour
 					if (m_EnteredHearFar)
 					{
 						StopCoroutine(m_CoroutineHearFar);
-						Debug.Log("Stopped Hear Far Routine");
+						//Debug.Log("Stopped Hear Far Routine");
 						m_EnteredHearFar = false;
 					}
 				}
@@ -189,7 +200,7 @@ public class Script_EnemyPerception : MonoBehaviour
 	{
 		yield return new WaitForSeconds(m_DurationHearFar);
 		m_FinishedHearFar = true;
-		Debug.Log("Finished Hear Far Routine");
+		//Debug.Log("Finished Hear Far Routine");
 		yield return null;
 	}
 
@@ -205,4 +216,16 @@ public class Script_EnemyPerception : MonoBehaviour
 	{
 		return m_PlayerDetected;
 	}
+
+	private void OnEnable()
+	{
+		//Activate render cone and hearing
+	}
+
+	private void OnDisable()
+	{
+		//Deactivate render cone and hearing
+
+	}
+
 }

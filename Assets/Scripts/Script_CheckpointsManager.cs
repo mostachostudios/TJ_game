@@ -35,7 +35,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
         m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
         m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
-        m_Script_Countdown = GameObject.FindWithTag("RootGame").GetComponentInChildren<Script_Countdown>();
+        m_Script_Countdown = GameObject.FindWithTag("World").GetComponent<Script_Countdown>();
     }
     void Start()
     {

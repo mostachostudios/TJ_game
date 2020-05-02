@@ -42,10 +42,10 @@ public class Script_Countdown : MonoBehaviour
 
     void Awake()
     {
-        m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
-        m_AudioSourceTickTock.playOnAwake = false;
-        m_AudioSourceTickTock.clip = m_TickTock;
-        m_AudioSourceTickTock.volume = 0.2f;
+        //m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
+        //m_AudioSourceTickTock.playOnAwake = false;
+        //m_AudioSourceTickTock.clip = m_TickTock;
+        //m_AudioSourceTickTock.volume = 0.2f;
         m_AudioSourceHeartBeat = gameObject.AddComponent<AudioSource>();
         m_AudioSourceHeartBeat.playOnAwake = false;
 
@@ -68,10 +68,10 @@ public class Script_Countdown : MonoBehaviour
         m_TimeLeft -= Time.deltaTime;
         m_Script_UIController.SetTextCountdown((m_TimeLeft).ToString("0"));
 
-        if (!m_AudioSourceTickTock.isPlaying)
-        {
-            m_AudioSourceTickTock.Play();
-        }
+        //if (!m_AudioSourceTickTock.isPlaying)
+        //{
+        //    m_AudioSourceTickTock.Play();
+        //}
 
         CheckRemainingTime();
     }

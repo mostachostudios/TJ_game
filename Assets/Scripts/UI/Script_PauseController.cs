@@ -25,10 +25,12 @@ public class Script_PauseController : MonoBehaviour
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
 
     private MonoBehaviour[] m_WorldMonoBehaviours;
+    private AudioSource[] m_AudioSources;
 
     void Awake()
     {
         m_WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
+        m_AudioSources = m_World.GetComponentsInChildren<AudioSource>();
 
         //m_ActiveCamera = GameObject.FindWithTag("MainCamera");
         m_Script_CameraSwitcher = m_World.GetComponentInChildren<Script_CameraSwitcher>();
@@ -88,6 +90,13 @@ public class Script_PauseController : MonoBehaviour
         foreach (var monoBehaviour in m_WorldMonoBehaviours)
         {
             monoBehaviour.enabled = active;
+        }
+        if (!active)
+        {
+            foreach (var audioSource in m_AudioSources)
+            {
+                audioSource.Pause();
+            }
         }
     }
 

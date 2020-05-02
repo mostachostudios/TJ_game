@@ -7,7 +7,7 @@ public class PlayAudioAction : Action
     public AudioSource audioSource;
     public AudioClip audioClip;
     public bool loop = false;
-    public float volume = 100.0f;
+    [Range(0f,1f)] public float volume = 1f;
 
 
     protected override bool StartDerived()
@@ -23,7 +23,7 @@ public class PlayAudioAction : Action
 
     protected override bool UpdateDerived()
     {
-        return audioSource.isPlaying;
+        return !audioSource.isPlaying;
     }
 
     protected override Action CloneDerived()

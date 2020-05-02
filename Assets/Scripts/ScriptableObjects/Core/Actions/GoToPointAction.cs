@@ -7,6 +7,7 @@ public class GoToPointAction : Action
     public Transform targetEntity = null;
     public Transform targetPoint;
     public float speedMetersPerSecond = 1.4f; // To be changed to an enum, walking, running...
+    public bool lookAtTarget = true;
 
     private Vector3 sourcePosition;
     private Vector3 path;
@@ -17,14 +18,17 @@ public class GoToPointAction : Action
         sourcePosition = targetEntity.position;
         path = targetPoint.position - targetEntity.position;
         t = 0;
-        targetEntity.LookAt(targetPoint); // To be changed by a smooth rotation started here and performed in 'UpdateDerived'
+        if (lookAtTarget) 
+        { 
+            targetEntity.LookAt(targetPoint); // To be changed by a smooth rotation started here and performed in 'UpdateDerived'
+        } 
 
         return false;
     }
 
     protected override bool UpdateDerived()
     {
-        // To be changed by nav-mesh code
+        // To be changed by nav-mesh code, but keep it for objets that don't have any nav-mesh attached
         t += Time.deltaTime * speedMetersPerSecond;
         t = Mathf.Min(t, 1.0f);
         targetEntity.position = sourcePosition + path * t;

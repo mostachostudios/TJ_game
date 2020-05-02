@@ -7,21 +7,23 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
     private static readonly int sViewDepthTexturedID = Shader.PropertyToID("_ViewDepthTexture");
     private static readonly int sViewSpaceMatrixID = Shader.PropertyToID("_ViewSpaceMatrix");
 
+    [SerializeField] bool m_RenderCone = true;
+
     public Camera m_ViewCamera;
     public float m_ScaledViewDistance;
     public float m_ViewDistance;
     public float m_ViewAngle;
 
     private Material m_Material;
-
+    private MeshRenderer m_MeshRenderer;
     private void Start()
     {
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        m_MeshRenderer = GetComponent<MeshRenderer>();
         //if (Application.isPlaying)
         //{
             //m_Material = renderer.material;  // This generates a copy of the material
-            m_Material = new Material(renderer.material);
-            renderer.material = m_Material;     
+            m_Material = new Material(m_MeshRenderer.material);
+            m_MeshRenderer.material = m_Material;     
         //}
         //else
         //{
@@ -43,18 +45,22 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
 
     private void Update()
     {
+        m_MeshRenderer.enabled = m_RenderCone;
+        if (m_RenderCone)
+        {
+        //TODO to be removed for better performance once parameter adjustment, or just make sure this executes in Build environment, not in release.
+        //#if UNITY_EDITOR
+        //        if (!Application.isPlaying)
+        //        {
+        m_ViewCamera.farClipPlane = m_ScaledViewDistance;
+        m_ViewCamera.fieldOfView = m_ViewAngle;
+        m_Material.SetFloat("_ViewAngle", m_ViewAngle);
+        //        }
+        //#endif
+            m_ViewCamera.Render();
 
-//#if UNITY_EDITOR
-//        if (!Application.isPlaying)
-//        {
-            m_ViewCamera.farClipPlane = m_ScaledViewDistance;
-            m_ViewCamera.fieldOfView = m_ViewAngle;
-            m_Material.SetFloat("_ViewAngle", m_ViewAngle);
-//        }
-//#endif
-        m_ViewCamera.Render();
-
-        m_Material.SetMatrix(sViewSpaceMatrixID, m_ViewCamera.projectionMatrix * m_ViewCamera.worldToCameraMatrix);
+            m_Material.SetMatrix(sViewSpaceMatrixID, m_ViewCamera.projectionMatrix * m_ViewCamera.worldToCameraMatrix);
+        }
     }
 
 #if UNITY_EDITOR
