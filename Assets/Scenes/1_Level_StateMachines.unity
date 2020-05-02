@@ -3997,7 +3997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   state: {fileID: 1174344004}
   enable: 1
@@ -4464,7 +4464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   timeSeconds: 0
 --- !u!1001 &204034472
@@ -4691,25 +4691,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 207882556}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &208209882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1918587537}
-  enabled: 1
-  waitToFinish: 1
-  targetEntity: {fileID: 2108032634}
-  targetPoint: {fileID: 1194113407}
-  speedMetersPerSecond: 1
-  lookAtTarget: 0
 --- !u!1001 &215512925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8462,7 +8443,6 @@ MonoBehaviour:
   m_World: {fileID: 1826682807}
   m_Menu: {fileID: 1823354910}
   m_UI: {fileID: 680566801}
-  m_EventSystem: {fileID: 1606608185}
 --- !u!114 &409836576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9983,7 +9963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   state: {fileID: 1918587537}
   enable: 0
@@ -10355,7 +10335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533166387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.475, y: 0.1200079, z: -1.91}
+  m_LocalPosition: {x: 12.35, y: 0.1200079, z: -1.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1236141527}
@@ -11866,6 +11846,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 630772515}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &635113106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f2f3ba1bfa9564ca7cd6fa75bad293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  targetCamera: {fileID: 831655714}
+  timeSeconds: 0
+  makesMovement: 1
 --- !u!1001 &649595777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13845,6 +13843,9 @@ MonoBehaviour:
   waitToFinish: 0
   instance: {fileID: 1072538251}
   targetPosition: {x: 12.681, y: 0.31, z: -1.91}
+  targetTransform: {fileID: 0}
+  timeSeconds: 0
+  targetType: 0
 --- !u!1001 &735714180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15601,22 +15602,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 833439975}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &834606649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974934ea677abcf45976e5c614dbcd7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1918587537}
-  enabled: 1
-  waitToFinish: 1
-  usingFreeCamera: 1
 --- !u!1001 &844391736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17012,6 +16997,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 947145932}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &953906378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f2f3ba1bfa9564ca7cd6fa75bad293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  targetCamera: {fileID: 1282148624}
+  timeSeconds: 2
+  makesMovement: 0
 --- !u!1 &958978620
 GameObject:
   m_ObjectHideFlags: 0
@@ -17171,9 +17174,8 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 1
   waitToFinish: 0
-  instance: {fileID: 1072538251}
-  parameterName: isSeatIdle
-  isTrigger: 0
+  animator: {fileID: 1072538256}
+  animationParameterName: isSeatIdle
 --- !u!1001 &987585451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18170,7 +18172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   timeSeconds: 0
 --- !u!1001 &1048863543
@@ -18669,6 +18671,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb376439bc371e4fa802cf583909696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1072538256 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2232554618775029253, guid: 1ea00d64991f34445b3584baea34c862,
+    type: 3}
+  m_PrefabInstance: {fileID: 1685147067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1076535365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19887,22 +19895,6 @@ Transform:
   m_Father: {fileID: 327827368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1150536487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974934ea677abcf45976e5c614dbcd7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1918587537}
-  enabled: 1
-  waitToFinish: 1
-  usingFreeCamera: 0
 --- !u!1001 &1155806207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20126,7 +20118,7 @@ MonoBehaviour:
   waitToFinish: 1
   camera: {fileID: 831655714}
   target: {fileID: 1685147068}
-  offsetTarget: {x: 0, y: 1, z: 0}
+  offsetTarget: {x: 0, y: 0.75, z: 0}
   cameraDistance: 1
   timeSeconds: 10
   forceForward: 1
@@ -20599,7 +20591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194113406}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.133, y: 0.10200024, z: -1.9209986}
+  m_LocalPosition: {x: 11.9, y: 0.10200024, z: -1.9209986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1236141527}
@@ -20933,7 +20925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   camera: {fileID: 831655714}
   target: {fileID: 1685147068}
@@ -21579,6 +21571,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3084841045080162511, guid: d34dbd699fa6bfc489f3cc2faa54beed,
     type: 3}
   m_PrefabInstance: {fileID: 662693923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1282148624 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7915724571235469156, guid: 1ea00d64991f34445b3584baea34c862,
+    type: 3}
+  m_PrefabInstance: {fileID: 1685147067}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1288544661
 PrefabInstance:
@@ -22442,6 +22440,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d34dbd699fa6bfc489f3cc2faa54beed, type: 3}
+--- !u!114 &1324180635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb74b441c8564494492752587a7b3625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 0
+  instance: {fileID: 2064368519}
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetTransform: {fileID: 1194113407}
+  timeSeconds: 1
+  targetType: 2
 --- !u!1001 &1331272346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24018,6 +24036,10 @@ MonoBehaviour:
   instance: {fileID: 831655710}
   targetPosition: {x: 19.7894, y: 1.687, z: -6.19}
   targetRotation: {x: 18.736, y: -73.568, z: 0}
+  targetTransform: {fileID: 0}
+  timeSeconds: 0
+  targetPositionType: 0
+  targetRotationType: 0
 --- !u!1001 &1417999011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24108,9 +24130,8 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 1
   waitToFinish: 0
-  instance: {fileID: 1072538251}
-  parameterName: isSitToStand
-  isTrigger: 1
+  animator: {fileID: 1072538256}
+  animationParameterName: isSitToStand
 --- !u!1001 &1432718940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30679,7 +30700,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826682807}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b37d4963f797384490521ea2e064bea, type: 3}
   m_Name: 
@@ -32072,7 +32093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   debugMessage: Exit Initial_Flow State
 --- !u!114 &1918587537
@@ -32095,20 +32116,20 @@ MonoBehaviour:
   - {fileID: 734958357}
   - {fileID: 1417321817}
   actions:
-  - {fileID: 834606649}
   - {fileID: 980600077}
+  - {fileID: 635113106}
   - {fileID: 203485070}
   - {fileID: 1175907094}
   - {fileID: 242348202}
   - {fileID: 1420016197}
-  - {fileID: 208209882}
-  - {fileID: 2066619108}
+  - {fileID: 1324180635}
+  - {fileID: 2062377001}
   - {fileID: 1232805002}
   - {fileID: 1215352874}
   - {fileID: 1619132382}
+  - {fileID: 953906378}
   - {fileID: 1613167973}
   - {fileID: 1045595450}
-  - {fileID: 1150536487}
   - {fileID: 177958053}
   - {fileID: 1783670190}
   onExitActions:
@@ -34941,6 +34962,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2056082570}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2062377001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb74b441c8564494492752587a7b3625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  instance: {fileID: 1072538251}
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetTransform: {fileID: 533166388}
+  timeSeconds: 1
+  targetType: 2
 --- !u!1001 &2063046378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35068,25 +35109,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2063046378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2066619108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!1 &2064368519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6296259094581929731, guid: 84b04aff491bb6d4b98ab1eb8d009475,
+    type: 3}
+  m_PrefabInstance: {fileID: 2108032633}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1918587537}
-  enabled: 1
-  waitToFinish: 1
-  targetEntity: {fileID: 1685147068}
-  targetPoint: {fileID: 533166388}
-  speedMetersPerSecond: 2
-  lookAtTarget: 0
 --- !u!1001 &2068033007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36052,7 +36080,7 @@ PrefabInstance:
     - target: {fileID: 6296259094581929731, guid: 84b04aff491bb6d4b98ab1eb8d009475,
         type: 3}
       propertyPath: m_Name
-      value: Chair_01_Snaps014
+      value: Chair_01_Snaps014_tuto1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b04aff491bb6d4b98ab1eb8d009475, type: 3}

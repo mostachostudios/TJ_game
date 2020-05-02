@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFocusAction : Action
 {
@@ -53,7 +51,7 @@ public class CameraFocusAction : Action
 
         currentTimeSeconds = .0f;
 
-        return false;
+        return UpdateDerived();
     }
 
     protected override bool UpdateDerived()
