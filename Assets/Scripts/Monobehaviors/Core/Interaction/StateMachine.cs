@@ -13,7 +13,7 @@ public class StateMachine : MonoBehaviour
     private State currentState;
     private State nextState = null;
 
-    private Queue<Action> toDoList = new Queue<Action>();
+    private List<Action> toDoList = new List<Action>();
 
 
     void Awake()
@@ -90,23 +90,30 @@ public class StateMachine : MonoBehaviour
             }
         }
 
-
-        // Do action, following FIFO approach
-        Action actionToDo = toDoList.Peek();
-
-        // Update while the actions that we just started, are considered finished
-        while (true)
+        int currentIndex = 0;
+        bool stop = false;
+        while(!stop && currentIndex < toDoList.Count)
         {
+            // Do action, following FIFO approach
+            Action actionToDo = toDoList[currentIndex];
+
             if (actionToDo.HasStarted()) // If it has been started, just update it
             {
                 if (actionToDo.Update()) // If it just finished after this update, pass to the next action
                 {
                     actionToDo.Reset();
-                    toDoList.Dequeue();
+                    toDoList.RemoveAt(currentIndex);
                 }
                 else
                 {
-                    break;
+                    if (actionToDo.waitToFinish)
+                    {
+                        stop = true;
+                    }
+                    else
+                    {
+                        currentIndex++;
+                    }
                 }
             }
             else // Start the action
@@ -114,20 +121,20 @@ public class StateMachine : MonoBehaviour
                 if (actionToDo.Start()) // If started and finished at the same time, then deque and NEXT!
                 {
                     actionToDo.Reset();
-                    toDoList.Dequeue();
+                    toDoList.RemoveAt(currentIndex);
                 }
                 else
                 {
-                    break;
+                    if (actionToDo.waitToFinish)
+                    {
+                        stop = true;
+                    }
+                    else
+                    {
+                        currentIndex++;
+                    }
                 }
             }
-
-            if(toDoList.Count == 0)
-            {
-                break;
-            }
-
-            actionToDo = toDoList.Peek();
         }
     }
 
@@ -165,7 +172,7 @@ public class StateMachine : MonoBehaviour
         {
             if (action.enabled)
             {
-                toDoList.Enqueue(action);
+                toDoList.Add(action);
             }
         }
     }

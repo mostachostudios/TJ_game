@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO, rework this action to make character walk, run, etc..
 public class GoToPointAction : Action
 {
     public Transform targetEntity = null;
     public Transform targetPoint;
-    public float speedMetersPerSecond = 1.4f; // To be changed to an enum, walking, running...
+    public float timeSeconds = 1.0f;
     public bool lookAtTarget = true;
 
     private Vector3 sourcePosition;
     private Vector3 path;
-    private float t;
+    private float currentTimeSeconds;
 
     protected override bool StartDerived()
     {
         sourcePosition = targetEntity.position;
         path = targetPoint.position - targetEntity.position;
-        t = 0;
+        currentTimeSeconds = 0;
         if (lookAtTarget) 
         { 
             targetEntity.LookAt(targetPoint); // To be changed by a smooth rotation started here and performed in 'UpdateDerived'
@@ -28,12 +29,13 @@ public class GoToPointAction : Action
 
     protected override bool UpdateDerived()
     {
-        // To be changed by nav-mesh code, but keep it for objets that don't have any nav-mesh attached
-        t += Time.deltaTime * speedMetersPerSecond;
-        t = Mathf.Min(t, 1.0f);
+        // Rename this class -> MOVE, and create another one that makes character walk, run...
+        float t = (timeSeconds != .0f) ? (currentTimeSeconds / timeSeconds) : 1.0f;
+        currentTimeSeconds = Mathf.Min(currentTimeSeconds + Time.deltaTime, timeSeconds);
+
         targetEntity.position = sourcePosition + path * t;
 
-        return t == 1.0f;
+        return currentTimeSeconds == timeSeconds;
     }
 
     protected override Action CloneDerived()
@@ -41,7 +43,7 @@ public class GoToPointAction : Action
         GoToPointAction clone = new GoToPointAction();
         clone.targetEntity = null;
         clone.targetPoint = this.targetPoint;
-        clone.speedMetersPerSecond = this.speedMetersPerSecond;
+        clone.timeSeconds = this.timeSeconds;
 
         return clone;
     }
