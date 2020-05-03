@@ -205,23 +205,27 @@ public class Script_PlayerController : MonoBehaviour
 
             m_characterController.Move(movement * Time.deltaTime);
 
-            //TODO finish this
-            if (m_Speed > 1.5f)
+            if (!m_AudioSource.isPlaying && m_Speed > 0f)
             {
-                if (!m_AudioSource.isPlaying)
+                if (m_Speed >= (m_runSpeed - 0.01f))
                 {
                     m_AudioSource.clip = m_StepFootRunClip;
-                    m_AudioSource.Play();
-                    //m_AudioSource.PlayDelayed(0.1f);
+                    m_AudioSource.PlayDelayed(0.05f);
                 }
-            }
-            else if (m_Speed > 0.0f)
-            {
-                if (!m_AudioSource.isPlaying)
+                else if (m_Speed >= (m_walkSpeed - 0.01f))
                 {
-                    //m_AudioSource.Play
                     m_AudioSource.clip = m_StepFootClip;
                     m_AudioSource.PlayDelayed(0.1f);
+                }
+                else if (m_Speed >= (m_crouchSpeed - 0.01f))
+                {
+                    m_AudioSource.clip = m_StepFootClip;
+                    m_AudioSource.PlayDelayed(0.3f);
+                }
+                else
+                {
+                    m_AudioSource.clip = m_StepFootClip;
+                    m_AudioSource.PlayDelayed(1.7f);
                 }
             }
         }
