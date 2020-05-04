@@ -49,8 +49,6 @@ public class Script_Countdown : MonoBehaviour
         m_AudioSourceHeartBeat = gameObject.AddComponent<AudioSource>();
         m_AudioSourceHeartBeat.playOnAwake = false;
 
-        gameObject.layer = LayerMask.NameToLayer("PostProcessingWorld");
-
         m_PostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
         m_PostProcessVolume.isGlobal = true;
         m_PostProcessVolume.profile = m_PostProcessProfile;

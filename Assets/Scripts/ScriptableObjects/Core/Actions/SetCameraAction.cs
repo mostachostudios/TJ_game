@@ -48,8 +48,8 @@ public class SetCameraAction : Action
             transformToChange = targetCamera.transform;
             transformToChange.position = originalPosition;
             transformToChange.forward = originalDirection;
-            targetCamera.gameObject.SetActive(true);
-            sourceCamera.gameObject.SetActive(false);
+            targetCamera.enabled = true;
+            sourceCamera.enabled = false;
         }
 
         currentTimeSeconds = .0f;
@@ -70,8 +70,8 @@ public class SetCameraAction : Action
         {
             if(makesMovement == CameraType.Source)
             {
-                targetCamera.gameObject.SetActive(true);
-                sourceCamera.gameObject.SetActive(false);
+                targetCamera.enabled = true;
+                sourceCamera.enabled = false;
             }
 
             return true;

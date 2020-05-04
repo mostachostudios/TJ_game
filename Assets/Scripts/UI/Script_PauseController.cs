@@ -11,35 +11,28 @@ public class Script_PauseController : MonoBehaviour
     [SerializeField] GameObject m_Menu;
     [Tooltip("A refence to the UI gameObject in the scene")]
     [SerializeField] GameObject m_UI;
-
-    [Tooltip("A render texture needed to temporary store a camera snapshot when the game is paused")]
-    [SerializeField] RenderTexture m_RenderTexture;
-    [Tooltip("A post process effect applied when the menu window pops up")]
-    [SerializeField] PostProcessProfile m_PostProcessProfile;
-
-
-    private GameObject m_ActiveCamera;
-    private Script_CameraSwitcher m_Script_CameraSwitcher;
-
+    
     private bool m_allow_pause = false;
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
 
-    private MonoBehaviour[] m_WorldMonoBehaviours;
+    private List<MonoBehaviour> m_WorldMonoBehaviours;
     private AudioSource[] m_AudioSources;
 
     void Awake()
     {
-        m_WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
+        m_WorldMonoBehaviours = new List<MonoBehaviour>();
+        var WorldMonoBehaviours = m_World.GetComponentsInChildren<MonoBehaviour>();
+
+        foreach (var monoBehaviour in WorldMonoBehaviours)
+        {
+            //Ignore PostProcessLayers so they won't be deactivated
+            if (!monoBehaviour.GetType().FullName.Equals("UnityEngine.Rendering.PostProcessing.PostProcessLayer"))
+            {
+                m_WorldMonoBehaviours.Add(monoBehaviour);
+            }
+        }
+
         m_AudioSources = m_World.GetComponentsInChildren<AudioSource>();
-
-        //m_ActiveCamera = GameObject.FindWithTag("MainCamera");
-        m_Script_CameraSwitcher = m_World.GetComponentInChildren<Script_CameraSwitcher>();
-
-        m_Menu.layer = LayerMask.NameToLayer("PostProcessingMenu");
-
-        PostProcessVolume m_MenuPostProcessVolume = m_Menu.AddComponent<PostProcessVolume>();
-        m_MenuPostProcessVolume.isGlobal = true;
-        m_MenuPostProcessVolume.profile = m_PostProcessProfile;
     }
 
     void Start()
@@ -72,24 +65,30 @@ public class Script_PauseController : MonoBehaviour
         }
     }
 
+    // No longer used
+    /*
     void RenderMenuBackground()
-    {
+    {       
         var camera = m_ActiveCamera.GetComponent<Camera>();
+
         camera.targetTexture = m_RenderTexture;
 
-        var postProcessLayer = m_ActiveCamera.GetComponent<PostProcessLayer>();
+        //var postProcessLayer = m_ActiveCamera.GetComponent<PostProcessLayer>();
+        var postProcessLayer = camera.GetComponent<PostProcessLayer>();
         var currentLayer = postProcessLayer.volumeLayer.value;
         postProcessLayer.volumeLayer.value = LayerMask.GetMask("PostProcessingWorld", "PostProcessingMenu");
         camera.Render();
         camera.targetTexture = null;
-        postProcessLayer.volumeLayer.value = currentLayer;       
+        postProcessLayer.volumeLayer.value = currentLayer;
+
     }
+    */
 
     void SetActiveScripts(bool active)
     {
         foreach (var monoBehaviour in m_WorldMonoBehaviours)
         {
-            monoBehaviour.enabled = active;
+            monoBehaviour.enabled = active;          
         }
         if (!active)
         {
@@ -102,18 +101,16 @@ public class Script_PauseController : MonoBehaviour
 
     public void PauseGame()
     {
-        m_ActiveCamera = m_Script_CameraSwitcher.GetActiveCamera();
-
         m_paused = true;
         Time.timeScale = 0f;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        m_Menu.SetActive(true);
-        RenderMenuBackground();
+
         SetActiveScripts(false);
-        m_ActiveCamera.SetActive(false);
         m_UI.SetActive(false);
+
+        m_Menu.SetActive(true);
     }
 
     public void ResumeGame()
@@ -123,11 +120,11 @@ public class Script_PauseController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        SetActiveScripts(true);
-        m_ActiveCamera = m_Script_CameraSwitcher.GetActiveCamera();
-        m_ActiveCamera.SetActive(true);
-        m_UI.SetActive(true);
+
         m_Menu.SetActive(false);
+
+        SetActiveScripts(true);
+        m_UI.SetActive(true);
     }
 
     /// <summary>

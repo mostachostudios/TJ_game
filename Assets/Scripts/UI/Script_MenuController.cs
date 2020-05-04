@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Script_MenuController : MonoBehaviour
 {
     [Header("Background Image Texture")]
-    [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_RawImageBackground;
-    [Tooltip("Texture to be used in pause mode")] [SerializeField] RenderTexture m_RawImageBackgroundTexture;
+    [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_ImageBackground;
+    [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_BlackBackground;
 
     [Header("Menu Buttons")]
     [SerializeField] GameObject m_ButtonPlay;
@@ -24,6 +25,10 @@ public class Script_MenuController : MonoBehaviour
     [SerializeField] AudioClip m_AudioWin;
     [Tooltip("Audio clip to be played when player loses the game")]
     [SerializeField] AudioClip m_AudioLose;
+
+    [Header("Effects")]
+    [Tooltip("A post process effect applied when the menu window pops up")]
+    [SerializeField] PostProcessProfile m_PostProcessProfile;
 
     private AudioSource m_AudioSource;
 
@@ -62,6 +67,10 @@ public class Script_MenuController : MonoBehaviour
 
     void Awake()
     {
+        PostProcessVolume m_MenuPostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
+        m_MenuPostProcessVolume.isGlobal = true;
+        m_MenuPostProcessVolume.profile = m_PostProcessProfile;
+
         m_ButtonPlay.GetComponent<Button>().onClick.AddListener(Play);
 
         m_ButtonInfo.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_INFO));
@@ -69,8 +78,6 @@ public class Script_MenuController : MonoBehaviour
         m_ButtonCredits.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_CREDITS));
 
         m_ButtonQuit.GetComponent<Button>().onClick.AddListener(Quit);
-
-        gameObject.AddComponent<AudioListener>();
 
         m_AudioSource = gameObject.AddComponent<AudioSource>();
         m_AudioSource.playOnAwake = false;
@@ -85,11 +92,9 @@ public class Script_MenuController : MonoBehaviour
         {
             var text = m_ButtonPlay.GetComponentInChildren<Text>();
             text.text = "RESUME!";
-            m_firstExec = false;
-            RawImage background = m_RawImageBackground;
-            background.texture = m_RawImageBackgroundTexture;
-            background.color = new Color(background.color.r, background.color.g, background.color.b, 1f);
-            background.SetNativeSize();
+            m_firstExec = false;          
+            m_ImageBackground.gameObject.SetActive(false);
+            m_BlackBackground.gameObject.SetActive(false);
             m_Script_PauseController.AllowPauseGame(true);
         }
         m_Script_PauseController.ResumeGame();
