@@ -12,6 +12,7 @@ TagManager:
   - FreeCamera
   - World
   - EventSystem
+  - Starter
   layers:
   - Default
   - TransparentFX
