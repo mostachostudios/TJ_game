@@ -37,10 +37,10 @@ public class Script_Countdown : MonoBehaviour
     private AudioSource m_AudioSourceTickTock;
     private PostProcessVolume m_PostProcessVolume; // Reference to Post Process Volume added at runtime
     private ColorGrading m_ColorGrading; // Reference used to update saturation color in PostProcess
+    private Script_GameController m_Script_GameController;
     private Script_UIController m_Script_UIController;
-    private Script_MenuController m_Script_MenuController;
 
-    void Awake()
+    void Start()
     {
         //m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
         //m_AudioSourceTickTock.playOnAwake = false;
@@ -57,8 +57,8 @@ public class Script_Countdown : MonoBehaviour
         // https://answers.unity.com/questions/1355103/modifying-the-new-post-processing-stack-through-co.html
         m_PostProcessVolume.profile.TryGetSettings<ColorGrading>(out m_ColorGrading);
 
+        m_Script_GameController = GameObject.FindWithTag("RootGame").GetComponent<Script_GameController>();
         m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
-        m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class Script_Countdown : MonoBehaviour
         }
         else
         {
-            m_Script_MenuController.EndGame(Script_MenuController.EndOption.Lose);
+            m_Script_GameController.EndGame(Script_GameController.EndOption.Lose);
         }
     }
     void SetIntensity(AudioClip audioClip,  int saturation)
