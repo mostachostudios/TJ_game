@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Script_CheckpointsManager : MonoBehaviour
 {
+    [SerializeField] float m_CheckpointDuration = 5f;
     [SerializeField] AudioClip m_AudioReward;
+
     List<GameObject> checkpoints;
 
     private int currentCheckpoint;
 
     private AudioSource m_AudioSourceReward;
 
+    private Script_GameController m_Script_GameController;
     private Script_UIController m_Script_UIController;
-    private Script_MenuController m_Script_MenuController;
     private Script_Countdown m_Script_Countdown;
-
-    void Awake()
+   
+    void Start()
     {
         checkpoints = new List<GameObject>();
         currentCheckpoint = 0;
@@ -33,12 +35,10 @@ public class Script_CheckpointsManager : MonoBehaviour
         m_AudioSourceReward.clip = m_AudioReward;
         m_AudioSourceReward.volume = 0.2f;
 
+        m_Script_GameController = GameObject.FindWithTag("RootGame").GetComponent<Script_GameController>();
         m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
-        m_Script_MenuController = GameObject.FindWithTag("Menu").GetComponent<Script_MenuController>();
         m_Script_Countdown = GameObject.FindWithTag("World").GetComponent<Script_Countdown>();
-    }
-    void Start()
-    {
+        
         if (checkpoints.Count > 0)
         {
             checkpoints[currentCheckpoint].SetActive(true);
@@ -57,7 +57,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
         if (currentCheckpoint >= checkpoints.Count)
         {
-            m_Script_MenuController.EndGame(Script_MenuController.EndOption.Win);
+            m_Script_GameController.GoNextLevel();
         }
         else
         {
@@ -75,7 +75,7 @@ public class Script_CheckpointsManager : MonoBehaviour
                 rewardMessage = "Great!! You can do it!";
             }
 
-            m_Script_UIController.SetTextCheckpointReward(rewardMessage);
+            m_Script_UIController.SetTextMessage(rewardMessage, m_CheckpointDuration);
             m_Script_Countdown.IncreaseTime();
             m_AudioSourceReward.Play();
             checkpoints[currentCheckpoint].SetActive(true);

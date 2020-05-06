@@ -21,18 +21,29 @@ public class SetCameraAction : Action
 
     protected override bool StartDerived()
     {
-        if(targetCamera == null || Camera.current == null)
-        {
-            return false;
-        }
+        Debug.Log("Enabled cameras: " + Camera.allCameras.Length);
+
+        //if (targetCamera == null || Camera.current == null)
+        //{
+        //    return false;
+        //}
 
         // Do nothing
-        if(targetCamera == Camera.current)
+        if (targetCamera == null || targetCamera == Camera.current)
         {
             return true;
         }
 
-        sourceCamera = Camera.current;
+        if (Camera.current == null)
+        {
+            //https://answers.unity.com/questions/173525/when-is-current-camera-null.html
+            Debug.Log("Camera.current is Null. Will use Camera.main instead");
+            sourceCamera = Camera.main;
+        }
+        else
+        {
+            sourceCamera = Camera.current;
+        }
 
         targetPosition = targetCamera.transform.position;
         targetDirection = targetCamera.transform.forward;

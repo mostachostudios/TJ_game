@@ -3639,6 +3639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a7325776050f94494aa780abdad63d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CheckpointDuration: 5
   m_AudioReward: {fileID: 8300000, guid: 5b4fea3045990324fb684713b7de1db5, type: 3}
 --- !u!1001 &162619662
 PrefabInstance:
@@ -8480,8 +8481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 409836577}
-  - component: {fileID: 409836575}
-  - component: {fileID: 409836576}
+  - component: {fileID: 409836574}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: RootGame
@@ -8489,23 +8489,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &409836575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409836573}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9b5a1ad43c99f4c84bee36f0cebb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_World: {fileID: 1826682807}
-  m_Menu: {fileID: 1823354910}
-  m_UI: {fileID: 680566801}
-  m_EventSystem: {fileID: 0}
---- !u!114 &409836576
+--- !u!114 &409836574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8514,12 +8498,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 409836573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab24ec8b0430f4f49bf88741639dcb7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 895609a5515b9414da4741068a9fb33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_World: {fileID: 1826682807}
-  m_Menu: {fileID: 1823354910}
+  m_EventSystem: {fileID: 1606608185}
   m_UI: {fileID: 680566801}
+  m_Menu: {fileID: 1823354910}
+  m_AudioWin: {fileID: 0}
+  m_AudioLose: {fileID: 0}
 --- !u!4 &409836577
 Transform:
   m_ObjectHideFlags: 0
@@ -12558,9 +12544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a10bf4e67510c46893c3f8ba096d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TextMessage: {fileID: 0}
   m_TextCountdown: {fileID: 1040970972}
-  m_TextCheckpointReward: {fileID: 114503958}
-  m_CheckpointDuration: 5
 --- !u!4 &680566803
 Transform:
   m_ObjectHideFlags: 0
@@ -20385,7 +20370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 0.72156864}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -30958,10 +30943,10 @@ MonoBehaviour:
   m_ButtonInfo: {fileID: 694760271}
   m_ButtonInput: {fileID: 1990127991}
   m_ButtonCredits: {fileID: 688295139}
+  m_ButtonRestartLevel: {fileID: 0}
+  m_ButtonRestartGame: {fileID: 0}
   m_ButtonQuit: {fileID: 1292308367}
   m_TextBoard: {fileID: 1679673250}
-  m_AudioWin: {fileID: 8300000, guid: c76269cd6f2607a45a47969a725d5d37, type: 3}
-  m_AudioLose: {fileID: 8300000, guid: 4f2b651f2ca0cbf4ba1c85604f72d60a, type: 3}
   m_PostProcessProfile: {fileID: 11400000, guid: 5ab00aba65967a740bb987fec67585c2,
     type: 2}
 --- !u!4 &1823354912
