@@ -7,6 +7,7 @@ public class Script_GameController : MonoBehaviour
     [SerializeField] GameObject m_EventSystem;
     [SerializeField] GameObject m_UI;
     [SerializeField] GameObject m_Menu;
+    private GameObject m_Starter;
 
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
@@ -56,7 +57,15 @@ public class Script_GameController : MonoBehaviour
         m_Script_PauseController = ScriptableObject.CreateInstance<Script_PauseController>();
 
         numLevels = SceneManager.sceneCountInBuildSettings; // -1;
-        currentLevel = 1; // Scene 0 is initial start-up Scene with no world in it
+
+        m_Starter = GameObject.FindWithTag("Starter");
+        currentLevel = m_Starter.GetComponent<Script_Starter>().StartSceneIndex();
+
+        Debug.Log("Starting from level: " + currentLevel);
+        if(currentLevel <= 0)
+        {
+            currentLevel = 1; // Scene 0 is initial start-up Scene with no world in it
+        }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         RestartLevel(true);
