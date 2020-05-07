@@ -2415,15 +2415,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TextMessage: {fileID: 1654637530}
   m_TextCountdown: {fileID: 627405057}
-  Avatar1: {fileID: 1700739439}
+  m_Avatar1: {fileID: 1700739439}
   m_TextName1: {fileID: 971150113}
   m_TextDialog1: {fileID: 1374031916}
-  Avatar2: {fileID: 1163541448}
+  m_Avatar2: {fileID: 1163541448}
   m_TextName2: {fileID: 924610878}
   m_TextDialog2: {fileID: 1336550220}
-  Avatar3: {fileID: 1062647282}
+  m_Avatar3: {fileID: 1062647282}
   m_TextName3: {fileID: 1528684582}
   m_TextDialog3: {fileID: 253037874}
+  m_AudioDisplayDialog: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2,
+    type: 3}
+  m_AudioDisplayTip: {fileID: 8300000, guid: d0ad4e5a7ab3fe9468fa2b34f68c4c96, type: 3}
 --- !u!4 &1486799138
 Transform:
   m_ObjectHideFlags: 0

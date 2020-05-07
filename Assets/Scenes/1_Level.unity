@@ -4098,7 +4098,7 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 1
   waitToFinish: 1
-  timeSeconds: 3
+  timeSeconds: 2
 --- !u!1001 &204034472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6820,9 +6820,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
   enabled: 1
-  waitToFinish: 1
-  tip: Text tip
-  timeSeconds: 4
+  waitToFinish: 0
+  tip: Use mouse scroll wheel to zoom in and zoom out the camera
+  timeSeconds: 6
   key: 0
 --- !u!1001 &349255901
 PrefabInstance:
@@ -8009,7 +8009,7 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 1
   waitToFinish: 1
-  timeSeconds: 2
+  timeSeconds: 3
 --- !u!1001 &407249104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22181,7 +22181,7 @@ MonoBehaviour:
   dialogPosition: 2
   timeBetweenMessage: 5
   messages:
-  - Esto es un muermo
+  - Este tio es un cachondo
 --- !u!1001 &1397208365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22651,7 +22651,7 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 1
   waitToFinish: 1
-  timeSeconds: 7
+  timeSeconds: 5
 --- !u!4 &1411405956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3084841045080162511, guid: d34dbd699fa6bfc489f3cc2faa54beed,

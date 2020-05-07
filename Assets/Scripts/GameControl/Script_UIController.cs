@@ -7,17 +7,31 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] Text m_TextMessage;
     [SerializeField] Text m_TextCountdown;
 
-    [SerializeField] Image Avatar1;
+    [SerializeField] Image m_Avatar1;
     [SerializeField] Text m_TextName1;
     [SerializeField] Text m_TextDialog1;
 
-    [SerializeField] Image Avatar2;
+    [SerializeField] Image m_Avatar2;
     [SerializeField] Text m_TextName2;
     [SerializeField] Text m_TextDialog2;
 
-    [SerializeField] Image Avatar3;
+    [SerializeField] Image m_Avatar3;
     [SerializeField] Text m_TextName3;
     [SerializeField] Text m_TextDialog3;
+
+    [SerializeField] AudioClip m_AudioDisplayDialog;
+    [SerializeField] AudioClip m_AudioDisplayTip;
+
+    private AudioSource m_AudioSource;
+
+    private void Awake()
+    {
+        m_AudioSource = gameObject.AddComponent<AudioSource>();
+        m_AudioSource.volume = 0.2f;
+        m_AudioSource.playOnAwake = false;
+        m_AudioSource.loop = false;
+        m_AudioSource.time = 0.0f;
+    }
 
     public void SetTextCountdown(string text)
     {
@@ -29,23 +43,29 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
-                Avatar1.sprite = dialog.m_Avatar;
-                Avatar1.color = new Color(Avatar1.color.r, Avatar1.color.g, Avatar1.color.b, 1f);
+                m_Avatar1.sprite = dialog.m_Avatar;
+                m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 1f);
                 m_TextDialog1.text = dialog.m_Text;
                 m_TextName1.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
-                Avatar2.sprite = dialog.m_Avatar;
-                Avatar2.color = new Color(Avatar2.color.r, Avatar2.color.g, Avatar2.color.b, 1f);
+                m_Avatar2.sprite = dialog.m_Avatar;
+                m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 1f);
                 m_TextDialog2.text = dialog.m_Text;
                 m_TextName2.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
-                Avatar3.sprite = dialog.m_Avatar;
-                Avatar3.color = new Color(Avatar3.color.r, Avatar3.color.g, Avatar3.color.b, 1f);
+                m_Avatar3.sprite = dialog.m_Avatar;
+                m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 1f);
                 m_TextDialog3.text = dialog.m_Text;
                 m_TextName3.text = dialog.m_Avatar.name.ToUpper();
                 break;
+        }
+
+        if (!m_AudioSource.isPlaying)
+        {
+            m_AudioSource.clip = m_AudioDisplayDialog;
+            m_AudioSource.Play();
         }
     }
 
@@ -54,17 +74,17 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
-                Avatar1.color = new Color(Avatar1.color.r, Avatar1.color.g, Avatar1.color.b, 0f);
+                m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
                 m_TextDialog1.text = "";
                 m_TextName1.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
-                Avatar2.color = new Color(Avatar2.color.r, Avatar2.color.g, Avatar2.color.b, 0f);
+                m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
                 m_TextDialog2.text = "";
                 m_TextName2.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
-                Avatar3.color = new Color(Avatar3.color.r, Avatar3.color.g, Avatar3.color.b, 0f);
+                m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
                 m_TextDialog3.text = "";
                 m_TextName3.text = "";
                 break;
@@ -76,9 +96,18 @@ public class Script_UIController : MonoBehaviour
     /// </summary>
     /// <param name="text"></param>
     /// <param name="time"></param>
-    public void SetTextMessage(string text)
+    public void SetTextMessage(string text, bool isTip = false)
     {
         m_TextMessage.text = text;
+
+        if (isTip)
+        {
+            if (!m_AudioSource.isPlaying)
+            {
+                m_AudioSource.clip = m_AudioDisplayTip;
+                m_AudioSource.Play();
+            }
+        }
     }
 
     /// <summary>
@@ -112,8 +141,8 @@ public class Script_UIController : MonoBehaviour
         m_TextName1.text = "";
         m_TextName2.text = "";
         m_TextName3.text = "";
-        Avatar1.color = new Color(Avatar1.color.r, Avatar1.color.g, Avatar1.color.b, 0f);
-        Avatar2.color = new Color(Avatar2.color.r, Avatar2.color.g, Avatar2.color.b, 0f);
-        Avatar3.color = new Color(Avatar3.color.r, Avatar3.color.g, Avatar3.color.b, 0f);
+        m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
+        m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
+        m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
     }
 }

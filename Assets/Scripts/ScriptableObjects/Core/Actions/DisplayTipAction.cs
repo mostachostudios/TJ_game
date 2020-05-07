@@ -14,7 +14,7 @@ public class DisplayTipAction : Action
     protected override bool StartDerived()
     {
         script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
-        script_UIController.SetTextMessage(tip);
+        script_UIController.SetTextMessage(tip, true);
 
         currentTimeSeconds = .0f;
 
