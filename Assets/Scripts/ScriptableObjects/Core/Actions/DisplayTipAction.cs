@@ -2,35 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO
 public class DisplayTipAction : Action
 {
-    // Tip tipData; // TODO
+    public string tip;
     public float timeSeconds = .0f;
     public KeyCode key = KeyCode.None;
 
     private float currentTimeSeconds;
+    private Script_UIController script_UIController;
 
     protected override bool StartDerived()
     {
-        // TODO: display tip
+        script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
+        script_UIController.SetTextMessage(tip);
 
         currentTimeSeconds = .0f;
 
-        return .0f == timeSeconds && key == KeyCode.None;
+        //return .0f == timeSeconds && key == KeyCode.None;
+        return false;
     }
 
     protected override bool UpdateDerived()
     {
         currentTimeSeconds = Mathf.Min(currentTimeSeconds + Time.deltaTime, timeSeconds);
 
-        return currentTimeSeconds == timeSeconds && (key == KeyCode.None || Input.GetKeyDown(key));
+        if(currentTimeSeconds == timeSeconds && (key == KeyCode.None || Input.GetKeyDown(key)))
+        {
+            script_UIController.EraseTextMessage();
+            return true;
+        }
+
+        return false;
     }
 
     protected override Action CloneDerived()
     {
         DisplayTipAction clone = ScriptableObject.CreateInstance<DisplayTipAction>();
 
+        clone.tip = this.tip;
         clone.timeSeconds = this.timeSeconds;
         clone.key = this.key;
 

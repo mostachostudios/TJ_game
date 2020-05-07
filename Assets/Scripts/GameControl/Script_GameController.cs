@@ -87,7 +87,7 @@ public class Script_GameController : MonoBehaviour
                 SetPause();
             }
             // TODO TO BE REMOVED ONCE DEVELOPMENT IS FINISHED OR KEEP IF ENABLING A CHEATING MODE
-            else if ((Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus)))) 
+            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus))) 
             {
                 currentLevel++;
                 if(currentLevel == numLevels)
@@ -96,7 +96,7 @@ public class Script_GameController : MonoBehaviour
                 }
                 RestartLevel();
             }
-            else if ((Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadMinus) || Input.GetKeyUp(KeyCode.Minus))))
+            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadMinus) || Input.GetKeyUp(KeyCode.Minus)))
             {
                 currentLevel--;
                 if (currentLevel == 0)
@@ -130,7 +130,7 @@ public class Script_GameController : MonoBehaviour
     {
         m_paused = false;
         m_Script_PauseController.ResumeGame();
-        m_Script_UIController.HideTextMessage();
+        m_Script_UIController.EraseTextMessage();
     }
 
     /// <summary>

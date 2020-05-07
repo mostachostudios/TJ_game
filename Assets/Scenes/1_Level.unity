@@ -1644,7 +1644,8 @@ MonoBehaviour:
   parentState: {fileID: 1174344004}
   enabled: 1
   waitToFinish: 1
-  timeSeconds: 0
+  tip: Get closer to the red bag on the floor and jump over it using space key
+  timeSeconds: 7
   key: 32
 --- !u!1001 &90441857
 PrefabInstance:
@@ -3628,7 +3629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
+  enabled: 1
   waitToFinish: 1
   state: {fileID: 1174344004}
   enable: 1
@@ -4095,9 +4096,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
+  enabled: 1
   waitToFinish: 1
-  timeSeconds: 0
+  timeSeconds: 3
 --- !u!1001 &204034472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4635,8 +4636,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
-  waitToFinish: 1
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: 8005fdd3e7a5e3449ad0134da6d28305, type: 3}
+  dialogPosition: 1
+  timeBetweenMessage: 7
+  messages:
+  - ... Pues bien, como os estaba contado ...
+  - "No hay mejor forma de empezar del d\xEDa que yendo ..."
 --- !u!1001 &242648505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5000,6 +5007,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 253723836}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &256361978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9fe731166b4474dbbb8340c5090867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  timeSeconds: 5
 --- !u!1001 &258663406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6783,6 +6806,24 @@ Transform:
   m_Father: {fileID: 1861080303}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345740682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d891e76e88d1445bc7864826976209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  tip: Text tip
+  timeSeconds: 4
+  key: 0
 --- !u!1001 &349255901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7953,6 +7994,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 400560851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &402114278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9fe731166b4474dbbb8340c5090867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  timeSeconds: 2
 --- !u!1001 &407249104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8916,6 +8973,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.36
       objectReference: {fileID: 0}
+    - target: {fileID: 4461083806312818795, guid: 6b499b3481794be4bba2b6488b835384,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b4a8937dce13c7144bf58d59b107ddcd, type: 2}
     - target: {fileID: 6980159518385125263, guid: 6b499b3481794be4bba2b6488b835384,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9128,6 +9190,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 477450553}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &479957765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc386e1eb1c09249a60f32d1877048d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1174344004}
+  enabled: 1
+  waitToFinish: 1
+  debugMessage: Executing OnEnter JumpTip
 --- !u!1001 &482107921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9516,7 +9594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
+  enabled: 1
   waitToFinish: 1
   state: {fileID: 1918587537}
   enable: 0
@@ -10089,6 +10167,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 538167349}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &539211891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc386e1eb1c09249a60f32d1877048d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1174344004}
+  enabled: 1
+  waitToFinish: 1
+  debugMessage: Before Executing tip action
 --- !u!1001 &541519814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15695,7 +15789,7 @@ PrefabInstance:
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
@@ -18955,8 +19049,11 @@ MonoBehaviour:
   loop: 0
   onEnterActions:
   - {fileID: 2039049803}
+  - {fileID: 1480081703}
   - {fileID: 2047313663}
+  - {fileID: 479957765}
   actions:
+  - {fileID: 539211891}
   - {fileID: 88093062}
   onExitActions: []
   triggers:
@@ -18975,7 +19072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
   enabled: 1
-  waitToFinish: 1
+  waitToFinish: 0
   camera: {fileID: 831655714}
   target: {fileID: 1685147068}
   offsetTarget: {x: 0, y: 0.75, z: -0.5}
@@ -19625,8 +19722,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
-  waitToFinish: 1
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: 23a4d60d219187a4e8ae13002c92e519, type: 3}
+  dialogPosition: 0
+  timeBetweenMessage: 6
+  messages:
+  - EEH TU
+  - PISHA, DONDE VAS CON TANTA PRISA?
 --- !u!1001 &1226342459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22054,6 +22157,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 475312719}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393771352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: a3d8f83304beae4419a422d506e15b75, type: 3}
+  dialogPosition: 2
+  timeBetweenMessage: 5
+  messages:
+  - Esto es un muermo
 --- !u!1001 &1397208365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22508,6 +22631,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1405352449}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1405634346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9fe731166b4474dbbb8340c5090867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  timeSeconds: 7
 --- !u!4 &1411405956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3084841045080162511, guid: d34dbd699fa6bfc489f3cc2faa54beed,
@@ -22564,7 +22703,7 @@ PrefabInstance:
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
@@ -23470,6 +23609,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1478222149}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1480081703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1174344004}
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: c2e1f9a3cdd80c74f8a3b04a5c33d9ac, type: 3}
+  dialogPosition: 2
+  timeBetweenMessage: 15
+  messages:
+  - Oye Guapo. Que haces tu aqui?
 --- !u!1001 &1494663846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24044,7 +24203,7 @@ PrefabInstance:
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
@@ -25679,7 +25838,7 @@ MonoBehaviour:
   parentState: {fileID: 1918587537}
   enabled: 0
   waitToFinish: 1
-  timeSeconds: 1
+  timeSeconds: 3
 --- !u!1001 &1622782131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30205,7 +30364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1918587537}
-  enabled: 0
+  enabled: 1
   waitToFinish: 1
   debugMessage: Exit Initial_Flow State
 --- !u!114 &1918587537
@@ -30230,17 +30389,22 @@ MonoBehaviour:
   actions:
   - {fileID: 980600077}
   - {fileID: 635113106}
-  - {fileID: 203485070}
   - {fileID: 1175907094}
+  - {fileID: 203485070}
   - {fileID: 242348202}
+  - {fileID: 402114278}
+  - {fileID: 1393771352}
+  - {fileID: 256361978}
   - {fileID: 1420016197}
   - {fileID: 1324180635}
   - {fileID: 2062377001}
   - {fileID: 1232805002}
-  - {fileID: 1215352874}
   - {fileID: 1619132382}
+  - {fileID: 1215352874}
   - {fileID: 953906378}
   - {fileID: 1613167973}
+  - {fileID: 1405634346}
+  - {fileID: 345740682}
   - {fileID: 177958053}
   - {fileID: 1783670190}
   onExitActions:
@@ -32780,7 +32944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentState: {fileID: 1174344004}
-  enabled: 1
+  enabled: 0
   waitToFinish: 1
   timeSeconds: 4
 --- !u!1001 &2041414483

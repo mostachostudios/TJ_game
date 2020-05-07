@@ -75,7 +75,9 @@ public class Script_CheckpointsManager : MonoBehaviour
                 rewardMessage = "Great!! You can do it!";
             }
 
-            m_Script_UIController.SetTextMessage(rewardMessage, m_CheckpointDuration);
+            m_Script_UIController.SetTextMessage(rewardMessage);
+            m_Script_UIController.EraseTextMessage(m_CheckpointDuration);
+
             m_Script_Countdown.IncreaseTime();
             m_AudioSourceReward.Play();
             checkpoints[currentCheckpoint].SetActive(true);
