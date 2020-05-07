@@ -4642,8 +4642,8 @@ MonoBehaviour:
   dialogPosition: 1
   timeBetweenMessage: 7
   messages:
-  - ... Pues bien, como os estaba contado ...
-  - "No hay mejor forma de empezar del d\xEDa que yendo ..."
+  - A que no sabeis cual es vuestro peso en la Luna?
+  - El zumo de naranja, mejor antes de mediodia
 --- !u!1001 &242648505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8971,7 +8971,12 @@ PrefabInstance:
     - target: {fileID: 1291049372098815144, guid: 6b499b3481794be4bba2b6488b835384,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.36
+      value: 0.2866705
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291049372098815144, guid: 6b499b3481794be4bba2b6488b835384,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 4461083806312818795, guid: 6b499b3481794be4bba2b6488b835384,
         type: 3}
@@ -27030,7 +27035,7 @@ PrefabInstance:
     - target: {fileID: 2927613811301594139, guid: 1ea00d64991f34445b3584baea34c862,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31
+      value: 0.104
       objectReference: {fileID: 0}
     - target: {fileID: 2927613811301594139, guid: 1ea00d64991f34445b3584baea34c862,
         type: 3}

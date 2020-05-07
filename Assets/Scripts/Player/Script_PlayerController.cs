@@ -3,6 +3,8 @@
 // https://answers.unity.com/questions/578443/jumping-with-character-controller.html
 // https://docs.unity3d.com/es/530/ScriptReference/CharacterController.Move.html
 
+//https://docs.unity3d.com/Manual/class-CharacterController.html
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +24,7 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_dodgeSpeed = 1.3f;
     [SerializeField] float m_backwardWalkSpeed = 0.3f;
     [SerializeField] float m_pushSpeed = 0.6f;
-    [SerializeField] float m_jumpSpeed = 1.8f;
+    [SerializeField] float m_jumpSpeed = 2.5f;
 
     [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
