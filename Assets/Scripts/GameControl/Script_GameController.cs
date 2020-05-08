@@ -12,6 +12,8 @@ public class Script_GameController : MonoBehaviour
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
     [SerializeField] AudioClip m_AudioWin;
+    [Tooltip("Audio clip to be played when player passes to a next level")]
+    [SerializeField] AudioClip m_AudioNextLevel;
     [Tooltip("Audio clip to be played when player loses the game")]
     [SerializeField] AudioClip m_AudioLose;
     private AudioSource m_AudioSource;
@@ -30,8 +32,9 @@ public class Script_GameController : MonoBehaviour
 
     public enum EndOption
     {
-        Win,
-        Lose
+        Win, // Last level is completed
+        NextLevel, // Current level is completed (excluding last level)
+        Lose // Player lose in current level
     }
 
     void Awake()
@@ -151,33 +154,6 @@ public class Script_GameController : MonoBehaviour
         PauseGame(); 
     }
 
-    public void EndGame(EndOption option)
-    {
-        m_allow_pause = false;
-        
-        bool isRestartable = true;
-        string text = "";
-
-        switch (option)
-        {
-            case EndOption.Win:
-                text = "Congratulations\n\nYou managed to escape on time.";
-                m_AudioSource.clip = m_AudioWin;
-                isRestartable = false;
-                break;
-            case EndOption.Lose:
-                text = "GAME OVER\n\nSorry. You could not make it.";
-                m_AudioSource.clip = m_AudioLose;
-                isRestartable = true;
-                break;
-        }
-
-        m_Script_MenuController.EndingGameWindow(text, isRestartable);
-        PauseGame();
-
-        m_AudioSource.Play();
-    }
-
     public void RestartLevel(bool firstExec = false)
     {
         m_allow_pause = true;
@@ -205,17 +181,44 @@ public class Script_GameController : MonoBehaviour
 
     public void GoNextLevel()
     {
-        //SceneManager.GetActiveScene().buildIndex;
         currentLevel++;
         if (currentLevel >= numLevels)
         {
-            EndGame(EndOption.Win);
+            EndLevel(EndOption.Win);
         }
         else
         {
-            //Display Window Next level
-            RestartLevel();
+            EndLevel(EndOption.NextLevel);
         }
+    }
+
+    public void EndLevel(EndOption endOption)
+    {
+        m_allow_pause = false;
+
+        string text = "";
+
+        switch (endOption)
+        {
+            case EndOption.Win:
+                text = "Congratulations\n\nYou made it.";
+                m_AudioSource.clip = m_AudioWin;
+                break;
+            case EndOption.NextLevel:
+                text = "Congratulations\n\nYou managed to escape on time.";
+                m_AudioSource.clip = m_AudioNextLevel;
+                break;
+            case EndOption.Lose:
+                text = "GAME OVER\n\nSorry. You could not make it.";
+                m_AudioSource.clip = m_AudioLose;
+                break;
+        }
+
+        m_Script_MenuController.SetInfoMessage(text);
+        m_Script_MenuController.SetEndingLevelWindow(endOption);
+        PauseGame();
+
+        m_AudioSource.Play();
     }
 
     void ReloadWorld()

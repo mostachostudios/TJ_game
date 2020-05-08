@@ -58,7 +58,7 @@ public class Script_Countdown : MonoBehaviour
         m_PostProcessVolume.profile.TryGetSettings<ColorGrading>(out m_ColorGrading);
 
         m_Script_GameController = GameObject.FindWithTag("RootGame").GetComponent<Script_GameController>();
-        m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
+        m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>(); //TODO move to GameController
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class Script_Countdown : MonoBehaviour
         }
         else
         {
-            m_Script_GameController.EndGame(Script_GameController.EndOption.Lose);
+            m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose);
         }
     }
     void SetIntensity(AudioClip audioClip,  int saturation)

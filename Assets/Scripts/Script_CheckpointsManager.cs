@@ -61,7 +61,7 @@ public class Script_CheckpointsManager : MonoBehaviour
         }
         else
         {
-            string rewardMessage;
+            string rewardMessage; //TODO handle messages properly
             if(checkpoints.Count - currentCheckpoint == 1)
             {
                 rewardMessage = "Almost there!! Only one place to go!";
