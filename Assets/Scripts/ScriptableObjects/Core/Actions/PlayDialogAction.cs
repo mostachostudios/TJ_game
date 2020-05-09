@@ -21,8 +21,7 @@ public class PlayDialogAction : Action
             return true;
         }
 
-        script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>();
-
+        script_UIController = FindObjectOfType<Script_UIController>();
         currentMessage = 0; 
         currentTimeSeconds = .0f;
 

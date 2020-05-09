@@ -3269,7 +3269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a7325776050f94494aa780abdad63d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointDuration: 5
+  m_IncreaseTime: 40
+  m_CheckpointRewardDuration: 5
   m_AudioReward: {fileID: 8300000, guid: 5b4fea3045990324fb684713b7de1db5, type: 3}
 --- !u!1001 &162619662
 PrefabInstance:
@@ -25637,25 +25638,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1603538878}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1605756405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4b64213428d2b54194705dce75fc440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1947126725}
-  enabled: 1
-  waitToFinish: 1
-  audioSource: {fileID: 1826682811}
-  audioClip: {fileID: 8300000, guid: ebebdce244d2d4b4d9817ba95515b3e3, type: 3}
-  loop: 1
-  volume: 0.1
 --- !u!1001 &1612184753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28568,6 +28550,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1236601499}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1792939909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f855343ac30d74c98bc7026edd6d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  component: {fileID: 1072538252}
+  enable: 1
 --- !u!114 &1795388702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28820,7 +28819,6 @@ GameObject:
   - component: {fileID: 1826682809}
   - component: {fileID: 1826682811}
   - component: {fileID: 1826682808}
-  - component: {fileID: 1826682812}
   m_Layer: 8
   m_Name: World
   m_TagString: World
@@ -28841,7 +28839,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TimeLeft: 200
-  m_IncreaseTime: 40
   m_TickTock: {fileID: 8300000, guid: 956cfe3f1452319448d63107244ecd5d, type: 3}
   m_HeartBeatSlow: {fileID: 8300000, guid: 32f425dbeff24754a8afe94d21cbe2d7, type: 3}
   m_HeartBeatMid: {fileID: 8300000, guid: fc8b454e14b22ea4d8a9733d47f9cf33, type: 3}
@@ -28883,11 +28880,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 8f34dc9dfd1a31f459326494a06dd5ce, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -28969,22 +28966,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1826682812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826682807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b37d4963f797384490521ea2e064bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialState: {fileID: 1947126725}
-  states:
-  - {fileID: 1947126725}
-  instanceID: -515642
 --- !u!1001 &1827203731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30389,6 +30370,7 @@ MonoBehaviour:
   loop: 0
   onEnterActions:
   - {fileID: 306307672}
+  - {fileID: 2063961713}
   - {fileID: 734958357}
   - {fileID: 1417321817}
   actions:
@@ -30408,6 +30390,7 @@ MonoBehaviour:
   - {fileID: 1215352874}
   - {fileID: 953906378}
   - {fileID: 1613167973}
+  - {fileID: 1792939909}
   - {fileID: 1405634346}
   - {fileID: 345740682}
   - {fileID: 177958053}
@@ -30838,26 +30821,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1944347964}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1947126725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
-  m_Name: PlayAudio
-  m_EditorClassIdentifier: 
-  parentStateMachine: {fileID: 1826682812}
-  enabled: 1
-  loop: 1
-  onEnterActions: []
-  actions:
-  - {fileID: 1605756405}
-  onExitActions: []
-  triggers: []
 --- !u!1 &1949210295
 GameObject:
   m_ObjectHideFlags: 0
@@ -33276,6 +33239,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2063046378}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2063961713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f855343ac30d74c98bc7026edd6d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1918587537}
+  enabled: 1
+  waitToFinish: 1
+  component: {fileID: 1072538252}
+  enable: 0
 --- !u!1 &2064368519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6296259094581929731, guid: 84b04aff491bb6d4b98ab1eb8d009475,

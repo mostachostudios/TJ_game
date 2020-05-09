@@ -154,6 +154,17 @@ public class Script_GameController : MonoBehaviour
         PauseGame(); 
     }
 
+    public void DisplayCountdown(string text)
+    {
+        m_Script_UIController.SetTextCountdown(text);
+    }
+
+    public void DisplayMessage(string text, float time, bool isTip = false)
+    {
+        m_Script_UIController.SetTextMessage(text, isTip);
+        m_Script_UIController.EraseTextMessage(time);
+    }
+
     public void RestartLevel(bool firstExec = false)
     {
         m_allow_pause = true;

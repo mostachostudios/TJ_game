@@ -57,6 +57,8 @@ public class Script_PlayerController : MonoBehaviour
 
     private bool m_isOrbitCamera = true;
 
+    private bool m_ReadInput = true;
+
     void Awake()
     {
         m_characterController = gameObject.GetComponent<CharacterController>();
@@ -84,7 +86,7 @@ public class Script_PlayerController : MonoBehaviour
         m_AnimationStates.Add("isFalling");
         m_AnimationStates.Add("isFallingDown");
         m_AnimationStates.Add("isTerrified");
-        m_AnimationStates.Add("isSeatIdle");
+        //m_AnimationStates.Add("isSeatIdle");
         //m_AnimationStates.Add("isSitToStand");
 
         SetAnimatorState("isIdle");
@@ -95,7 +97,7 @@ public class Script_PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
+        if (m_ReadInput && !m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
         {
             ApplyAnimationAndMovement();
         }
@@ -460,5 +462,10 @@ public class Script_PlayerController : MonoBehaviour
     public void UsingOrbitCamera(bool activateOrbitCamera)
     {
         m_isOrbitCamera = activateOrbitCamera;
+    }
+
+    public void ReadInput(bool readInput)
+    {
+        m_ReadInput = readInput;
     }
 }

@@ -2965,8 +2965,8 @@ MonoBehaviour:
   m_RotationSpeed: 1.7
   m_Distance: -2.5
   m_FlatDistance: 2
-  isInitialOrbit: 1
-  allowChangeCamera: 1
+  m_isInitialOrbit: 0
+  m_allowChangeCamera: 1
 --- !u!1 &7927945087601756854
 GameObject:
   m_ObjectHideFlags: 0

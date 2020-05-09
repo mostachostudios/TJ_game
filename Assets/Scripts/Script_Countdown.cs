@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 public class Script_Countdown : MonoBehaviour
@@ -9,8 +6,6 @@ public class Script_Countdown : MonoBehaviour
     [Header("Settings")]
     [Tooltip("Remaining time available")] 
     [SerializeField] float m_TimeLeft = 120.0f;
-    [Tooltip("Time added to TimeLeft each time user gets to a at check point")]
-    [SerializeField] float m_IncreaseTime = 40.0f;
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip m_TickTock;
@@ -37,8 +32,10 @@ public class Script_Countdown : MonoBehaviour
     private AudioSource m_AudioSourceTickTock;
     private PostProcessVolume m_PostProcessVolume; // Reference to Post Process Volume added at runtime
     private ColorGrading m_ColorGrading; // Reference used to update saturation color in PostProcess
+    
     private Script_GameController m_Script_GameController;
-    private Script_UIController m_Script_UIController;
+
+    private bool m_Frozen = false;
 
     void Start()
     {
@@ -57,21 +54,23 @@ public class Script_Countdown : MonoBehaviour
         // https://answers.unity.com/questions/1355103/modifying-the-new-post-processing-stack-through-co.html
         m_PostProcessVolume.profile.TryGetSettings<ColorGrading>(out m_ColorGrading);
 
-        m_Script_GameController = GameObject.FindWithTag("RootGame").GetComponent<Script_GameController>();
-        m_Script_UIController = GameObject.FindWithTag("UI").GetComponent<Script_UIController>(); //TODO move to GameController
+        m_Script_GameController = FindObjectOfType<Script_GameController>();
     }
 
     void Update()
     {
-        m_TimeLeft -= Time.deltaTime;
-        m_Script_UIController.SetTextCountdown((m_TimeLeft).ToString("0"));
+        if (!m_Frozen)
+        {
+            m_TimeLeft -= Time.deltaTime;
+            m_Script_GameController.DisplayCountdown((m_TimeLeft).ToString("0"));
 
-        //if (!m_AudioSourceTickTock.isPlaying)
-        //{
-        //    m_AudioSourceTickTock.Play();
-        //}
+            //if (!m_AudioSourceTickTock.isPlaying)
+            //{
+            //    m_AudioSourceTickTock.Play();
+            //}
 
-        CheckRemainingTime();
+            CheckRemainingTime();
+        }
     }
 
     void CheckRemainingTime()
@@ -110,14 +109,19 @@ public class Script_Countdown : MonoBehaviour
         }
     }
 
-    public void IncreaseTime()
+    public void IncreaseTime(float time)
     {
-        m_TimeLeft += m_IncreaseTime;
+        m_TimeLeft += time;
     }
 
     public void DecreaseTime(float time)
     {
         m_TimeLeft -= time;
+    }
+
+    public void Freeze(bool active)
+    {
+        m_Frozen = active;
     }
 }
 

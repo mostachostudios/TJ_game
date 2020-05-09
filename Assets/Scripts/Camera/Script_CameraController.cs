@@ -19,10 +19,13 @@ public class Script_CameraController : MonoBehaviour
     private float m_mouseX = 0f;
     private float m_mouseY = 18f;
 
-    [SerializeField] bool isInitialOrbit = true;
-    [SerializeField] bool allowChangeCamera = true;
+    [SerializeField] bool m_isInitialOrbit = true;
+    [SerializeField] bool m_allowChangeCamera = true;
 
     private bool m_isOrbit;
+
+    private bool m_ReadInput = true;
+
     void Awake()
     {
         m_Player = GameObject.FindWithTag("Player");
@@ -32,7 +35,7 @@ public class Script_CameraController : MonoBehaviour
 
     void Start()
     {
-        if (isInitialOrbit)
+        if (m_isInitialOrbit)
         {
             SetOrbitCamera();
         }
@@ -44,7 +47,7 @@ public class Script_CameraController : MonoBehaviour
 
     void Update()
     {
-        if (allowChangeCamera)
+        if (m_ReadInput && m_allowChangeCamera)
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
@@ -59,13 +62,16 @@ public class Script_CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (m_isOrbit)
+        if (m_ReadInput)
         {
-            OrbitCameraControl();
-        }
-        else
-        {
-            ZenitCameraControl();
+            if (m_isOrbit)
+            {
+                OrbitCameraControl();
+            }
+            else
+            {
+                ZenitCameraControl();
+            }
         }
     }
 
@@ -146,4 +152,10 @@ public class Script_CameraController : MonoBehaviour
             SetZenitCamera();
         }
     }
+
+    public void ReadInput(bool readInput)
+    {
+        m_ReadInput = readInput;
+    }
+
 }
