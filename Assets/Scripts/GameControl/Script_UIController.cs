@@ -38,7 +38,12 @@ public class Script_UIController : MonoBehaviour
         m_TextCountdown.text = text;
     }
 
-    public void SetDialog(Dialog dialog)
+    /// <summary>
+    /// If time = 0, then dialog won't be erased
+    /// </summary>
+    /// <param name="dialog"></param>
+    /// <param name="time"></param>
+    public void SetDialog(Dialog dialog, float time = 0f)
     {
         switch (dialog.m_DialogPosition)
         {
@@ -67,10 +72,27 @@ public class Script_UIController : MonoBehaviour
             m_AudioSource.clip = m_AudioDisplayDialog;
             m_AudioSource.Play();
         }
+
+        if (time > 0f)
+        {
+            StartCoroutine(EraseDialogRoutine(dialog, time));
+        }
     }
 
-    public void EraseDialog(Dialog dialog)
+    /// <summary>
+    /// If time = 0, then dialog will be immediately erased
+    /// </summary>
+    /// <param name="dialog"></param>
+    /// <param name="time"></param>
+    public void EraseDialog(Dialog dialog, float time = 0f)
     {
+        StartCoroutine(EraseDialogRoutine(dialog, time));
+    }
+
+    IEnumerator EraseDialogRoutine(Dialog dialog, float time)
+    {
+        yield return new WaitForSeconds(time);
+
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
@@ -89,6 +111,8 @@ public class Script_UIController : MonoBehaviour
                 m_TextName3.text = "";
                 break;
         }
+
+        yield return null;
     }
 
     /// <summary>
@@ -116,20 +140,14 @@ public class Script_UIController : MonoBehaviour
     /// <param name="time"></param>
     public void EraseTextMessage(float time = 0.0f)
     {
-        if (time > 0.0f)
-        {
-            StartCoroutine(EraseText(time));
-        }
-        else
-        {
-            m_TextMessage.text = "";
-        }
+        StartCoroutine(EraseText(time));
     }
 
     IEnumerator EraseText(float time)
     {
         yield return new WaitForSeconds(time);
         m_TextMessage.text = "";
+        yield return null;
     }
 
     public void ClearUI()

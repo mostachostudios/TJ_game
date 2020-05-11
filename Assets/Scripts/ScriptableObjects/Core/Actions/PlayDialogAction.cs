@@ -14,6 +14,8 @@ public class PlayDialogAction : Action
     private int currentMessage = 0;
     private Script_UIController script_UIController;
 
+    private float epsilon = 0.05f;
+
     protected override bool StartDerived()
     {
         if(messages.Count == 0) // No messages
@@ -30,7 +32,10 @@ public class PlayDialogAction : Action
         dialog.m_Text = messages[currentMessage];
         dialog.m_DialogPosition = dialogPosition;
 
-        script_UIController.SetDialog(dialog); // Write Dialog
+        // Write Dialog. Needs to set time here in case Action gets interrupted. Besides, a small epsilon value has been substracted from time
+        // in order to prevent overlapping with the next dialogue, (Text might be deleted just after it was written, depending on execution order of coroutines in SetDialog) 
+        script_UIController.SetDialog(dialog, timeBetweenMessage - epsilon); 
+
         currentMessage++;
 
         return false;
@@ -44,7 +49,6 @@ public class PlayDialogAction : Action
         {
             if (currentMessage == messages.Count) // No remaining messages
             {
-                script_UIController.EraseDialog(dialog); // Clear dialog
                 return true;
             }
             else
@@ -52,8 +56,7 @@ public class PlayDialogAction : Action
                 currentTimeSeconds = .0f;
 
                 dialog.m_Text = messages[currentMessage];
-                script_UIController.SetDialog(dialog);
-
+                script_UIController.SetDialog(dialog, timeBetweenMessage - epsilon);
                 currentMessage++;
             }
         }
