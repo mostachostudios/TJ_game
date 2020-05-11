@@ -10,14 +10,13 @@ using System.Collections;
 //[ExecuteAlways]
 public class Script_EnemyPerception : MonoBehaviour
 {
-	private bool m_PlayerDetected;
-
+	[SerializeField] bool m_PlayerDetected;
 
 	[Header("Sight")]
 	[SerializeField] float m_ViewDistance = 2f;
 	[SerializeField] [Range(0.01f, 179f)] float m_ViewAngle = 90f;
 	[Header("Hearing")]
-	[SerializeField] bool m_RenderArea = true;
+	[SerializeField] bool m_RenderHearingArea = true;
 	[Tooltip("Minimun speed player movement that can be heard")]
 	[SerializeField] float m_HearMinSpeed = 0.31f;
 	[Tooltip("Inner hearing radius - Player is detected immediately if moving over Hear Min Speed")]
@@ -41,6 +40,7 @@ public class Script_EnemyPerception : MonoBehaviour
 	private GameObject m_Player;
 	private Script_PlayerController m_Script_PlayerController;
 
+	private bool m_RenderArea = true;
 	private void Awake()
 	{
 		m_HearDistanceFar = Mathf.Max(m_HearDistanceFar, m_HearDistanceClose);
@@ -65,7 +65,7 @@ public class Script_EnemyPerception : MonoBehaviour
 
 		foreach(var projector in m_Projectors)
 		{
-			projector.enabled = m_RenderArea;
+			projector.enabled = m_RenderHearingArea && m_RenderArea;
 		}
 
 	}
@@ -89,7 +89,7 @@ public class Script_EnemyPerception : MonoBehaviour
 
 		foreach (var projector in m_Projectors)
 		{
-			projector.enabled = m_RenderArea;
+			projector.enabled = m_RenderHearingArea && m_RenderArea;
 		}
 		//		}
 		//#endif
@@ -177,9 +177,19 @@ public class Script_EnemyPerception : MonoBehaviour
 				GradientColorHearFar();
 			}
 
-			//TODO
-			//if (m_PlayerDetected) // set here chase state
-			// else // set here patrol state
+			//TODO Check if should keep rendering areas or not
+			if (m_PlayerDetected)
+			{
+				m_RenderArea = false;
+				m_Script_ConeOfSightRenderer.SetRenderingCone(false);
+				// set here chase state
+			}
+			else 
+			{
+				m_RenderArea = true;
+				m_Script_ConeOfSightRenderer.SetRenderingCone(true);
+				// set here patrol state
+			}
 		}
 	}
 
@@ -192,7 +202,9 @@ public class Script_EnemyPerception : MonoBehaviour
 			m_EnteredHearFar = false;
 			m_FinishedHearFar = false;
 			m_PlayerDetected = false;
-			// TODO set here patrol state
+			m_RenderArea = true;
+			m_Script_ConeOfSightRenderer.SetRenderingCone(true);
+			// set here patrol state
 		}
 	}
 
@@ -215,6 +227,11 @@ public class Script_EnemyPerception : MonoBehaviour
 	public bool IsPlayerDetected()
 	{
 		return m_PlayerDetected;
+	}
+
+	public void SetRenderingHearingArea(bool active)
+	{
+		m_RenderHearingArea = active;
 	}
 
 	private void OnEnable()

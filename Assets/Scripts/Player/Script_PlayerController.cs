@@ -95,7 +95,7 @@ public class Script_PlayerController : MonoBehaviour
         m_Speed = 0.0f;
     }
 
-    void Update()
+    void Update() // TODO check if should update movement in LateUpdate
     {
         if (m_ReadInput && !m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
         {
@@ -187,6 +187,8 @@ public class Script_PlayerController : MonoBehaviour
             {
                 movement = transform.forward;
             }
+
+            movement.Normalize();
 
             if (!m_isOrbitCamera)
             {

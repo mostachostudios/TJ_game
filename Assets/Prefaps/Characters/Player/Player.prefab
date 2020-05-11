@@ -556,7 +556,7 @@ MonoBehaviour:
   m_gravity: -9.81
   m_pushPower: 20
   m_walkSpeed: 1
-  m_runSpeed: 2
+  m_runSpeed: 2.5
   m_stealthSpeed: 0.1
   m_crawlSpeed: 0.25
   m_crouchSpeed: 0.4

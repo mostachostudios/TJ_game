@@ -1508,6 +1508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9558f11be20c67441ba34ac7f40d62c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RenderCone: 1
   m_ViewCamera: {fileID: 6691838883910654204}
   m_ScaledViewDistance: 2.31855
   m_ViewDistance: 11.31
@@ -1645,9 +1646,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5262162597782656347}
+  - component: {fileID: -7663173875501417818}
   - component: {fileID: 899666379235868227}
   - component: {fileID: 2173585876734443787}
   - component: {fileID: 1584248799370673429}
+  - component: {fileID: 6382915208170756523}
   - component: {fileID: 8689343150989910651}
   m_Layer: 17
   m_Name: sport guy
@@ -1675,6 +1678,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &-7663173875501417818
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177681660583896904}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &899666379235868227
 Animator:
   serializedVersion: 3
@@ -1685,7 +1710,7 @@ Animator:
   m_GameObject: {fileID: 9177681660583896904}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 958e5430ea880d2429a005fa8ed400cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: a19d03effe5b1a64a9dce086a72cac44, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1721,6 +1746,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 11.31
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!114 &6382915208170756523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177681660583896904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2eaef4b7b07441a47d31182ba8fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1.5
+  runSpeed: 2.6
 --- !u!114 &8689343150989910651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,18 +1772,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca3bbe1047ccb8499d1507e21a89b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ViewDistance: 11.31
-  m_ViewAngle: 95
+  m_PlayerDetected: 0
+  m_ViewDistance: 79.7
+  m_ViewAngle: 139
+  m_RenderHearingArea: 1
   m_HearMinSpeed: 0.31
-  m_HearDistanceClose: 4.22
-  m_HearDistanceFar: 8.57
+  m_HearDistanceClose: 17.8
+  m_HearDistanceFar: 37.98
   m_DurationHearFar: 10
   m_EnteredHearFar: 0
   m_FinishedHearFar: 0
   m_GradientHearFar:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 0, a: 1}
+    key1: {r: 1, g: 0.16470589, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
