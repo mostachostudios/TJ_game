@@ -10,6 +10,7 @@ public class Script_Starter : MonoBehaviour
     private int startSceneIndex = -1;
     void Awake()
     {
+        // Singleton pattern
         if(FindObjectsOfType<Script_Starter>().Length > 1)
         {
             Destroy(gameObject);

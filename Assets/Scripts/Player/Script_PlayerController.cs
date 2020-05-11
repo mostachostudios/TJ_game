@@ -3,6 +3,8 @@
 // https://answers.unity.com/questions/578443/jumping-with-character-controller.html
 // https://docs.unity3d.com/es/530/ScriptReference/CharacterController.Move.html
 
+//https://docs.unity3d.com/Manual/class-CharacterController.html
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +24,7 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_dodgeSpeed = 1.3f;
     [SerializeField] float m_backwardWalkSpeed = 0.3f;
     [SerializeField] float m_pushSpeed = 0.6f;
-    [SerializeField] float m_jumpSpeed = 1.8f;
+    [SerializeField] float m_jumpSpeed = 2.5f;
 
     [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
@@ -55,6 +57,8 @@ public class Script_PlayerController : MonoBehaviour
 
     private bool m_isOrbitCamera = true;
 
+    private bool m_ReadInput = true;
+
     void Awake()
     {
         m_characterController = gameObject.GetComponent<CharacterController>();
@@ -82,7 +86,7 @@ public class Script_PlayerController : MonoBehaviour
         m_AnimationStates.Add("isFalling");
         m_AnimationStates.Add("isFallingDown");
         m_AnimationStates.Add("isTerrified");
-        m_AnimationStates.Add("isSeatIdle");
+        //m_AnimationStates.Add("isSeatIdle");
         //m_AnimationStates.Add("isSitToStand");
 
         SetAnimatorState("isIdle");
@@ -91,9 +95,9 @@ public class Script_PlayerController : MonoBehaviour
         m_Speed = 0.0f;
     }
 
-    void Update()
+    void Update() // TODO check if should update movement in LateUpdate
     {
-        if (!m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
+        if (m_ReadInput && !m_isPlayerFrozen) // If m_isPlayerFrozen is true then it is either falling or terrified (so it will ignore player's input)
         {
             ApplyAnimationAndMovement();
         }
@@ -183,6 +187,8 @@ public class Script_PlayerController : MonoBehaviour
             {
                 movement = transform.forward;
             }
+
+            movement.Normalize();
 
             if (!m_isOrbitCamera)
             {
@@ -458,5 +464,10 @@ public class Script_PlayerController : MonoBehaviour
     public void UsingOrbitCamera(bool activateOrbitCamera)
     {
         m_isOrbitCamera = activateOrbitCamera;
+    }
+
+    public void ReadInput(bool readInput)
+    {
+        m_ReadInput = readInput;
     }
 }

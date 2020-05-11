@@ -1676,9 +1676,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8393535629250043623}
+  - component: {fileID: -2063864653743288185}
   - component: {fileID: 7156647110105112126}
   - component: {fileID: 6546832122255735115}
   - component: {fileID: 5731722952811587963}
+  - component: {fileID: -479987362559427467}
   - component: {fileID: 1785725507146582327}
   m_Layer: 17
   m_Name: Jasper
@@ -1712,6 +1714,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &-2063864653743288185
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764964501925555444}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &7156647110105112126
 Animator:
   serializedVersion: 3
@@ -1722,7 +1746,7 @@ Animator:
   m_GameObject: {fileID: 4764964501925555444}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf0260caed173964bbd9569d75de95a2, type: 2}
+  m_Controller: {fileID: 9100000, guid: fe3a78b986623eb4ca65599ca0df4171, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1758,6 +1782,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.48
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!114 &-479987362559427467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764964501925555444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2eaef4b7b07441a47d31182ba8fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+  runSpeed: 1.6
 --- !u!114 &1785725507146582327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,18 +1808,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca3bbe1047ccb8499d1507e21a89b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ViewDistance: 2.48
-  m_ViewAngle: 68
-  m_HearMinSpeed: 0.31
-  m_HearDistanceClose: 1
-  m_HearDistanceFar: 2.04
+  m_PlayerDetected: 0
+  m_ViewDistance: 13.96
+  m_ViewAngle: 100
+  m_RenderHearingArea: 1
+  m_HearMinSpeed: 0.5
+  m_HearDistanceClose: 1.73
+  m_HearDistanceFar: 4.45
   m_DurationHearFar: 10
   m_EnteredHearFar: 0
   m_FinishedHearFar: 0
   m_GradientHearFar:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 0, a: 1}
+    key1: {r: 1, g: 0.16470589, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2501,6 +2541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9558f11be20c67441ba34ac7f40d62c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RenderCone: 1
   m_ViewCamera: {fileID: 6907031608735423031}
   m_ScaledViewDistance: 2.232
   m_ViewDistance: 2.48
