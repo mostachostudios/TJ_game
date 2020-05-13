@@ -6,7 +6,6 @@
 //https://docs.unity3d.com/Manual/class-CharacterController.html
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Script_PlayerController : MonoBehaviour
@@ -40,10 +39,8 @@ public class Script_PlayerController : MonoBehaviour
     private CharacterController m_characterController;
     private Animator m_animator;
 
-    //private Vector3 m_movement;
     private float m_ySpeed;
     private float m_Speed;
-    private List<string> m_AnimationStates;
     // TODO save current's player state somewhere (so it can be checked from outside)
 
     private bool m_isPushing = false;
@@ -70,26 +67,8 @@ public class Script_PlayerController : MonoBehaviour
         m_initColliderRadius = m_characterController.radius;
         m_initColliderHeight = m_characterController.height;
         m_initColliderCenter = m_characterController.center;
-        
-        m_AnimationStates = new List<string>();
-        m_AnimationStates.Add("isIdle");
-        m_AnimationStates.Add("isPushing");
-        m_AnimationStates.Add("isWalking");
-        m_AnimationStates.Add("isRunning");
-        m_AnimationStates.Add("isStealth");
-        m_AnimationStates.Add("isCrouchIdle");
-        m_AnimationStates.Add("isCrouchWalking");
-        m_AnimationStates.Add("isCrawling");
-        m_AnimationStates.Add("isDodgingLeft"); // Not available in Zenith Camera
-        m_AnimationStates.Add("isDodgingRight"); // Not available in Zenith Camera
-        m_AnimationStates.Add("isBackwardWalking"); // Not available in Zenith Camera
-        m_AnimationStates.Add("isFalling");
-        m_AnimationStates.Add("isFallingDown");
-        m_AnimationStates.Add("isTerrified");
-        //m_AnimationStates.Add("isSeatIdle");
-        //m_AnimationStates.Add("isSitToStand");
 
-        SetAnimatorState("isIdle");
+        Utils.SetAnimatorParameterByName(m_animator, "isIdle");
 
         m_ySpeed = 0.0f;
         m_Speed = 0.0f;
@@ -139,15 +118,15 @@ public class Script_PlayerController : MonoBehaviour
             }
             else
             {
-                if (m_isOrbitCamera && horizontal > 0f)
+                if (m_isOrbitCamera && horizontal > 0f) // Not available in Zenith Camera
                 {
                     MoveDodgeRight(direction);
                 }
-                else if (m_isOrbitCamera && horizontal < 0f)
+                else if (m_isOrbitCamera && horizontal < 0f) // Not available in Zenith Camera
                 {
                     MoveDodgeLeft(direction);
                 }
-                else if (m_isOrbitCamera && vertical < 0f)
+                else if (m_isOrbitCamera && vertical < 0f) // Not available in Zenith Camera
                 {
                     MoveBackwards(direction);
                 }
@@ -263,7 +242,7 @@ public class Script_PlayerController : MonoBehaviour
     public void MovePush(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        SetAnimatorState("isPushing");
+        Utils.SetAnimatorParameterByName(m_animator, "isPushing");
         m_Speed = m_pushSpeed;
         MoveCharacther(direction);
     }
@@ -271,7 +250,7 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveStealth(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        SetAnimatorState("isStealth");
+        Utils.SetAnimatorParameterByName(m_animator, "isStealth");
         m_Speed = m_stealthSpeed;
         MoveCharacther(direction);
     }
@@ -279,7 +258,7 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveCrawl(Vector3 direction = new Vector3())
     {
         SetCrawlCollider();
-        SetAnimatorState("isCrawling");
+        Utils.SetAnimatorParameterByName(m_animator, "isCrawling");
         m_Speed = m_crawlSpeed;
         MoveCharacther(direction);
     }
@@ -287,7 +266,7 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveCrouch(Vector3 direction = new Vector3())
     {
         SetCrouchCollider();
-        SetAnimatorState("isCrouchWalking");
+        Utils.SetAnimatorParameterByName(m_animator, "isCrouchWalking");
         m_Speed = m_crouchSpeed;
         MoveCharacther(direction);
     }
@@ -295,7 +274,7 @@ public class Script_PlayerController : MonoBehaviour
     private void MoveDodgeLeft(Vector3 direction)
     {
         ResetCollider();
-        SetAnimatorState("isDodgingLeft");
+        Utils.SetAnimatorParameterByName(m_animator, "isDodgingLeft");
         m_Speed = m_dodgeSpeed;
         MoveCharacther(direction);
     }
@@ -303,7 +282,7 @@ public class Script_PlayerController : MonoBehaviour
     private void MoveDodgeRight(Vector3 direction)
     {
         ResetCollider();
-        SetAnimatorState("isDodgingRight");
+        Utils.SetAnimatorParameterByName(m_animator, "isDodgingRight");
         m_Speed = m_dodgeSpeed;
         MoveCharacther(direction);
     }
@@ -311,7 +290,7 @@ public class Script_PlayerController : MonoBehaviour
     private void MoveBackwards(Vector3 direction)
     {
         ResetCollider();
-        SetAnimatorState("isBackwardWalking");
+        Utils.SetAnimatorParameterByName(m_animator, "isBackwardWalking");
         m_Speed = m_backwardWalkSpeed;
         MoveCharacther(direction);
     }
@@ -320,7 +299,7 @@ public class Script_PlayerController : MonoBehaviour
     {
         ResetCollider();
         CheckJumping();
-        SetAnimatorState("isRunning");
+        Utils.SetAnimatorParameterByName(m_animator, "isRunning");
         m_Speed = m_runSpeed;
         MoveCharacther(direction);
     }
@@ -329,7 +308,7 @@ public class Script_PlayerController : MonoBehaviour
     {
         ResetCollider();
         CheckJumping();
-        SetAnimatorState("isWalking");
+        Utils.SetAnimatorParameterByName(m_animator, "isWalking");
         m_Speed = m_walkSpeed;
         MoveCharacther(direction);
     }
@@ -337,7 +316,7 @@ public class Script_PlayerController : MonoBehaviour
     public void SetCrouch()
     {
         SetCrouchCollider();
-        SetAnimatorState("isCrouchIdle");
+        Utils.SetAnimatorParameterByName(m_animator, "isCrouchIdle");
         m_Speed = 0f;
         MoveCharacther(Vector3.zero);
     }
@@ -346,7 +325,7 @@ public class Script_PlayerController : MonoBehaviour
     {
         ResetCollider();
         CheckJumping();
-        SetAnimatorState("isIdle");
+        Utils.SetAnimatorParameterByName(m_animator, "isIdle");
         m_Speed = 0f;
         MoveCharacther(Vector3.zero);
     }
@@ -355,7 +334,8 @@ public class Script_PlayerController : MonoBehaviour
     {
         if (m_characterController.isGrounded)
         {
-            m_animator.SetTrigger("isJumping");
+            // m_animator.SetTrigger("isJumping");
+            Utils.SetAnimatorParameterByName(m_animator, "isJumping");
             m_isJumping = true;
         }
     }
@@ -372,7 +352,7 @@ public class Script_PlayerController : MonoBehaviour
     public float SetFalling()
     {
         m_isPlayerFrozen = true;
-        SetAnimatorState("isFalling");
+        Utils.SetAnimatorParameterByName(m_animator, "isFalling");
         m_Speed = 0f;
         StartCoroutine(WaitUntilNotFrozen(m_TimeFalling));
         return m_TimeFalling;
@@ -381,7 +361,7 @@ public class Script_PlayerController : MonoBehaviour
     public float SetFallingDown()
     {
         m_isPlayerFrozen = true;
-        SetAnimatorState("isFallingDown");
+        Utils.SetAnimatorParameterByName(m_animator, "isFallingDown");
         m_Speed = 0f;
         StartCoroutine(WaitUntilNotFrozen(m_TimeFallingDown));
         return m_TimeFallingDown;
@@ -390,7 +370,7 @@ public class Script_PlayerController : MonoBehaviour
     public float SetTerrified()
     {
         m_isPlayerFrozen = true;
-        SetAnimatorState("isTerrified");
+        Utils.SetAnimatorParameterByName(m_animator, "isTerrified");
         m_Speed = 0f;
         StartCoroutine(WaitUntilNotFrozen(m_TimeTerrified));
         return m_TimeTerrified;
@@ -401,15 +381,6 @@ public class Script_PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeFrozen);
         m_isPlayerFrozen = false;
         yield return null;
-    }
-
-    public void SetAnimatorState(string state)
-    {
-        foreach (string entry in m_AnimationStates)
-        {
-            m_animator.SetBool(entry, false);
-        }
-        m_animator.SetBool(state, true);
     }
 
     private void SetCrouchCollider()

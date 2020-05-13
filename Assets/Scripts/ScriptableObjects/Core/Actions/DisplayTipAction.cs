@@ -11,10 +11,14 @@ public class DisplayTipAction : Action
     private float currentTimeSeconds;
     private Script_UIController script_UIController;
 
+    private float epsilon = 0.05f;
     protected override bool StartDerived()
     {
         script_UIController = FindObjectOfType<Script_UIController>();
         script_UIController.SetTextMessage(tip, true);
+        script_UIController.EraseTextMessage(timeSeconds - epsilon);
+        //A small epsilon time has been substracted from time, in case a DisplayTipAction is just called after this one,
+        // maybe resulting in deleting it just after writing the message, depeding on Coroutines execution order
 
         currentTimeSeconds = .0f;
 
@@ -28,7 +32,6 @@ public class DisplayTipAction : Action
 
         if(currentTimeSeconds == timeSeconds && (key == KeyCode.None || Input.GetKeyDown(key)))
         {
-            script_UIController.EraseTextMessage();
             return true;
         }
 

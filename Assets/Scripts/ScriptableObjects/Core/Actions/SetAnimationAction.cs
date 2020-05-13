@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 public class SetAnimationAction : Action
 {
@@ -8,36 +7,7 @@ public class SetAnimationAction : Action
 
     protected override bool StartDerived()
     {
-        if (animator == null)
-        {
-            throw new UnityEngine.UnityException("Animator is null");
-        }
-
-        if (animationParameterName == null)
-        {
-            throw new UnityEngine.UnityException("Animator parameter name is null");
-        }
-
-        AnimatorControllerParameter animationParameter = Array.Find(animator.parameters, parameter => parameter.name == animationParameterName);
-
-        if (animationParameter == null)
-        {
-            throw new UnityEngine.UnityException("Animator parameter couldn't be found");
-        }
-
-        switch (animationParameter.type)
-        {
-            case AnimatorControllerParameterType.Bool:
-                {
-                    animator.SetBool(animationParameter.nameHash, true);
-                    break;
-                }
-            case AnimatorControllerParameterType.Trigger:
-                {
-                    animator.SetTrigger(animationParameter.nameHash);
-                    break;
-                }
-        }
+        Utils.SetAnimatorParameterByName(animator, animationParameterName);
 
         return false;
     }

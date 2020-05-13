@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//https://docs.unity3d.com/ScriptReference/Object.DontDestroyOnLoad.html
+//https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager-sceneLoaded.html
+//https://forum.unity.com/threads/detect-when-scene-has-fully-loaded.532558/
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Script_GameController : MonoBehaviour
