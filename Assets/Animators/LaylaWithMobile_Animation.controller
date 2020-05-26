@@ -31,7 +31,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LaylaWithMobile_AnimationTestLoop
+  m_Name: LaylaWithMobile_Animation
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -126,7 +126,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: Texting
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

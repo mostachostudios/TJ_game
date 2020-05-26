@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class Utils : ScriptableObject
+public class Utils
 {
     public static void SetAnimatorParameterByName(Animator animator, string parameterName)
     {
