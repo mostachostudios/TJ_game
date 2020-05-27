@@ -39,10 +39,11 @@ public class Script_Countdown : MonoBehaviour
 
     void Start()
     {
-        //m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
-        //m_AudioSourceTickTock.playOnAwake = false;
-        //m_AudioSourceTickTock.clip = m_TickTock;
-        //m_AudioSourceTickTock.volume = 0.2f;
+        m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
+        m_AudioSourceTickTock.playOnAwake = false;
+        m_AudioSourceTickTock.clip = m_TickTock;
+        m_AudioSourceTickTock.volume = 0.2f;
+
         m_AudioSourceHeartBeat = gameObject.AddComponent<AudioSource>();
         m_AudioSourceHeartBeat.playOnAwake = false;
 
@@ -63,11 +64,6 @@ public class Script_Countdown : MonoBehaviour
         {
             m_TimeLeft -= Time.deltaTime;
             m_Script_GameController.DisplayCountdown((m_TimeLeft).ToString("0"));
-
-            //if (!m_AudioSourceTickTock.isPlaying)
-            //{
-            //    m_AudioSourceTickTock.Play();
-            //}
 
             CheckRemainingTime();
         }
@@ -122,6 +118,26 @@ public class Script_Countdown : MonoBehaviour
     public void Freeze(bool active)
     {
         m_Frozen = active;
+    }
+
+    private void OnEnable()
+    {
+        if (m_Script_GameController && m_AudioSourceTickTock) 
+        {
+            m_Script_GameController.ShowCountdown(true);
+            if (!m_AudioSourceTickTock.isPlaying) // play one clock tick
+            {
+                m_AudioSourceTickTock.Play();
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (m_Script_GameController)
+        {
+            m_Script_GameController.ShowCountdown(false);
+        }
     }
 }
 

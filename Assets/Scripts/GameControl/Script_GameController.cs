@@ -162,6 +162,11 @@ public class Script_GameController : MonoBehaviour
         m_Script_UIController.SetTextCountdown(text);
     }
 
+    public void ShowCountdown(bool show)
+    {
+        m_Script_UIController.ShowCountdown(show);
+    }
+
     public void DisplayMessage(string text, float time, bool isTip = false)
     {
         m_Script_UIController.SetTextMessage(text, isTip);

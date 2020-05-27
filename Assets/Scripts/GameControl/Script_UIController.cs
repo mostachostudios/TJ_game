@@ -6,6 +6,7 @@ public class Script_UIController : MonoBehaviour
 {
     [SerializeField] Text m_TextMessage;
     [SerializeField] Text m_TextCountdown;
+    [SerializeField] Image m_ImageCountdown;
 
     [SerializeField] Image m_Avatar1;
     [SerializeField] Text m_TextName1;
@@ -36,6 +37,12 @@ public class Script_UIController : MonoBehaviour
     public void SetTextCountdown(string text)
     {
         m_TextCountdown.text = text;
+    }
+
+    public void ShowCountdown(bool show)
+    {
+        m_TextCountdown.enabled = show;
+        m_ImageCountdown.enabled = show;
     }
 
     /// <summary>

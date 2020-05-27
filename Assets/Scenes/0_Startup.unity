@@ -2494,6 +2494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TextMessage: {fileID: 1654637530}
   m_TextCountdown: {fileID: 627405057}
+  m_ImageCountdown: {fileID: 1972174638}
   m_Avatar1: {fileID: 1700739439}
   m_TextName1: {fileID: 971150113}
   m_TextDialog1: {fileID: 1374031916}
