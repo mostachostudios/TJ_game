@@ -21,7 +21,7 @@ public class Script_Starter : MonoBehaviour
             Scene currentScene = SceneManager.GetActiveScene();
             startSceneIndex = currentScene.buildIndex;
 
-            Debug.Log("Running from '" + currentScene.name + "' scene with index: "+ startSceneIndex);
+            Debug.Log("Running from scene named '" + currentScene.name + "'. This scene's index is: "+ startSceneIndex);
 
             if (currentScene.buildIndex != 0)
             {

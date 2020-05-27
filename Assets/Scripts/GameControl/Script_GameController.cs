@@ -11,7 +11,6 @@ public class Script_GameController : MonoBehaviour
     [SerializeField] GameObject m_EventSystem;
     [SerializeField] GameObject m_UI;
     [SerializeField] GameObject m_Menu;
-    private GameObject m_Starter;
 
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
@@ -63,10 +62,10 @@ public class Script_GameController : MonoBehaviour
 
         m_Script_PauseController = ScriptableObject.CreateInstance<Script_PauseController>();
 
-        numLevels = SceneManager.sceneCountInBuildSettings; // -1;
+        numLevels = SceneManager.sceneCountInBuildSettings;
 
-        m_Starter = GameObject.FindWithTag("Starter");
-        currentLevel = m_Starter.GetComponent<Script_Starter>().StartSceneIndex();
+        // currentLevel = FindObjectOfType<Script_Starter>().StartSceneIndex(); // It won't work this way
+        currentLevel = GameObject.FindWithTag("Starter").GetComponent<Script_Starter>().StartSceneIndex();
 
         Debug.Log("Starting from level: " + currentLevel);
         if(currentLevel <= 0)
@@ -91,7 +90,7 @@ public class Script_GameController : MonoBehaviour
             if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
             {
                 m_paused = !m_paused;
-                SetPause();
+                SetPauseResume();
             }
             // TODO TO BE REMOVED ONCE DEVELOPMENT IS FINISHED OR KEEP IF ENABLING A CHEATING MODE
             else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus))) 
@@ -115,7 +114,7 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    void SetPause()
+    void SetPauseResume()
     {
         if (m_paused)
         {
@@ -178,7 +177,7 @@ public class Script_GameController : MonoBehaviour
         m_UI.SetActive(true);
         m_Menu.SetActive(true);
        
-        m_Script_UIController.ClearUI(); // TODO Clean UI elements (m_Script_UIController)
+        m_Script_UIController.ClearUI();
 
         if (!firstExec)
         {
@@ -258,7 +257,7 @@ public class Script_GameController : MonoBehaviour
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
-            SetPause();
+            SetPauseResume();
         }
     }
 }
