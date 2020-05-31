@@ -41,7 +41,8 @@ public class Script_UIController : MonoBehaviour
 
     public void ShowCountdown(bool show)
     {
-        m_TextCountdown.enabled = show;
+        //FIX_ME (adrian):
+        //m_TextCountdown.enabled = show;
         m_ImageCountdown.enabled = show;
     }
 

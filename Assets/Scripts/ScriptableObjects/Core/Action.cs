@@ -42,6 +42,8 @@ public abstract class Action : ScriptableObject
         return clone;
     }
 
+    public virtual void forceFinish() { }
+
     // Making it pure abstract to avoid forgetting implement it (even if we waste a bit of performance)
     // protected abstract void ResetDerived(); // Maybe reset not required, let's see what future requires
     protected abstract bool StartDerived();

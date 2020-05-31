@@ -37,7 +37,7 @@ public class Script_PauseController : ScriptableObject
         m_Script_Countdown = FindObjectOfType<Script_Countdown>();
     }
 
-    public void PauseGame()
+    public void PauseGame(bool showMenu = true)
     {
         Time.timeScale = 0f;
 
@@ -45,8 +45,12 @@ public class Script_PauseController : ScriptableObject
         Cursor.lockState = CursorLockMode.None;
 
         SetActiveScripts(false);
-        m_UI.SetActive(false);
-        m_Menu.SetActive(true);
+
+        if (showMenu)
+        {
+            m_UI.SetActive(false);
+            m_Menu.SetActive(true);
+        }
     }
 
     public void ResumeGame()
@@ -57,6 +61,7 @@ public class Script_PauseController : ScriptableObject
         Cursor.lockState = CursorLockMode.Locked;
 
         SetActiveScripts(true);
+
         m_UI.SetActive(true);
         m_Menu.SetActive(false);
     }
