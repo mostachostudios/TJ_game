@@ -537,8 +537,8 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.3
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_StepOffset: 0.1
+  m_SkinWidth: 0.06
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &2232554618775029254
@@ -556,14 +556,14 @@ MonoBehaviour:
   m_gravity: -9.81
   m_pushPower: 20
   m_walkSpeed: 1
-  m_runSpeed: 2
+  m_runSpeed: 2.5
   m_stealthSpeed: 0.1
   m_crawlSpeed: 0.25
   m_crouchSpeed: 0.4
   m_dodgeSpeed: 1.3
   m_backwardWalkSpeed: 0.3
   m_pushSpeed: 0.6
-  m_jumpSpeed: 1.8
+  m_jumpSpeed: 2.5
   m_TimeFalling: 2
   m_TimeFallingDown: 5
   m_TimeTerrified: 8
@@ -2965,8 +2965,8 @@ MonoBehaviour:
   m_RotationSpeed: 1.7
   m_Distance: -2.5
   m_FlatDistance: 2
-  isInitialOrbit: 1
-  allowChangeCamera: 1
+  m_isInitialOrbit: 0
+  m_allowChangeCamera: 1
 --- !u!1 &7927945087601756854
 GameObject:
   m_ObjectHideFlags: 0

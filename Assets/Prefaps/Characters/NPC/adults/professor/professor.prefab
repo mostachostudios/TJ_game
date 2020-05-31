@@ -1653,9 +1653,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8094010693429250591}
+  - component: {fileID: -4391312968405333490}
   - component: {fileID: 3830600766298120459}
   - component: {fileID: 7987590635847441132}
-  - component: {fileID: 5342667230388132721}
+  - component: {fileID: 3381559679229961273}
   m_Layer: 0
   m_Name: professor
   m_TagString: Untagged
@@ -1687,6 +1688,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &-4391312968405333490
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5046540735055575052}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &3830600766298120459
 Animator:
   serializedVersion: 3
@@ -1697,7 +1720,7 @@ Animator:
   m_GameObject: {fileID: 5046540735055575052}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ed81392212591a84bbba737a2335506b, type: 2}
+  m_Controller: {fileID: 9100000, guid: e51c305b545eff94ab619afed44c46df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1720,22 +1743,20 @@ CapsuleCollider:
   m_Height: 5.2
   m_Direction: 1
   m_Center: {x: 0, y: 2.6, z: 0}
---- !u!54 &5342667230388132721
-Rigidbody:
+--- !u!114 &3381559679229961273
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046540735055575052}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96d70ef9f5673d4ab04599e0881bfe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+  runSpeed: 1.8
 --- !u!1 &5057925872055454825
 GameObject:
   m_ObjectHideFlags: 0

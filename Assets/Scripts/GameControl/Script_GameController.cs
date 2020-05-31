@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//https://docs.unity3d.com/ScriptReference/Object.DontDestroyOnLoad.html
+//https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager-sceneLoaded.html
+//https://forum.unity.com/threads/detect-when-scene-has-fully-loaded.532558/
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Script_GameController : MonoBehaviour
@@ -7,11 +11,12 @@ public class Script_GameController : MonoBehaviour
     [SerializeField] GameObject m_EventSystem;
     [SerializeField] GameObject m_UI;
     [SerializeField] GameObject m_Menu;
-    private GameObject m_Starter;
 
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
     [SerializeField] AudioClip m_AudioWin;
+    [Tooltip("Audio clip to be played when player passes to a next level")]
+    [SerializeField] AudioClip m_AudioNextLevel;
     [Tooltip("Audio clip to be played when player loses the game")]
     [SerializeField] AudioClip m_AudioLose;
     private AudioSource m_AudioSource;
@@ -30,8 +35,9 @@ public class Script_GameController : MonoBehaviour
 
     public enum EndOption
     {
-        Win,
-        Lose
+        Win, // Last level is completed
+        NextLevel, // Current level is completed (excluding last level)
+        Lose // Player lose in current level
     }
 
     void Awake()
@@ -56,10 +62,10 @@ public class Script_GameController : MonoBehaviour
 
         m_Script_PauseController = ScriptableObject.CreateInstance<Script_PauseController>();
 
-        numLevels = SceneManager.sceneCountInBuildSettings; // -1;
+        numLevels = SceneManager.sceneCountInBuildSettings;
 
-        m_Starter = GameObject.FindWithTag("Starter");
-        currentLevel = m_Starter.GetComponent<Script_Starter>().StartSceneIndex();
+        // currentLevel = FindObjectOfType<Script_Starter>().StartSceneIndex(); // It won't work this way
+        currentLevel = GameObject.FindWithTag("Starter").GetComponent<Script_Starter>().StartSceneIndex();
 
         Debug.Log("Starting from level: " + currentLevel);
         if(currentLevel <= 0)
@@ -84,10 +90,10 @@ public class Script_GameController : MonoBehaviour
             if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
             {
                 m_paused = !m_paused;
-                SetPause();
+                SetPauseResume();
             }
             // TODO TO BE REMOVED ONCE DEVELOPMENT IS FINISHED OR KEEP IF ENABLING A CHEATING MODE
-            else if ((Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus)))) 
+            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus))) 
             {
                 currentLevel++;
                 if(currentLevel == numLevels)
@@ -96,7 +102,7 @@ public class Script_GameController : MonoBehaviour
                 }
                 RestartLevel();
             }
-            else if ((Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadMinus) || Input.GetKeyUp(KeyCode.Minus))))
+            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadMinus) || Input.GetKeyUp(KeyCode.Minus)))
             {
                 currentLevel--;
                 if (currentLevel == 0)
@@ -108,7 +114,7 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    void SetPause()
+    void SetPauseResume()
     {
         if (m_paused)
         {
@@ -130,7 +136,7 @@ public class Script_GameController : MonoBehaviour
     {
         m_paused = false;
         m_Script_PauseController.ResumeGame();
-        m_Script_UIController.HideTextMessage();
+        m_Script_UIController.EraseTextMessage();
     }
 
     /// <summary>
@@ -151,31 +157,20 @@ public class Script_GameController : MonoBehaviour
         PauseGame(); 
     }
 
-    public void EndGame(EndOption option)
+    public void DisplayCountdown(string text)
     {
-        m_allow_pause = false;
-        
-        bool isRestartable = true;
-        string text = "";
+        m_Script_UIController.SetTextCountdown(text);
+    }
 
-        switch (option)
-        {
-            case EndOption.Win:
-                text = "Congratulations\n\nYou managed to escape on time.";
-                m_AudioSource.clip = m_AudioWin;
-                isRestartable = false;
-                break;
-            case EndOption.Lose:
-                text = "GAME OVER\n\nSorry. You could not make it.";
-                m_AudioSource.clip = m_AudioLose;
-                isRestartable = true;
-                break;
-        }
+    public void ShowCountdown(bool show)
+    {
+        m_Script_UIController.ShowCountdown(show);
+    }
 
-        m_Script_MenuController.EndingGameWindow(text, isRestartable);
-        PauseGame();
-
-        m_AudioSource.Play();
+    public void DisplayMessage(string text, float time, bool isTip = false)
+    {
+        m_Script_UIController.SetTextMessage(text, isTip);
+        m_Script_UIController.EraseTextMessage(time);
     }
 
     public void RestartLevel(bool firstExec = false)
@@ -187,7 +182,7 @@ public class Script_GameController : MonoBehaviour
         m_UI.SetActive(true);
         m_Menu.SetActive(true);
        
-        m_Script_UIController.ClearUI(); // TODO Clean UI elements (m_Script_UIController)
+        m_Script_UIController.ClearUI();
 
         if (!firstExec)
         {
@@ -205,17 +200,44 @@ public class Script_GameController : MonoBehaviour
 
     public void GoNextLevel()
     {
-        //SceneManager.GetActiveScene().buildIndex;
         currentLevel++;
         if (currentLevel >= numLevels)
         {
-            EndGame(EndOption.Win);
+            EndLevel(EndOption.Win);
         }
         else
         {
-            //Display Window Next level
-            RestartLevel();
+            EndLevel(EndOption.NextLevel);
         }
+    }
+
+    public void EndLevel(EndOption endOption)
+    {
+        m_allow_pause = false;
+
+        string text = "";
+
+        switch (endOption)
+        {
+            case EndOption.Win:
+                text = "Congratulations\n\nYou made it.";
+                m_AudioSource.clip = m_AudioWin;
+                break;
+            case EndOption.NextLevel:
+                text = "Congratulations\n\nYou managed to escape on time.";
+                m_AudioSource.clip = m_AudioNextLevel;
+                break;
+            case EndOption.Lose:
+                text = "GAME OVER\n\nSorry. You could not make it.";
+                m_AudioSource.clip = m_AudioLose;
+                break;
+        }
+
+        m_Script_MenuController.SetInfoMessage(text);
+        m_Script_MenuController.SetEndingLevelWindow(endOption);
+        PauseGame();
+
+        m_AudioSource.Play();
     }
 
     void ReloadWorld()
@@ -240,7 +262,7 @@ public class Script_GameController : MonoBehaviour
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
-            SetPause();
+            SetPauseResume();
         }
     }
 }

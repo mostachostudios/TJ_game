@@ -16,6 +16,8 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
 
     private Material m_Material;
     private MeshRenderer m_MeshRenderer;
+
+    bool m_Render = true;
     private void Start()
     {
         m_MeshRenderer = GetComponent<MeshRenderer>();
@@ -45,8 +47,8 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
 
     private void Update()
     {
-        m_MeshRenderer.enabled = m_RenderCone;
-        if (m_RenderCone)
+        m_MeshRenderer.enabled = m_RenderCone && m_Render;
+        if (m_MeshRenderer.enabled)
         {
         //TODO to be removed for better performance once parameter adjustment, or just make sure this executes in Build environment, not in release.
         //#if UNITY_EDITOR
@@ -73,4 +75,9 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
     }
 
 #endif
+
+    public void SetRenderingCone(bool active)
+    {
+        m_Render = active;
+    }
 }

@@ -10,6 +10,7 @@ public class Script_MenuController : MonoBehaviour
 
     [Header("Menu Buttons")]
     [SerializeField] GameObject m_ButtonPlay;
+    [SerializeField] GameObject m_ButtonNextLevel;
     [SerializeField] GameObject m_ButtonInfo;
     [SerializeField] GameObject m_ButtonInput;
     [SerializeField] GameObject m_ButtonCredits;
@@ -60,6 +61,7 @@ public class Script_MenuController : MonoBehaviour
         m_MenuPostProcessVolume.profile = m_PostProcessProfile;
 
         m_ButtonPlay.GetComponent<Button>().onClick.AddListener(Play);
+        m_ButtonNextLevel.GetComponent<Button>().onClick.AddListener(RestartLevel);
 
         m_ButtonInfo.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_INFO));
         m_ButtonInput.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_INPUT));
@@ -80,6 +82,7 @@ public class Script_MenuController : MonoBehaviour
     {
         SetInfoMessage(m_INPUT);
         m_ButtonPlay.SetActive(true);
+        m_ButtonNextLevel.SetActive(false);
         m_ButtonInfo.SetActive(true);
         m_ButtonInput.SetActive(true);
         m_ButtonCredits.SetActive(true);
@@ -87,17 +90,28 @@ public class Script_MenuController : MonoBehaviour
         m_ButtonRestartGame.SetActive(true);
     }
 
-    public void EndingGameWindow(string text, bool isRestartable)
+    public void SetEndingLevelWindow(Script_GameController.EndOption endOption)
     {
-        m_TextBoard.text = text;
-
-        m_ButtonPlay.SetActive(false);
         m_ButtonInfo.SetActive(false);
         m_ButtonInput.SetActive(false);
         m_ButtonCredits.SetActive(false);
-        if (!isRestartable)
+        m_ButtonPlay.SetActive(false);
+
+        switch (endOption)
         {
-            m_ButtonRestartLevel.SetActive(false);
+            case Script_GameController.EndOption.Win:
+                m_ButtonRestartLevel.SetActive(false);
+                m_ButtonRestartGame.SetActive(false);
+                m_ButtonNextLevel.SetActive(false);
+                break;
+            case Script_GameController.EndOption.NextLevel:
+                m_ButtonRestartLevel.SetActive(false);
+                m_ButtonRestartGame.SetActive(false);
+                m_ButtonNextLevel.SetActive(true);
+                break;
+            case Script_GameController.EndOption.Lose:
+                m_ButtonNextLevel.SetActive(false);
+                break;
         }
     }
 
@@ -123,14 +137,14 @@ public class Script_MenuController : MonoBehaviour
     void RestartLevel()
     {
         //SetInfoMessage() // TODO reset initial info message
-        m_Script_GameController.ResumeGame(); //TODO Check if switch order
-        m_Script_GameController.RestartLevel();
+        m_Script_GameController.RestartLevel(); //TODO Check if switch order with next line (ResumeGame must be executed after next scene is fully loaded)
+        m_Script_GameController.ResumeGame(); 
     }
     void RestartGame()
     {
         //SetInfoMessage() // TODO reset initial info message
-        m_Script_GameController.ResumeGame(); //TODO Check if switch order
-        m_Script_GameController.RestartGame();
+        m_Script_GameController.RestartGame(); //TODO Check if switch order
+        m_Script_GameController.ResumeGame(); 
     }
     void Quit()
     {

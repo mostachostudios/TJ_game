@@ -82,6 +82,7 @@ public class StateMachine : MonoBehaviour
                 if (currentState.onEnterActions.Length != 0)
                 {
                     FillToDoList(currentState.onEnterActions);
+                    FillToDoList(currentState.actions);
                 }
                 else
                 {

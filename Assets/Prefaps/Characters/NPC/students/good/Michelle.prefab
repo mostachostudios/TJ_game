@@ -1881,9 +1881,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5809536641604628415}
+  - component: {fileID: -773282390361055109}
   - component: {fileID: 7405262573733633443}
   - component: {fileID: 3513013043560581244}
-  - component: {fileID: 8296172668645077818}
+  - component: {fileID: 8501744321435565072}
   m_Layer: 0
   m_Name: Michelle
   m_TagString: Untagged
@@ -1907,6 +1908,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &-773282390361055109
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7405262573733633452}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &7405262573733633443
 Animator:
   serializedVersion: 3
@@ -1917,7 +1940,7 @@ Animator:
   m_GameObject: {fileID: 7405262573733633452}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1938e7056a03c8c4d9904aa770537556, type: 2}
+  m_Controller: {fileID: 9100000, guid: dcbbb689a240c344380b9bb0b79436a6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1940,22 +1963,20 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!54 &8296172668645077818
-Rigidbody:
+--- !u!114 &8501744321435565072
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7405262573733633452}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 10
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96d70ef9f5673d4ab04599e0881bfe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+  runSpeed: 1.8
 --- !u!1 &7421212919519144393
 GameObject:
   m_ObjectHideFlags: 0

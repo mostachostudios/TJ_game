@@ -2049,7 +2049,7 @@ GameObject:
   - component: {fileID: 8968418298184306759}
   - component: {fileID: 4528737157183205795}
   m_Layer: 0
-  m_Name: Layla
+  m_Name: Layla_with_Mobile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

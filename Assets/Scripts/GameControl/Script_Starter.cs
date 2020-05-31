@@ -10,6 +10,7 @@ public class Script_Starter : MonoBehaviour
     private int startSceneIndex = -1;
     void Awake()
     {
+        // Singleton pattern
         if(FindObjectsOfType<Script_Starter>().Length > 1)
         {
             Destroy(gameObject);
@@ -20,7 +21,7 @@ public class Script_Starter : MonoBehaviour
             Scene currentScene = SceneManager.GetActiveScene();
             startSceneIndex = currentScene.buildIndex;
 
-            Debug.Log("Running from '" + currentScene.name + "' scene with index: "+ startSceneIndex);
+            Debug.Log("Running from scene named '" + currentScene.name + "'. This scene's index is: "+ startSceneIndex);
 
             if (currentScene.buildIndex != 0)
             {

@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.1
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,13 +114,49 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.033333335
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 85fddf477f8762a468cac30cce4c059a, type: 2}
+--- !u!114 &11034846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a65cf71aac7aef4999d832f246fc4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 109488670}
+  enabled: 1
+  waitToFinish: 1
+  agent: {fileID: 1493416613}
+  targetPoint: {fileID: 414076929}
+  speed: 0
+--- !u!114 &11741649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a65cf71aac7aef4999d832f246fc4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 109488670}
+  enabled: 1
+  waitToFinish: 1
+  agent: {fileID: 1493416613}
+  targetPoint: {fileID: 1903031555}
+  speed: 1
 --- !u!114 &68780824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 0
   waitToFinish: 1
   targetEntity: {fileID: 1493416612}
   targetPoint: {fileID: 1948251099}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!114 &109488670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,13 +188,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
   m_Name: PatrolState
   m_EditorClassIdentifier: 
+  parentStateMachine: {fileID: 0}
+  enabled: 1
+  loop: 1
   onEnterActions:
   - {fileID: 1120330387}
+  - {fileID: 812246693}
   actions:
   - {fileID: 1483968939}
   - {fileID: 1205627182}
   - {fileID: 68780824}
   - {fileID: 1547568282}
+  - {fileID: 189554802}
+  - {fileID: 11034846}
+  - {fileID: 1890241864}
+  - {fileID: 11741649}
   onExitActions: []
   triggers: []
 --- !u!1 &126550662
@@ -251,6 +298,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189554802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a65cf71aac7aef4999d832f246fc4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 109488670}
+  enabled: 1
+  waitToFinish: 1
+  agent: {fileID: 1493416613}
+  targetPoint: {fileID: 1083614701}
+  speed: 1
 --- !u!1 &277960711
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +333,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &277960712
 MeshCollider:
@@ -375,6 +440,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &812246693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a65cf71aac7aef4999d832f246fc4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 109488670}
+  enabled: 1
+  waitToFinish: 1
+  agent: {fileID: 1493416613}
+  targetPoint: {fileID: 1903031555}
+  speed: 0
 --- !u!1 &913495399
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,10 +592,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 0
   waitToFinish: 1
   targetEntity: {fileID: 1493416612}
   targetPoint: {fileID: 1903031555}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!114 &1205627182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,10 +611,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 0
   waitToFinish: 1
   targetEntity: {fileID: 1493416612}
   targetPoint: {fileID: 414076929}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!114 &1483968939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,10 +630,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 0
   waitToFinish: 1
   targetEntity: {fileID: 1493416612}
   targetPoint: {fileID: 1083614701}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!1 &1493416607
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493416612}
+  - component: {fileID: 1493416613}
   - component: {fileID: 1493416611}
   - component: {fileID: 1493416610}
   - component: {fileID: 1493416609}
@@ -649,12 +742,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493416607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.68, y: 0.5, z: -13.17}
+  m_LocalPosition: {x: 3.68, y: 0.56, z: -13.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1493416613
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493416607}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &1547568282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,10 +782,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 0
   waitToFinish: 1
   targetEntity: {fileID: 1493416612}
   targetPoint: {fileID: 1903031555}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!1 &1873115228
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +872,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 28.273, y: 0, z: 0}
+--- !u!114 &1890241864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a65cf71aac7aef4999d832f246fc4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 109488670}
+  enabled: 1
+  waitToFinish: 1
+  agent: {fileID: 1493416613}
+  targetPoint: {fileID: 1948251099}
+  speed: 0
 --- !u!1 &1903031554
 GameObject:
   m_ObjectHideFlags: 0

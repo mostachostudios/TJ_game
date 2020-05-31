@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9558f11be20c67441ba34ac7f40d62c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RenderCone: 1
   m_ViewCamera: {fileID: 3819992926978868709}
   m_ScaledViewDistance: 3.444519
   m_ViewDistance: 0.62
@@ -1920,9 +1921,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9169740571010984504}
+  - component: {fileID: -1125775055031363200}
   - component: {fileID: 9169740570769043887}
   - component: {fileID: 9169740570769043856}
   - component: {fileID: 4365194975901167985}
+  - component: {fileID: 8392841701373529897}
   - component: {fileID: 8446353895341828616}
   m_Layer: 17
   m_Name: Bully
@@ -1956,6 +1959,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &-1125775055031363200
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169740570769043858}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &9169740570769043887
 Animator:
   serializedVersion: 3
@@ -1966,7 +1991,7 @@ Animator:
   m_GameObject: {fileID: 9169740570769043858}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 98cd2a3c2f9be9e49a42f4c9a32e1b7a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b7115572b9108745bcceb313062caba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2002,6 +2027,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.62
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!114 &8392841701373529897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169740570769043858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2eaef4b7b07441a47d31182ba8fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+  runSpeed: 1.4
 --- !u!114 &8446353895341828616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2014,19 +2053,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca3bbe1047ccb8499d1507e21a89b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Active: 1
-  m_ViewDistance: 0.62
-  m_ViewAngle: 110
-  m_HearMinSpeed: 0.31
-  m_HearDistanceClose: 0.2
-  m_HearDistanceFar: 0.42
+  m_PlayerDetected: 0
+  m_ViewDistance: 2.52
+  m_ViewAngle: 118
+  m_RenderHearingArea: 1
+  m_HearMinSpeed: 1.1
+  m_HearDistanceClose: 0.35
+  m_HearDistanceFar: 1.22
   m_DurationHearFar: 10
   m_EnteredHearFar: 0
   m_FinishedHearFar: 0
   m_GradientHearFar:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 0, a: 1}
+    key1: {r: 1, g: 0.16470589, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
