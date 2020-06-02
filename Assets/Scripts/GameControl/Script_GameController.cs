@@ -126,10 +126,10 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    public void PauseGame(bool showMenu = true)
     {
         m_paused = true;
-        m_Script_PauseController.PauseGame();
+        m_Script_PauseController.PauseGame(showMenu);
     }
 
     public void ResumeGame()

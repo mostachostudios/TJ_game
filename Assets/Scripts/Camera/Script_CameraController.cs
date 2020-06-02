@@ -99,11 +99,11 @@ public class Script_CameraController : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            m_Distance += 0.5f;
+            m_Distance += 0.15f;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            m_Distance -= 0.5f;
+            m_Distance -= 0.15f;
         }
         m_Distance = Mathf.Clamp(m_Distance, -7f, -1.35f);
 

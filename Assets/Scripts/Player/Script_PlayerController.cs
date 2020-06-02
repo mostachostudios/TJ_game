@@ -34,6 +34,13 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] AudioClip m_StepFootClip;
     [SerializeField] AudioClip m_StepFootRunClip;
 
+    [Header("Restrictions")]
+    [SerializeField] public bool allowMove = true;
+    [SerializeField] public bool allowJump = true;
+    [SerializeField] public bool allowCrouch = true;
+    [SerializeField] public bool allowStealth = true;
+    [SerializeField] public bool allowCrawl = true;
+
     private AudioSource m_AudioSource;
 
     private CharacterController m_characterController;
@@ -86,12 +93,12 @@ public class Script_PlayerController : MonoBehaviour
     {
         // Checking if isMoving this way might introduce a bit delay/lag since GetAxis returns != 0 even after a short time the user has stopping pressing the keyboard 
         //bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0001f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.0001f;
-        bool isMoving = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
+        bool isMoving = allowMove && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
         || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow);
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        bool isStealth = Input.GetKey(KeyCode.Tab);
-        bool isCrawling = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        bool isCrouch = Input.GetKey(KeyCode.LeftAlt);
+        bool isRunning = allowMove && Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isStealth = allowStealth && Input.GetKey(KeyCode.Tab);
+        bool isCrawling = allowCrawl && Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+        bool isCrouch = allowCrouch && Input.GetKey(KeyCode.LeftAlt);
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -343,7 +350,7 @@ public class Script_PlayerController : MonoBehaviour
     private void CheckJumping()
     {
         //TODO CHECK NO funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
-        if (Input.GetButtonDown("Jump"))
+        if (allowJump && Input.GetButtonDown("Jump"))
         {
             Jump();
         }
