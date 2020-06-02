@@ -13,6 +13,7 @@ TagManager:
   - World
   - EventSystem
   - Starter
+  - Wall
   layers:
   - Default
   - TransparentFX

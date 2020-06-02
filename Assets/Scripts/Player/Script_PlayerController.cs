@@ -2,18 +2,13 @@
 // https://answers.unity.com/questions/17566/how-can-i-make-my-player-a-charactercontroller-pus.html
 // https://answers.unity.com/questions/578443/jumping-with-character-controller.html
 // https://docs.unity3d.com/es/530/ScriptReference/CharacterController.Move.html
-
-//https://docs.unity3d.com/Manual/class-CharacterController.html
+// https://docs.unity3d.com/Manual/class-CharacterController.html
 
 using System.Collections;
 using UnityEngine;
 
 public class Script_PlayerController : MonoBehaviour
-{
-    [Header("Settings")]
-    [SerializeField] float m_gravity = -9.81f;
-    [SerializeField] float m_pushPower = 20f;
-
+{    
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;
     [SerializeField] float m_runSpeed = 2f;
@@ -24,6 +19,11 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_backwardWalkSpeed = 0.3f;
     [SerializeField] float m_pushSpeed = 0.6f;
     [SerializeField] float m_jumpSpeed = 2.5f;
+
+    [Header("Settings")]
+    [SerializeField] float m_gravity = -9.81f;
+    [SerializeField] float m_pushPower = 20f;
+    [SerializeField] float m_timeNextJump = 0.8f;
 
     [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
@@ -48,10 +48,10 @@ public class Script_PlayerController : MonoBehaviour
 
     private float m_ySpeed;
     private float m_Speed;
-    // TODO save current's player state somewhere (so it can be checked from outside)
 
     private bool m_isPushing = false;
     private bool m_isJumping = false;
+    private bool m_canJump = true;
 
     private bool m_isPlayerFrozen = false;
 
@@ -305,8 +305,8 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveRun(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isRunning");
+        CheckJumping();
         m_Speed = m_runSpeed;
         MoveCharacther(direction);
     }
@@ -314,8 +314,8 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveWalk(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isWalking");
+        CheckJumping();
         m_Speed = m_walkSpeed;
         MoveCharacther(direction);
     }
@@ -331,26 +331,29 @@ public class Script_PlayerController : MonoBehaviour
     public void SetIdle()
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isIdle");
+        CheckJumping();
         m_Speed = 0f;
         MoveCharacther(Vector3.zero);
     }
 
     public void Jump()
     {
-        if (m_characterController.isGrounded)
+        if (m_canJump && m_characterController.isGrounded)
         {
-            // m_animator.SetTrigger("isJumping");
             Utils.SetAnimatorParameterByName(m_animator, "isJumping");
             m_isJumping = true;
+            m_canJump = false;
+            StartCoroutine(WaitNextJump());
         }
     }
 
     private void CheckJumping()
     {
-        //TODO CHECK NO funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
-        if (allowJump && Input.GetButtonDown("Jump"))
+        //NOTA: No funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
+        // Si en lugar de Space, se usa otra tecla, como F7, entonces sí que va bien. (Parece ser un Bug de Unity o C#)
+        // Es decir, al precionar LeftArrow + UpArrow + Space a la vez, la expresion devuelta es false!
+        if (allowJump && Input.GetKey(KeyCode.Space)) 
         {
             Jump();
         }
@@ -387,6 +390,13 @@ public class Script_PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeFrozen);
         m_isPlayerFrozen = false;
+        yield return null;
+    }
+
+    IEnumerator WaitNextJump()
+    {
+        yield return new WaitForSeconds(m_timeNextJump);
+        m_canJump = true;
         yield return null;
     }
 

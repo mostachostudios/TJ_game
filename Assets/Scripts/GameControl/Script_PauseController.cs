@@ -40,14 +40,14 @@ public class Script_PauseController : ScriptableObject
     public void PauseGame(bool showMenu = true)
     {
         Time.timeScale = 0f;
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
+               
         SetActiveScripts(false);
 
         if (showMenu)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
             m_UI.SetActive(false);
             m_Menu.SetActive(true);
         }

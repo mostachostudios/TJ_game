@@ -26,6 +26,8 @@ public class Script_CameraController : MonoBehaviour
 
     private bool m_ReadInput = true;
 
+    private Transform Obstruction;
+
     void Awake()
     {
         m_Player = GameObject.FindWithTag("Player");
@@ -35,6 +37,7 @@ public class Script_CameraController : MonoBehaviour
 
     void Start()
     {
+        Obstruction = m_CameraTarget.transform;
         if (m_isInitialOrbit)
         {
             SetOrbitCamera();
@@ -72,6 +75,7 @@ public class Script_CameraController : MonoBehaviour
             {
                 ZenitCameraControl();
             }
+            //ViewObstructed(); 
         }
     }
 
@@ -79,7 +83,7 @@ public class Script_CameraController : MonoBehaviour
     {
         m_mouseX += Input.GetAxis("Mouse X") * m_RotationSpeed;
 
-        if (Input.GetMouseButton(1) || Input.GetMouseButton(2)) 
+        if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
             m_mouseY -= Input.GetAxis("Mouse Y") * m_RotationSpeed;
             m_mouseY = Mathf.Clamp(m_mouseY, -5f, 55f);
@@ -120,7 +124,7 @@ public class Script_CameraController : MonoBehaviour
         {
             m_FlatDistance -= 0.25f;
         }
-        m_FlatDistance = Mathf.Clamp(m_FlatDistance, 1.25f, 3.75f);
+        m_FlatDistance = Mathf.Clamp(m_FlatDistance, 1.25f, 5.75f);
 
         transform.position = m_Player.transform.position + new Vector3(0.0f, m_FlatDistance, -m_FlatDistance);
         transform.LookAt(m_Player.transform.position);
@@ -156,6 +160,36 @@ public class Script_CameraController : MonoBehaviour
     public void ReadInput(bool readInput)
     {
         m_ReadInput = readInput;
+    }
+
+    //Experimental
+    void ViewObstructed()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, m_CameraTarget.transform.position - transform.position, out hit, 4.5f))
+        {
+
+            //if (hit.collider.gameObject != m_Player)
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                Obstruction = hit.transform;
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+
+                if (Vector3.Distance(Obstruction.position, transform.position) >= 3f && Vector3.Distance(transform.position, m_CameraTarget.transform.position) >= 1.5f)
+                {
+                    transform.Translate(Vector3.forward * 1f * Time.deltaTime);
+                }
+            }
+            else
+            {
+                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                if (Vector3.Distance(transform.position, m_CameraTarget.transform.position) < 4.5f)
+                {
+                    transform.Translate(Vector3.back * 1f * Time.deltaTime);
+                }
+            }
+        }
     }
 
 }
