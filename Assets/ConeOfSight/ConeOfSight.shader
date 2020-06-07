@@ -108,7 +108,7 @@
 					float2 pos2D = opos.xz;
 					float distFromCenter = length(pos2D);
 					float obstacleAlpha = getObstacleAlpha(wpos); // 0 if occluded, 1 if not
-					float alpha = getRadiusAlpha(distFromCenter) * getAngleAlpha(pos2D);
+					float alpha = getRadiusAlpha(distFromCenter) * getAngleAlpha(pos2D) * _Color.a;
 
 					// Cone stripes
 					float intervals = _ViewIntervals > 0 ? (distFromCenter % _ViewIntervals) : 0;
