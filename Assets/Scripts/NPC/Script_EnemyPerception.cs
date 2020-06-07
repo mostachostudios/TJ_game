@@ -16,7 +16,7 @@ public class Script_EnemyPerception : MonoBehaviour
 	[SerializeField] float m_ViewDistance = 2f;
 	[SerializeField] [Range(0.01f, 179f)] float m_ViewAngle = 90f;
 	[Header("Hearing")]
-	[SerializeField] bool m_RenderHearingArea = true;
+	public bool m_RenderHearingArea = true;
 	[Tooltip("Minimun speed player movement that can be heard")]
 	[SerializeField] float m_HearMinSpeed = 0.31f;
 	[Tooltip("Inner hearing radius - Player is detected immediately if moving over Hear Min Speed")]
@@ -104,17 +104,22 @@ public class Script_EnemyPerception : MonoBehaviour
 			m_PlayerDetected = false;
 
 			//Check Sighting
-			Vector3 direction = other.transform.position - transform.position;
-			float angle = Vector3.Angle(direction, transform.forward);
+			Vector3 direction1 = other.transform.position - transform.position;
+			Vector3 direction2 = other.transform.position - (transform.position + transform.up * 0.75f);
 
+			//Debug.Log(Vector3.Angle(direction1, transform.forward) + " - " + Vector3.Angle(direction2, transform.forward));
+			float angle = Vector3.Angle(direction1, transform.forward);
+			
 			if (angle < m_ViewAngle * 0.5f)
 			{
 				RaycastHit hit;
 				// Careful when using transform.up since it might lead to some incorret results depeding on model size and scaling
-				Debug.DrawRay(transform.position + transform.up, direction.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+				Debug.DrawRay(transform.position + transform.up, direction1.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+				Debug.DrawRay(transform.position + transform.up, direction2.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+
 				//int layer = ~(1 << LayerMask.NameToLayer("Enemy")); // Avoid hitting other enemies colliders
 				int layer = LayerMask.GetMask("Player", "Obstacle"); // Better idea to only hit player and obstacles
-				if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
+				if (Physics.Raycast(transform.position + transform.up, direction1.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
 				{
 					if (hit.collider.gameObject == m_Player)
 					{
@@ -126,10 +131,18 @@ public class Script_EnemyPerception : MonoBehaviour
 						//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
 					//}
 				}
-				//else
-				//{
-					//Debug.Log("Cone: No hit");
-				//}
+				if (!m_PlayerDetected && Physics.Raycast(transform.position + transform.up, direction2.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
+				{
+					if (hit.collider.gameObject == m_Player)
+					{
+						m_PlayerDetected = true;
+						//Debug.Log("Player Sight Detected");
+					}
+					//else
+					//{
+					//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
+					//}
+				}
 			}
 
 			//Check hearing (Only if not already detected)
@@ -177,17 +190,17 @@ public class Script_EnemyPerception : MonoBehaviour
 				GradientColorHearFar();
 			}
 
-			//TODO Check if should keep rendering areas or not
+			//TODO Change render area color once player is detected
 			if (m_PlayerDetected)
 			{
-				m_RenderArea = false;
-				m_Script_ConeOfSightRenderer.SetRenderingCone(false);
+				//m_RenderArea = false;
+				//m_Script_ConeOfSightRenderer.SetRenderingCone(false);
 				// set here chase state
 			}
 			else 
 			{
-				m_RenderArea = true;
-				m_Script_ConeOfSightRenderer.SetRenderingCone(true);
+				//m_RenderArea = true;
+				//m_Script_ConeOfSightRenderer.SetRenderingCone(true);
 				// set here patrol state
 			}
 		}

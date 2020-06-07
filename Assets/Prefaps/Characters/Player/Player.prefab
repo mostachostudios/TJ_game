@@ -553,8 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16984b9fa9841e8449bd42278b72a417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gravity: -9.81
-  m_pushPower: 20
   m_walkSpeed: 1
   m_runSpeed: 2.5
   m_stealthSpeed: 0.1
@@ -564,11 +562,19 @@ MonoBehaviour:
   m_backwardWalkSpeed: 0.3
   m_pushSpeed: 0.6
   m_jumpSpeed: 2.5
+  m_gravity: -9.81
+  m_pushPower: 20
+  m_timeNextJump: 0.8
   m_TimeFalling: 2
   m_TimeFallingDown: 5
   m_TimeTerrified: 8
   m_StepFootClip: {fileID: 8300000, guid: 03fc9288baa052740aca7e28710afa05, type: 3}
   m_StepFootRunClip: {fileID: 8300000, guid: b875ae44f93fdbd469eccf997b73ef82, type: 3}
+  allowMove: 1
+  allowJump: 1
+  allowCrouch: 1
+  allowStealth: 1
+  allowCrawl: 1
 --- !u!82 &7111122154752730488
 AudioSource:
   m_ObjectHideFlags: 0
