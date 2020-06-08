@@ -60,7 +60,7 @@ public class Script_PauseController : ScriptableObject
         }
         else // Activate UI post process
         {
-            m_PostProcessVolumePauseGame.enabled = true;
+            m_PostProcessVolumePauseGame.enabled = false;
         }
     }
 

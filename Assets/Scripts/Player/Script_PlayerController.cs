@@ -497,4 +497,10 @@ public class Script_PlayerController : MonoBehaviour
     {
         m_ReadInput = readInput;
     }
+
+    public bool IsStealth()
+    {
+        return Input.GetKeyDown(KeyCode.Mouse1);
+    }
+
 }

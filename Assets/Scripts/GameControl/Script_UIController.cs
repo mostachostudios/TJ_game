@@ -9,18 +9,25 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] Text m_TextMessage;
     [SerializeField] Text m_TextCountdown;
     [SerializeField] Image m_ImageCountdown;
+    [SerializeField] RawImage m_backgroundCenter;
 
     [SerializeField] Image m_Avatar1;
     [SerializeField] Text m_TextName1;
     [SerializeField] Text m_TextDialog1;
+    [SerializeField] RawImage m_backgroundName1;
+    [SerializeField] RawImage m_backgroundDialog1;
 
     [SerializeField] Image m_Avatar2;
     [SerializeField] Text m_TextName2;
     [SerializeField] Text m_TextDialog2;
+    [SerializeField] RawImage m_backgroundName2;
+    [SerializeField] RawImage m_backgroundDialog2;
 
     [SerializeField] Image m_Avatar3;
     [SerializeField] Text m_TextName3;
     [SerializeField] Text m_TextDialog3;
+    [SerializeField] RawImage m_backgroundName3;
+    [SerializeField] RawImage m_backgroundDialog3;
 
     [Header("SFX")]
     [SerializeField] AudioClip m_AudioDisplayDialog;
@@ -40,6 +47,7 @@ public class Script_UIController : MonoBehaviour
         m_AudioSource.loop = false;
         m_AudioSource.time = 0.0f;
 
+        
         PostProcessVolume m_PostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
         m_PostProcessVolume.isGlobal = true;
         m_PostProcessVolume.profile = m_PostProcessProfile;
@@ -68,18 +76,24 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
+                m_backgroundDialog1.gameObject.SetActive(true);
+                m_backgroundName1.gameObject.SetActive(true);
                 m_Avatar1.sprite = dialog.m_Avatar;
                 m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 1f);
                 m_TextDialog1.text = dialog.m_Text;
                 m_TextName1.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
+                m_backgroundDialog2.gameObject.SetActive(true);
+                m_backgroundName2.gameObject.SetActive(true);
                 m_Avatar2.sprite = dialog.m_Avatar;
                 m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 1f);
                 m_TextDialog2.text = dialog.m_Text;
                 m_TextName2.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
+                m_backgroundDialog3.gameObject.SetActive(true);
+                m_backgroundName3.gameObject.SetActive(true);
                 m_Avatar3.sprite = dialog.m_Avatar;
                 m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 1f);
                 m_TextDialog3.text = dialog.m_Text;
@@ -116,16 +130,22 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
+                m_backgroundDialog1.gameObject.SetActive(false);
+                m_backgroundName1.gameObject.SetActive(false);
                 m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
                 m_TextDialog1.text = "";
                 m_TextName1.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
+                m_backgroundDialog2.gameObject.SetActive(false);
+                m_backgroundName2.gameObject.SetActive(false);
                 m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
                 m_TextDialog2.text = "";
                 m_TextName2.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
+                m_backgroundDialog3.gameObject.SetActive(false);
+                m_backgroundName3.gameObject.SetActive(false);
                 m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
                 m_TextDialog3.text = "";
                 m_TextName3.text = "";
@@ -142,6 +162,7 @@ public class Script_UIController : MonoBehaviour
     /// <param name="time"></param>
     public void SetTextMessage(string text, bool isTip = false)
     {
+        m_backgroundCenter.gameObject.SetActive(true);
         m_TextMessage.text = text;
 
         if (isTip)
@@ -166,6 +187,7 @@ public class Script_UIController : MonoBehaviour
     IEnumerator EraseText(float time)
     {
         yield return new WaitForSeconds(time);
+        m_backgroundCenter.gameObject.SetActive(false);
         m_TextMessage.text = "";
         yield return null;
     }
@@ -182,5 +204,13 @@ public class Script_UIController : MonoBehaviour
         m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
         m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
         m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
+
+        m_backgroundCenter.gameObject.SetActive(false);
+        m_backgroundDialog1.gameObject.SetActive(false);
+        m_backgroundDialog2.gameObject.SetActive(false);
+        m_backgroundDialog3.gameObject.SetActive(false);
+        m_backgroundName1.gameObject.SetActive(false);
+        m_backgroundName2.gameObject.SetActive(false);
+        m_backgroundName3.gameObject.SetActive(false);
     }
 }

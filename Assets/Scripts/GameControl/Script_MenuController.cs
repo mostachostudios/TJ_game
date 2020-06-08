@@ -30,16 +30,14 @@ public class Script_MenuController : MonoBehaviour
     //TODO Handle the following board messages in a proper way 
     private string m_INFO = "Messages info";
 
-    private string m_INPUT = "\n"+
-                                "ASWD or ARROW Buttons   ------------------   Movement\n" +
-                                "SPACE BAR  --------------------------------   Jump\n" +
-                                "SHIFT  -------------------------------------   Run\n" +
-                                "ALT + Move  --------------------------------   Crouch\n" +
-                                "CTRL + Move  ------------------------------   Crawl\n" +
-                                "TAB  ---------------------------------------   Stealth\n" +
-                                "INTRO or LEFT Mouse Button + Move  -------   Push\n" +
-                                "RIGHT Mouse Button  -----------------------   Change Camera Angle\n" +
-                                "M (ESC in Build)  ----------------------------   Pause and Resume Game";
+    private string m_INPUT =    "ASWD or ARROW Buttons   -------------------   Movement\n" +
+                                "SPACE BAR  --------------------------------------   Jump\n" +
+                                "SHIFT  ---------------------------------------------   Run\n" +
+                                "CTRL + Move  ------------------------------------  Crouch\n" +
+                                "CTRL + SPACE + Move  -------------------------  Crawl\n" +
+                                "RIGHT Mouse Button  ----------------------------  Stealth\n" +
+                                "INTRO or LEFT Mouse Button + Move  --------  Push\n" +
+                                "ESC   ------------------------------------------------  Pause and Resume Game";
 
     private string m_CREDITS = "                                      Mostacho Studios\n" +
                                 "\n" +

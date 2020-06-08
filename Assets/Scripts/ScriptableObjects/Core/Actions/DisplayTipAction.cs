@@ -33,6 +33,8 @@ public class DisplayTipAction : Action
             throw new UnityException("There isn't a Script_GameController instance on the scene");
         }
 
+        script_UIController.ClearUI();
+
         string message = FindObjectOfType<LocalizationManager>().GetStringAsset(tableKey, tip);
         script_UIController.SetTextMessage(message, true);
 
