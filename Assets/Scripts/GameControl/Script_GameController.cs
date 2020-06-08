@@ -126,10 +126,10 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    public void PauseGame(bool showMenu = true)
     {
         m_paused = true;
-        m_Script_PauseController.PauseGame();
+        m_Script_PauseController.PauseGame(showMenu);
     }
 
     public void ResumeGame()
@@ -211,24 +211,31 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    public void EndLevel(EndOption endOption)
+    public void EndLevel(EndOption endOption, string text = "")
     {
         m_allow_pause = false;
-
-        string text = "";
 
         switch (endOption)
         {
             case EndOption.Win:
-                text = "Congratulations\n\nYou made it.";
+                if(text == "")
+                {
+                    text = "Congratulations\n\nYou made it.";
+                }
                 m_AudioSource.clip = m_AudioWin;
                 break;
             case EndOption.NextLevel:
-                text = "Congratulations\n\nYou managed to escape on time.";
+                if (text == "")
+                {
+                    text = "Congratulations\n\nYou managed to escape on time.";
+                }
                 m_AudioSource.clip = m_AudioNextLevel;
                 break;
             case EndOption.Lose:
-                text = "GAME OVER\n\nSorry. You could not make it.";
+                if (text == "")
+                {
+                    text = "GAME OVER\n\nSorry. You could not make it.";
+                }
                 m_AudioSource.clip = m_AudioLose;
                 break;
         }

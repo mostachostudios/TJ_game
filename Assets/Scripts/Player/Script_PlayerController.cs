@@ -2,28 +2,30 @@
 // https://answers.unity.com/questions/17566/how-can-i-make-my-player-a-charactercontroller-pus.html
 // https://answers.unity.com/questions/578443/jumping-with-character-controller.html
 // https://docs.unity3d.com/es/530/ScriptReference/CharacterController.Move.html
-
-//https://docs.unity3d.com/Manual/class-CharacterController.html
+// https://docs.unity3d.com/Manual/class-CharacterController.html
 
 using System.Collections;
 using UnityEngine;
 
 public class Script_PlayerController : MonoBehaviour
-{
-    [Header("Settings")]
-    [SerializeField] float m_gravity = -9.81f;
-    [SerializeField] float m_pushPower = 20f;
-
+{    
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;
     [SerializeField] float m_runSpeed = 2f;
-    [SerializeField] float m_stealthSpeed = 0.1f;
+    [SerializeField] float m_stealthSpeed = 0.15f;
     [SerializeField] float m_crawlSpeed = 0.25f;
     [SerializeField] float m_crouchSpeed = 0.4f;
     [SerializeField] float m_dodgeSpeed = 1.3f;
     [SerializeField] float m_backwardWalkSpeed = 0.3f;
     [SerializeField] float m_pushSpeed = 0.6f;
     [SerializeField] float m_jumpSpeed = 2.5f;
+
+    [Header("Settings")]
+    [SerializeField] float m_gravity = -9.81f;
+    [SerializeField] float m_pushPower = 20f;
+    [SerializeField] float m_timeNextJump = 0.8f;
+    [SerializeField] float m_timeNextPickUp = 0.8f;
+    [SerializeField] float m_timeNextKick = 0.8f;
 
     [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
@@ -34,6 +36,14 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] AudioClip m_StepFootClip;
     [SerializeField] AudioClip m_StepFootRunClip;
 
+    [Header("Restrictions")]
+    [SerializeField] public bool allowMove = true;
+    [SerializeField] public bool allowRun = true;
+    [SerializeField] public bool allowJump = true;
+    [SerializeField] public bool allowCrouch = true;
+    [SerializeField] public bool allowStealth = true;
+    [SerializeField] public bool allowCrawl = true;
+
     private AudioSource m_AudioSource;
 
     private CharacterController m_characterController;
@@ -41,10 +51,12 @@ public class Script_PlayerController : MonoBehaviour
 
     private float m_ySpeed;
     private float m_Speed;
-    // TODO save current's player state somewhere (so it can be checked from outside)
 
     private bool m_isPushing = false;
     private bool m_isJumping = false;
+    private bool m_canJump = true;
+    private bool m_canPickUp = true;
+    private bool m_canKick = true;
 
     private bool m_isPlayerFrozen = false;
 
@@ -86,12 +98,12 @@ public class Script_PlayerController : MonoBehaviour
     {
         // Checking if isMoving this way might introduce a bit delay/lag since GetAxis returns != 0 even after a short time the user has stopping pressing the keyboard 
         //bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0001f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.0001f;
-        bool isMoving = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
+        bool isMoving = allowMove && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
         || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow);
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        bool isStealth = Input.GetKey(KeyCode.Tab);
-        bool isCrawling = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        bool isCrouch = Input.GetKey(KeyCode.LeftAlt);
+        bool isRunning = allowRun && Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isStealth = allowStealth && Input.GetKey(KeyCode.Mouse1);
+        bool isCrawling = allowCrawl && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKey(KeyCode.Space);
+        bool isCrouch = allowCrouch && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && !Input.GetKey(KeyCode.Space);
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -298,8 +310,8 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveRun(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isRunning");
+        CheckJumping();
         m_Speed = m_runSpeed;
         MoveCharacther(direction);
     }
@@ -307,8 +319,8 @@ public class Script_PlayerController : MonoBehaviour
     public void MoveWalk(Vector3 direction = new Vector3())
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isWalking");
+        CheckJumping();
         m_Speed = m_walkSpeed;
         MoveCharacther(direction);
     }
@@ -324,28 +336,51 @@ public class Script_PlayerController : MonoBehaviour
     public void SetIdle()
     {
         ResetCollider();
-        CheckJumping();
         Utils.SetAnimatorParameterByName(m_animator, "isIdle");
+        CheckJumping();
         m_Speed = 0f;
         MoveCharacther(Vector3.zero);
     }
 
     public void Jump()
     {
-        if (m_characterController.isGrounded)
+        if (m_canJump && m_characterController.isGrounded)
         {
-            // m_animator.SetTrigger("isJumping");
             Utils.SetAnimatorParameterByName(m_animator, "isJumping");
             m_isJumping = true;
+            m_canJump = false;
+            StartCoroutine(WaitNextJump());
         }
     }
 
     private void CheckJumping()
     {
-        //TODO CHECK NO funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
-        if (Input.GetButtonDown("Jump"))
+        //NOTA: No funciona si se presiona arrow up y left a la vez (pero si funciona ok con A + W y también con NumPad!!!!) 
+        // Si en lugar de Space, se usa otra tecla, como F7, entonces sí que va bien. (Parece ser un Bug de Unity o C#)
+        // Es decir, al precionar LeftArrow + UpArrow + Space a la vez, la expresion devuelta es false!
+        if (allowJump && Input.GetKey(KeyCode.Space)) 
         {
             Jump();
+        }
+    }
+
+    public void PickUp()
+    {
+        if (m_canPickUp && m_characterController.isGrounded)
+        {
+            Utils.SetAnimatorParameterByName(m_animator, "isPicking");
+            m_canPickUp = false;
+            StartCoroutine(WaitNextPickUp());
+        }
+    }
+
+    public void Kick()
+    {
+        if (m_canKick && m_characterController.isGrounded)
+        {
+            Utils.SetAnimatorParameterByName(m_animator, "isKicking");
+            m_canKick = false;
+            StartCoroutine(WaitNextKick());
         }
     }
 
@@ -380,6 +415,27 @@ public class Script_PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(timeFrozen);
         m_isPlayerFrozen = false;
+        yield return null;
+    }
+
+    IEnumerator WaitNextJump()
+    {
+        yield return new WaitForSeconds(m_timeNextJump);
+        m_canJump = true;
+        yield return null;
+    }
+
+    IEnumerator WaitNextPickUp()
+    {
+        yield return new WaitForSeconds(m_timeNextPickUp);
+        m_canPickUp = true;
+        yield return null;
+    }
+
+    IEnumerator WaitNextKick()
+    {
+        yield return new WaitForSeconds(m_timeNextKick);
+        m_canKick = true;
         yield return null;
     }
 

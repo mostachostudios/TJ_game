@@ -7,7 +7,7 @@ public class Script_ConeOfSightRenderer : MonoBehaviour
     private static readonly int sViewDepthTexturedID = Shader.PropertyToID("_ViewDepthTexture");
     private static readonly int sViewSpaceMatrixID = Shader.PropertyToID("_ViewSpaceMatrix");
 
-    [SerializeField] bool m_RenderCone = true;
+    public bool m_RenderCone = true;
 
     public Camera m_ViewCamera;
     public float m_ScaledViewDistance;

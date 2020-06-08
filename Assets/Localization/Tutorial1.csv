@@ -1,5 +1,10 @@
 KEY;en_US;es_ES
 MOUSE_WHEEL_ZOOM_CAMERA;Use mouse wheel to zoom in/out the camera;Utiliza la rueda del ratón para acercar/alejar la cámara
 TEST_1;Use mouse wheel to zoom in/out the camera;Utiliza la rueda del ratón para acercar/alejar la cámara
-TEST_2;Use mouse wheel to zoom in/out the camera;Utiliza la rueda del ratón para acercar/alejar la cámara
-TEST_3;Use mouse wheel to zoom in/out the camera;Utiliza la rueda del ratón para acercar/alejar la cámara
+TEST_2;Use mouse wheel to zoom in/out the camera;Pulsa ESPACIO para saltar
+TEST_3;Use mouse wheel to zoom in/out the camera;Manten pulsado CONTROL IZQUIERDO para andar de cuchlillas
+TEST_4;Use mouse wheel to zoom in/out the camera;Manten pulsado CONTROL IZQUIERDO + ESPACIO para gatear
+TEST_5;Use mouse wheel to zoom in/out the camera;Ten cuidado con Bully, evita estar al alcance de su vista
+TEST_6;Use mouse wheel to zoom in/out the camera;El profe no ve muy bien, pero tiene buen oído y te escuchará si caminas por la zona amarilla cuando se convierta en naranja 
+TEST_7;Use mouse wheel to zoom in/out the camera;¡Pulsa el botón IZQUIERDO del RATÓN para interactuar con puertas!
+TEST_8;Use mouse wheel to zoom in/out the camera;¡Pulsa el botón DERECHO del RATÓN para moverte con sigilo y evitar ser escuchado! ¡NO entres en la zona roja!

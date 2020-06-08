@@ -7,6 +7,9 @@ public class DisplayTipAction : Action
     public LocalizationTableKey tableKey;
     public LocalizationAssetKey tip;
     public float timeSeconds = .0f;
+    [Tooltip("Ignores 'timeSeconds'.")]
+    public bool forceInteraction = false;
+    [Tooltip("Use ignore if no interaction required.")]
     public EventType inputEvent = EventType.KeyDown;
     public KeyCode key = KeyCode.None;
     public float minTimeSeconds = .0f;
@@ -37,8 +40,8 @@ public class DisplayTipAction : Action
 
         if(pauseGame)
         {
-            //TODO(adrian)
-            //script_GameController.PauseGame();
+            script_GameController.PauseGame(false);
+            script_GameController.AllowPauseGame(false);
         }
 
         return false;
@@ -46,14 +49,16 @@ public class DisplayTipAction : Action
 
     protected override bool UpdateDerived()
     {
-        currentTimeSeconds = Mathf.Min(currentTimeSeconds + Time.deltaTime, timeSeconds);
+        currentTimeSeconds = Mathf.Min(currentTimeSeconds + (pauseGame ? Time.unscaledDeltaTime : Time.deltaTime), timeSeconds);
 
-        if( (currentTimeSeconds == timeSeconds && ExpectsInput() == false) || (InputReceived() && currentTimeSeconds >= minTimeSeconds) )
+        // If timer is ready and we don't force to wait until interaction happens OR
+        // We received the input we expected and minimum time is reached
+        if( (currentTimeSeconds == timeSeconds && !forceInteraction) || (InputReceived() && currentTimeSeconds >= minTimeSeconds) )
         {
             if (pauseGame)
             {
-                //TODO(adrian)
-                //script_GameController.ResumeGame();
+                script_GameController.ResumeGame();
+                script_GameController.AllowPauseGame(true);
             }
 
             script_UIController.EraseTextMessage(0);
@@ -63,25 +68,14 @@ public class DisplayTipAction : Action
         return false;
     }
 
-    private bool ExpectsInput()
-    {
-        // key
-        if (inputEvent == EventType.KeyDown && key != KeyCode.None)
-        {
-            return true;
-        }
-        // mouse wheel
-        else if (inputEvent == EventType.ScrollWheel)
-        {
-            return true;
-        }
-        // TODO: add more here if required
-
-        return false;
-    }
-
     private bool InputReceived()
     {
+        // early out
+        if(inputEvent == EventType.Ignore)
+        {
+            return false;
+        }
+
         // key
         if(inputEvent == EventType.KeyDown && (key == KeyCode.None || Input.GetKeyDown(key)))
         {
@@ -97,6 +91,16 @@ public class DisplayTipAction : Action
         return false;
     }
 
+    public override void forceFinish()
+    {
+        script_UIController.EraseTextMessage(0);
+        if (pauseGame)
+        {
+            script_GameController.ResumeGame();
+            script_GameController.AllowPauseGame(true);
+        }
+    }
+
     protected override Action CloneDerived()
     {
         DisplayTipAction clone = ScriptableObject.CreateInstance<DisplayTipAction>();
@@ -104,6 +108,7 @@ public class DisplayTipAction : Action
         clone.tableKey = this.tableKey;
         clone.tip = this.tip;
         clone.timeSeconds = this.timeSeconds;
+        clone.forceInteraction = this.forceInteraction;
         clone.inputEvent = this.inputEvent;
         clone.key = this.key;
         clone.minTimeSeconds = this.minTimeSeconds;

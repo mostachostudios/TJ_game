@@ -145,16 +145,33 @@ public class StateMachine : MonoBehaviour
 
         nextState = null;
 
-        toDoList.Clear();
+        ClearCurrentActions();
 
         // Fill TO-DO actions list with current state's actions
         FillToDoList(currentState.onEnterActions);
         FillToDoList(currentState.actions);
     }
 
+    public void ClearCurrentActions()
+    {
+        foreach (Action action in toDoList)
+        {
+            if (action.HasStarted())
+            {
+                action.forceFinish();
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        toDoList.Clear();
+    }
+
     public void SmoothChangeState(State state)
     {
-        toDoList.Clear();
+        ClearCurrentActions();
         FillToDoList(currentState.onExitActions);
 
         nextState = state;
@@ -162,7 +179,7 @@ public class StateMachine : MonoBehaviour
 
     public void ForceChangeState(State state)
     {
-        toDoList.Clear();
+        ClearCurrentActions();
 
         nextState = state;
     }

@@ -475,8 +475,8 @@ GameObject:
   - component: {fileID: 2927613811301594139}
   - component: {fileID: 2232554618775029253}
   - component: {fileID: 2232554618775029252}
-  - component: {fileID: 2232554618775029254}
   - component: {fileID: 7111122154752730488}
+  - component: {fileID: 2232554618775029254}
   m_Layer: 16
   m_Name: Player
   m_TagString: Player
@@ -541,34 +541,6 @@ CharacterController:
   m_SkinWidth: 0.06
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2232554618775029254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2232554618775029256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16984b9fa9841e8449bd42278b72a417, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gravity: -9.81
-  m_pushPower: 20
-  m_walkSpeed: 1
-  m_runSpeed: 2.5
-  m_stealthSpeed: 0.1
-  m_crawlSpeed: 0.25
-  m_crouchSpeed: 0.4
-  m_dodgeSpeed: 1.3
-  m_backwardWalkSpeed: 0.3
-  m_pushSpeed: 0.6
-  m_jumpSpeed: 2.5
-  m_TimeFalling: 2
-  m_TimeFallingDown: 5
-  m_TimeTerrified: 8
-  m_StepFootClip: {fileID: 8300000, guid: 03fc9288baa052740aca7e28710afa05, type: 3}
-  m_StepFootRunClip: {fileID: 8300000, guid: b875ae44f93fdbd469eccf997b73ef82, type: 3}
 --- !u!82 &7111122154752730488
 AudioSource:
   m_ObjectHideFlags: 0
@@ -665,6 +637,43 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2232554618775029254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232554618775029256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16984b9fa9841e8449bd42278b72a417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_walkSpeed: 1
+  m_runSpeed: 2.5
+  m_stealthSpeed: 0.15
+  m_crawlSpeed: 0.25
+  m_crouchSpeed: 0.4
+  m_dodgeSpeed: 1.3
+  m_backwardWalkSpeed: 0.3
+  m_pushSpeed: 0.6
+  m_jumpSpeed: 2.5
+  m_gravity: -9.81
+  m_pushPower: 20
+  m_timeNextJump: 0.8
+  m_timeNextPickUp: 0.8
+  m_timeNextKick: 0.8
+  m_TimeFalling: 2
+  m_TimeFallingDown: 5
+  m_TimeTerrified: 8
+  m_StepFootClip: {fileID: 8300000, guid: 03fc9288baa052740aca7e28710afa05, type: 3}
+  m_StepFootRunClip: {fileID: 8300000, guid: b875ae44f93fdbd469eccf997b73ef82, type: 3}
+  allowMove: 1
+  allowRun: 1
+  allowJump: 1
+  allowCrouch: 1
+  allowStealth: 1
+  allowCrawl: 1
 --- !u!1 &2472526073260422683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1042,80 @@ Transform:
   m_Father: {fileID: 4573281759227006781}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3512415519880714655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5919334686088133972}
+  - component: {fileID: 3661123223173715979}
+  m_Layer: 0
+  m_Name: Outline Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5919334686088133972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512415519880714655}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00000011920929, z: 0.00000023841858}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7915724571235469155}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &3661123223173715979
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512415519880714655}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 11.958185
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_RenderingPath: 1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &3528623754271238463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2818,6 +2901,7 @@ GameObject:
   - component: {fileID: 7915724571235469157}
   - component: {fileID: 1472401741289502734}
   - component: {fileID: 749192568446076758}
+  - component: {fileID: 4004856373195113213}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -2835,7 +2919,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5919334686088133972}
   m_Father: {fileID: 7915724570523772222}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2905,7 +2990,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 0}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2816
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -2967,6 +3052,36 @@ MonoBehaviour:
   m_FlatDistance: 2
   m_isInitialOrbit: 0
   m_allowChangeCamera: 1
+--- !u!114 &4004856373195113213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915724571235469158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineThickness: 1.25
+  lineIntensity: 0.5
+  fillAmount: 0.2
+  lineColor0: {r: 1, g: 0, b: 0, a: 1}
+  lineColor1: {r: 0, g: 1, b: 0, a: 1}
+  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  additiveRendering: 0
+  backfaceCulling: 1
+  cornerOutlines: 0
+  addLinesBetweenColors: 0
+  scaleWithScreenSize: 1
+  alphaCutoff: 0.5
+  flipY: 0
+  sourceCamera: {fileID: 7915724571235469156}
+  outlineCamera: {fileID: 3661123223173715979}
+  outlineShaderMaterial: {fileID: 0}
+  renderTexture: {fileID: 0}
+  extraRenderTexture: {fileID: 0}
 --- !u!1 &7927945087601756854
 GameObject:
   m_ObjectHideFlags: 0

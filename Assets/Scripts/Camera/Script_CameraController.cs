@@ -26,6 +26,8 @@ public class Script_CameraController : MonoBehaviour
 
     private bool m_ReadInput = true;
 
+    private Transform Obstruction;
+
     void Awake()
     {
         m_Player = GameObject.FindWithTag("Player");
@@ -35,6 +37,9 @@ public class Script_CameraController : MonoBehaviour
 
     void Start()
     {
+        //Obstruction = m_CameraTarget.transform;
+        Obstruction = m_Player.transform;
+
         if (m_isInitialOrbit)
         {
             SetOrbitCamera();
@@ -72,6 +77,7 @@ public class Script_CameraController : MonoBehaviour
             {
                 ZenitCameraControl();
             }
+            ViewObstructed(); 
         }
     }
 
@@ -79,7 +85,7 @@ public class Script_CameraController : MonoBehaviour
     {
         m_mouseX += Input.GetAxis("Mouse X") * m_RotationSpeed;
 
-        if (Input.GetMouseButton(1) || Input.GetMouseButton(2)) 
+        if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
             m_mouseY -= Input.GetAxis("Mouse Y") * m_RotationSpeed;
             m_mouseY = Mathf.Clamp(m_mouseY, -5f, 55f);
@@ -99,11 +105,11 @@ public class Script_CameraController : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            m_Distance += 0.5f;
+            m_Distance += 0.15f;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            m_Distance -= 0.5f;
+            m_Distance -= 0.15f;
         }
         m_Distance = Mathf.Clamp(m_Distance, -7f, -1.35f);
 
@@ -120,7 +126,7 @@ public class Script_CameraController : MonoBehaviour
         {
             m_FlatDistance -= 0.25f;
         }
-        m_FlatDistance = Mathf.Clamp(m_FlatDistance, 1.25f, 3.75f);
+        m_FlatDistance = Mathf.Clamp(m_FlatDistance, 1.25f, 5.75f);
 
         transform.position = m_Player.transform.position + new Vector3(0.0f, m_FlatDistance, -m_FlatDistance);
         transform.LookAt(m_Player.transform.position);
@@ -156,6 +162,35 @@ public class Script_CameraController : MonoBehaviour
     public void ReadInput(bool readInput)
     {
         m_ReadInput = readInput;
+    }
+
+    //Experimental
+    void ViewObstructed()
+    {
+        RaycastHit hit;
+        Vector3 direction = m_Player.transform.position - transform.position;
+        //if (Physics.Raycast(transform.position, m_CameraTarget.transform.position - transform.position, out hit, 6.5f))
+        if (Physics.Raycast(transform.position, direction, out hit, direction.magnitude)) 
+        {
+            //if (hit.collider.gameObject != m_Player)
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                Obstruction = hit.transform;
+                MeshRenderer meshRenderer = Obstruction.gameObject.GetComponent<MeshRenderer>();
+                if (meshRenderer)
+                {
+                    meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                }
+            }
+            else
+            {
+                MeshRenderer meshRenderer = Obstruction.gameObject.GetComponent<MeshRenderer>();
+                if (meshRenderer)
+                {
+                    meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                }
+            }
+        }
     }
 
 }

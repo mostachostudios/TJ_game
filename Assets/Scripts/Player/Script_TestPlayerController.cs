@@ -52,6 +52,14 @@ public class Script_TestPlayerController : MonoBehaviour
             {
                 m_Script_PlayerController.SetIdle();
             }
+            else if (Input.GetKeyDown(KeyCode.F10))
+            {
+                m_Script_PlayerController.PickUp();
+            }
+            else if (Input.GetKeyDown(KeyCode.F11))
+            {
+                m_Script_PlayerController.Kick();
+            }
             else if (Input.GetKeyDown(KeyCode.F12))
             {
                 m_Script_PlayerController.SetTerrified();
