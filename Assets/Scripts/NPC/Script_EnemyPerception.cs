@@ -10,7 +10,9 @@ using System.Collections;
 //[ExecuteAlways]
 public class Script_EnemyPerception : MonoBehaviour
 {
-	[SerializeField] bool m_PlayerDetected;
+	[SerializeField] bool m_GameOverDetection = false;
+	[Tooltip("Time lapse between player detection and game over. Ignored if GameOverDectection is set to false")]
+	[SerializeField] float m_TimeGameOver = 6f;
 
 	[Header("Sight")]
 	[SerializeField] float m_ViewDistance = 2f;
@@ -25,10 +27,12 @@ public class Script_EnemyPerception : MonoBehaviour
 	[SerializeField] float m_HearDistanceFar = 2f;
 	[SerializeField] float m_DurationHearFar = 10f;
 
-	[Header("Hearing Debug (To be set to private)")]
-	[SerializeField] bool m_EnteredHearFar = false;
-	[SerializeField] bool m_FinishedHearFar = false;
 	[SerializeField] Gradient m_GradientHearFar;
+	private bool m_EnteredHearFar = false;
+	private bool m_FinishedHearFar = false;
+
+	[Header("Debug (To be set to private)")]
+	[SerializeField] bool m_PlayerDetected;
 
 	private float m_TimeHearFar = 0f;
 	private Material m_MaterialHearFar;
@@ -39,6 +43,7 @@ public class Script_EnemyPerception : MonoBehaviour
 	private Script_ConeOfSightRenderer m_Script_ConeOfSightRenderer;
 	private GameObject m_Player;
 	private Script_PlayerController m_Script_PlayerController;
+	private Script_GameController m_Script_GameController;
 
 	private bool m_RenderArea = true;
 	private void Awake()
@@ -56,6 +61,8 @@ public class Script_EnemyPerception : MonoBehaviour
 
 		m_Player = GameObject.FindGameObjectWithTag("Player");
 		m_Script_PlayerController = m_Player.GetComponent<Script_PlayerController>();
+
+		m_Script_GameController = FindObjectOfType<Script_GameController>();
 
 		m_Script_ConeOfSightRenderer = GetComponentInChildren<Script_ConeOfSightRenderer>();
 		m_Script_ConeOfSightRenderer.m_ScaledViewDistance = m_ViewDistance * transform.localScale.x;
@@ -154,11 +161,11 @@ public class Script_EnemyPerception : MonoBehaviour
 				{
 					if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
 					{
-						if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
-						{
+						//if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
+						//{
 							m_PlayerDetected = true;
 							//Debug.Log("Player Hearing Close Detected");
-						}
+						//}
 					}
 					else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
 					{
@@ -194,18 +201,18 @@ public class Script_EnemyPerception : MonoBehaviour
 					GradientColorHearFar();
 				}
 
-				//TODO Change render area color once player is detected
 				if (m_PlayerDetected)
 				{
-					//m_RenderArea = false;
-					//m_Script_ConeOfSightRenderer.SetRenderingCone(false);
-					// set here chase state
+					// set here chase state or end game
+					if (m_GameOverDetection)
+					{
+						m_Script_PlayerController.SetTerrified();
+						StartCoroutine(WaitAndSetGameOver());
+					}
 				}
 				else
 				{
-					//m_RenderArea = true;
-					//m_Script_ConeOfSightRenderer.SetRenderingCone(true);
-					// set here patrol state
+					// continue patrol state
 				}
 			}
 		}
@@ -255,6 +262,14 @@ public class Script_EnemyPerception : MonoBehaviour
 		m_RenderHearingArea = active;
 	}
 
+	IEnumerator WaitAndSetGameOver()
+	{
+		yield return new WaitForSeconds(m_TimeGameOver);
+		string text = "GAME OVER\n\nSorry. You have been caught up.";
+		m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose, text);
+		yield return null;
+	}
+
 	private void OnEnable()
 	{
 		//Activate render cone and hearing
@@ -262,8 +277,7 @@ public class Script_EnemyPerception : MonoBehaviour
 
 	private void OnDisable()
 	{
-		//Deactivate render cone and hearing
-
+		//Deactivate render cone and hearingw
 	}
 
 }

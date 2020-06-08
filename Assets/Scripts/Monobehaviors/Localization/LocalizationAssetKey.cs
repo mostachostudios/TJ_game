@@ -7,5 +7,6 @@ public enum LocalizationAssetKey
 	TEST_4,
 	TEST_5,
 	TEST_6,
-	TEST_7
+	TEST_7,
+	TEST_8
 }
