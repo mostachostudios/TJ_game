@@ -99,125 +99,131 @@ public class Script_EnemyPerception : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject == m_Player)
+		if (m_Script_ConeOfSightRenderer.enabled || this.enabled)
 		{
-			m_PlayerDetected = false;
-
-			//Check Sighting
-			Vector3 direction1 = other.transform.position - transform.position;
-			Vector3 direction2 = other.transform.position - (transform.position + transform.up * 0.75f);
-
-			//Debug.Log(Vector3.Angle(direction1, transform.forward) + " - " + Vector3.Angle(direction2, transform.forward));
-			float angle = Vector3.Angle(direction1, transform.forward);
-			
-			if (angle < m_ViewAngle * 0.5f)
+			if (other.gameObject == m_Player)
 			{
-				RaycastHit hit;
-				// Careful when using transform.up since it might lead to some incorret results depeding on model size and scaling
-				Debug.DrawRay(transform.position + transform.up, direction1.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
-				Debug.DrawRay(transform.position + transform.up, direction2.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+				m_PlayerDetected = false;
 
-				//int layer = ~(1 << LayerMask.NameToLayer("Enemy")); // Avoid hitting other enemies colliders
-				int layer = LayerMask.GetMask("Player", "Obstacle"); // Better idea to only hit player and obstacles
-				if (Physics.Raycast(transform.position + transform.up, direction1.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
+				//Check Sighting
+				Vector3 direction1 = other.transform.position - transform.position;
+				Vector3 direction2 = other.transform.position - (transform.position + transform.up * 0.75f);
+
+				//Debug.Log(Vector3.Angle(direction1, transform.forward) + " - " + Vector3.Angle(direction2, transform.forward));
+				float angle = Vector3.Angle(direction1, transform.forward);
+
+				if (angle < m_ViewAngle * 0.5f)
 				{
-					if (hit.collider.gameObject == m_Player)
+					RaycastHit hit;
+					// Careful when using transform.up since it might lead to some incorret results depeding on model size and scaling
+					Debug.DrawRay(transform.position + transform.up, direction1.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+					Debug.DrawRay(transform.position + transform.up, direction2.normalized * m_ViewDistance * transform.localScale.x, Color.blue);
+
+					//int layer = ~(1 << LayerMask.NameToLayer("Enemy")); // Avoid hitting other enemies colliders
+					int layer = LayerMask.GetMask("Player", "Obstacle"); // Better idea to only hit player and obstacles
+					if (Physics.Raycast(transform.position + transform.up, direction1.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
 					{
-						m_PlayerDetected = true;
-						//Debug.Log("Player Sight Detected");
-					}
-					//else
-					//{
+						if (hit.collider.gameObject == m_Player)
+						{
+							m_PlayerDetected = true;
+							//Debug.Log("Player Sight Detected head");
+						}
+						//else
+						//{
 						//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
-					//}
-				}
-				if (!m_PlayerDetected && Physics.Raycast(transform.position + transform.up, direction2.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
-				{
-					if (hit.collider.gameObject == m_Player)
-					{
-						m_PlayerDetected = true;
-						//Debug.Log("Player Sight Detected");
+						//}
 					}
-					//else
-					//{
-					//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
-					//}
+					if (!m_PlayerDetected && Physics.Raycast(transform.position + transform.up, direction2.normalized, out hit, m_ViewDistance * transform.localScale.x, layer))
+					{
+						if (hit.collider.gameObject == m_Player)
+						{
+							m_PlayerDetected = true;
+							//Debug.Log("Player Sight Detected feet");
+						}
+						//else
+						//{
+						//Debug.Log("Cone Hit: " + hit.collider.gameObject.name);
+						//}
+					}
 				}
-			}
 
-			//Check hearing (Only if not already detected)
-			if (!m_PlayerDetected)
-			{
-				if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
+				//Check hearing (Only if not already detected)
+				if (!m_PlayerDetected)
 				{
-					if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
-					{
-						m_PlayerDetected = true;
-						//Debug.Log("Player Hearing Close Detected");
-					}
-				}
-				else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
-				{
-
-					if (!m_EnteredHearFar)
-					{
-						m_EnteredHearFar = true;
-						m_CoroutineHearFar = EnteredHearFar();
-						StartCoroutine(m_CoroutineHearFar);
-						//Debug.Log("Player Entered Hear Far Circle");
-					}
-					if (m_FinishedHearFar)
+					if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
 					{
 						if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
 						{
 							m_PlayerDetected = true;
-
-							//Debug.Log("Player Hearing Far Detected");
+							//Debug.Log("Player Hearing Close Detected");
 						}
 					}
+					else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
+					{
+
+						if (!m_EnteredHearFar)
+						{
+							m_EnteredHearFar = true;
+							m_CoroutineHearFar = EnteredHearFar();
+							StartCoroutine(m_CoroutineHearFar);
+							//Debug.Log("Player Entered Hear Far Circle");
+						}
+						if (m_FinishedHearFar)
+						{
+							if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
+							{
+								m_PlayerDetected = true;
+
+								//Debug.Log("Player Hearing Far Detected");
+							}
+						}
+					}
+					else
+					{
+						m_TimeHearFar = 0;
+						m_FinishedHearFar = false;
+						if (m_EnteredHearFar)
+						{
+							StopCoroutine(m_CoroutineHearFar);
+							//Debug.Log("Stopped Hear Far Routine");
+							m_EnteredHearFar = false;
+						}
+					}
+					GradientColorHearFar();
+				}
+
+				//TODO Change render area color once player is detected
+				if (m_PlayerDetected)
+				{
+					//m_RenderArea = false;
+					//m_Script_ConeOfSightRenderer.SetRenderingCone(false);
+					// set here chase state
 				}
 				else
 				{
-					m_TimeHearFar = 0;
-					m_FinishedHearFar = false;
-					if (m_EnteredHearFar)
-					{
-						StopCoroutine(m_CoroutineHearFar);
-						//Debug.Log("Stopped Hear Far Routine");
-						m_EnteredHearFar = false;
-					}
+					//m_RenderArea = true;
+					//m_Script_ConeOfSightRenderer.SetRenderingCone(true);
+					// set here patrol state
 				}
-				GradientColorHearFar();
-			}
-
-			//TODO Change render area color once player is detected
-			if (m_PlayerDetected)
-			{
-				//m_RenderArea = false;
-				//m_Script_ConeOfSightRenderer.SetRenderingCone(false);
-				// set here chase state
-			}
-			else 
-			{
-				//m_RenderArea = true;
-				//m_Script_ConeOfSightRenderer.SetRenderingCone(true);
-				// set here patrol state
 			}
 		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.gameObject == m_Player)
+		if (m_Script_ConeOfSightRenderer.enabled || this.enabled)
 		{
-			m_TimeHearFar = 0;
-			GradientColorHearFar();
-			m_EnteredHearFar = false;
-			m_FinishedHearFar = false;
-			m_PlayerDetected = false;
-			m_RenderArea = true;
-			m_Script_ConeOfSightRenderer.SetRenderingCone(true);
-			// set here patrol state
+			if (other.gameObject == m_Player)
+			{
+				m_TimeHearFar = 0;
+				GradientColorHearFar();
+				m_EnteredHearFar = false;
+				m_FinishedHearFar = false;
+				m_PlayerDetected = false;
+				m_RenderArea = true;
+				m_Script_ConeOfSightRenderer.SetRenderingCone(true);
+				// set here patrol state
+			}
 		}
 	}
 

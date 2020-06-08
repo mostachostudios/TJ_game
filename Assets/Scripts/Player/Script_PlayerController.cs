@@ -12,7 +12,7 @@ public class Script_PlayerController : MonoBehaviour
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;
     [SerializeField] float m_runSpeed = 2f;
-    [SerializeField] float m_stealthSpeed = 0.1f;
+    [SerializeField] float m_stealthSpeed = 0.15f;
     [SerializeField] float m_crawlSpeed = 0.25f;
     [SerializeField] float m_crouchSpeed = 0.4f;
     [SerializeField] float m_dodgeSpeed = 1.3f;
@@ -36,6 +36,7 @@ public class Script_PlayerController : MonoBehaviour
 
     [Header("Restrictions")]
     [SerializeField] public bool allowMove = true;
+    [SerializeField] public bool allowRun = true;
     [SerializeField] public bool allowJump = true;
     [SerializeField] public bool allowCrouch = true;
     [SerializeField] public bool allowStealth = true;
@@ -95,10 +96,10 @@ public class Script_PlayerController : MonoBehaviour
         //bool isMoving = Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0001f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.0001f;
         bool isMoving = allowMove && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
         || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow);
-        bool isRunning = allowMove && Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        bool isStealth = allowStealth && Input.GetKey(KeyCode.Tab);
-        bool isCrawling = allowCrawl && Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        bool isCrouch = allowCrouch && Input.GetKey(KeyCode.LeftAlt);
+        bool isRunning = allowRun && Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isStealth = allowStealth && Input.GetKey(KeyCode.Mouse1);
+        bool isCrawling = allowCrawl && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKey(KeyCode.Space);
+        bool isCrouch = allowCrouch && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && !Input.GetKey(KeyCode.Space);
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
