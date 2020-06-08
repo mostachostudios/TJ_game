@@ -2473,7 +2473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1486799138}
   - component: {fileID: 1486799137}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UI
   m_TagString: UI
   m_Icon: {fileID: 0}
@@ -2507,6 +2507,8 @@ MonoBehaviour:
   m_AudioDisplayDialog: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2,
     type: 3}
   m_AudioDisplayTip: {fileID: 8300000, guid: d0ad4e5a7ab3fe9468fa2b34f68c4c96, type: 3}
+  m_PostProcessProfile: {fileID: 11400000, guid: c2d406175ba14f344af7c57011194736,
+    type: 2}
 --- !u!4 &1486799138
 Transform:
   m_ObjectHideFlags: 0

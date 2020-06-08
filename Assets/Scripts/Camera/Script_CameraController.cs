@@ -37,7 +37,9 @@ public class Script_CameraController : MonoBehaviour
 
     void Start()
     {
-        Obstruction = m_CameraTarget.transform;
+        //Obstruction = m_CameraTarget.transform;
+        Obstruction = m_Player.transform;
+
         if (m_isInitialOrbit)
         {
             SetOrbitCamera();
@@ -75,7 +77,7 @@ public class Script_CameraController : MonoBehaviour
             {
                 ZenitCameraControl();
             }
-            //ViewObstructed(); 
+            ViewObstructed(); 
         }
     }
 
@@ -166,27 +168,26 @@ public class Script_CameraController : MonoBehaviour
     void ViewObstructed()
     {
         RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, m_CameraTarget.transform.position - transform.position, out hit, 4.5f))
+        Vector3 direction = m_Player.transform.position - transform.position;
+        //if (Physics.Raycast(transform.position, m_CameraTarget.transform.position - transform.position, out hit, 6.5f))
+        if (Physics.Raycast(transform.position, direction, out hit, direction.magnitude)) 
         {
-
             //if (hit.collider.gameObject != m_Player)
             if (hit.collider.gameObject.tag == "Wall")
             {
                 Obstruction = hit.transform;
-                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-
-                if (Vector3.Distance(Obstruction.position, transform.position) >= 3f && Vector3.Distance(transform.position, m_CameraTarget.transform.position) >= 1.5f)
+                MeshRenderer meshRenderer = Obstruction.gameObject.GetComponent<MeshRenderer>();
+                if (meshRenderer)
                 {
-                    transform.Translate(Vector3.forward * 1f * Time.deltaTime);
+                    meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 }
             }
             else
             {
-                Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                if (Vector3.Distance(transform.position, m_CameraTarget.transform.position) < 4.5f)
+                MeshRenderer meshRenderer = Obstruction.gameObject.GetComponent<MeshRenderer>();
+                if (meshRenderer)
                 {
-                    transform.Translate(Vector3.back * 1f * Time.deltaTime);
+                    meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                 }
             }
         }

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Script_UIController : MonoBehaviour
 {
+    [Header("UI objects references")]
     [SerializeField] Text m_TextMessage;
     [SerializeField] Text m_TextCountdown;
     [SerializeField] Image m_ImageCountdown;
@@ -20,8 +22,13 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] Text m_TextName3;
     [SerializeField] Text m_TextDialog3;
 
+    [Header("SFX")]
     [SerializeField] AudioClip m_AudioDisplayDialog;
     [SerializeField] AudioClip m_AudioDisplayTip;
+
+    [Header("VFX")]
+    [Tooltip("A post process effect applied if desired when the game pauses but having the Menu not being shown.")]
+    [SerializeField] PostProcessProfile m_PostProcessProfile;
 
     private AudioSource m_AudioSource;
 
@@ -32,6 +39,12 @@ public class Script_UIController : MonoBehaviour
         m_AudioSource.playOnAwake = false;
         m_AudioSource.loop = false;
         m_AudioSource.time = 0.0f;
+
+        PostProcessVolume m_PostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
+        m_PostProcessVolume.isGlobal = true;
+        m_PostProcessVolume.profile = m_PostProcessProfile;
+        m_PostProcessVolume.weight = 0.8f;
+        m_PostProcessVolume.enabled = false;
     }
 
     public void SetTextCountdown(string text)
@@ -41,7 +54,6 @@ public class Script_UIController : MonoBehaviour
 
     public void ShowCountdown(bool show)
     {
-        //FIX_ME (adrian):
         m_TextCountdown.enabled = show;
         m_ImageCountdown.enabled = show;
     }
