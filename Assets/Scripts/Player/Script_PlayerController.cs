@@ -24,6 +24,8 @@ public class Script_PlayerController : MonoBehaviour
     [SerializeField] float m_gravity = -9.81f;
     [SerializeField] float m_pushPower = 20f;
     [SerializeField] float m_timeNextJump = 0.8f;
+    [SerializeField] float m_timeNextPickUp = 0.8f;
+    [SerializeField] float m_timeNextKick = 0.8f;
 
     [Header("Frozen time lapse")]
     [SerializeField] float m_TimeFalling = 2f;
@@ -53,6 +55,8 @@ public class Script_PlayerController : MonoBehaviour
     private bool m_isPushing = false;
     private bool m_isJumping = false;
     private bool m_canJump = true;
+    private bool m_canPickUp = true;
+    private bool m_canKick = true;
 
     private bool m_isPlayerFrozen = false;
 
@@ -360,6 +364,26 @@ public class Script_PlayerController : MonoBehaviour
         }
     }
 
+    public void PickUp()
+    {
+        if (m_canPickUp && m_characterController.isGrounded)
+        {
+            Utils.SetAnimatorParameterByName(m_animator, "isPicking");
+            m_canPickUp = false;
+            StartCoroutine(WaitNextPickUp());
+        }
+    }
+
+    public void Kick()
+    {
+        if (m_canKick && m_characterController.isGrounded)
+        {
+            Utils.SetAnimatorParameterByName(m_animator, "isKicking");
+            m_canKick = false;
+            StartCoroutine(WaitNextKick());
+        }
+    }
+
     public float SetFalling()
     {
         m_isPlayerFrozen = true;
@@ -398,6 +422,20 @@ public class Script_PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(m_timeNextJump);
         m_canJump = true;
+        yield return null;
+    }
+
+    IEnumerator WaitNextPickUp()
+    {
+        yield return new WaitForSeconds(m_timeNextPickUp);
+        m_canPickUp = true;
+        yield return null;
+    }
+
+    IEnumerator WaitNextKick()
+    {
+        yield return new WaitForSeconds(m_timeNextKick);
+        m_canKick = true;
         yield return null;
     }
 

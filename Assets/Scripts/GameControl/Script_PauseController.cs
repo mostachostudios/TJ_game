@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Script_PauseController : ScriptableObject
 {
@@ -13,6 +14,8 @@ public class Script_PauseController : ScriptableObject
     private Script_PlayerController m_Script_PlayerController;
     private Script_CameraController m_Script_CameraController;
     private Script_Countdown m_Script_Countdown;
+
+    private PostProcessVolume m_PostProcessVolumePauseGame;
     public void Init(GameObject UI, GameObject Menu, GameObject World)
     {
         m_UI = UI;
@@ -35,6 +38,8 @@ public class Script_PauseController : ScriptableObject
         m_Script_PlayerController = FindObjectOfType<Script_PlayerController>();
         m_Script_CameraController = FindObjectOfType<Script_CameraController>();
         m_Script_Countdown = FindObjectOfType<Script_Countdown>();
+
+        m_PostProcessVolumePauseGame = m_UI.GetComponent<PostProcessVolume>();
     }
 
     public void PauseGame(bool showMenu = true)
@@ -50,6 +55,12 @@ public class Script_PauseController : ScriptableObject
 
             m_UI.SetActive(false);
             m_Menu.SetActive(true);
+
+            m_PostProcessVolumePauseGame.enabled = false;
+        }
+        else // Activate UI post process
+        {
+            m_PostProcessVolumePauseGame.enabled = true;
         }
     }
 
@@ -64,6 +75,8 @@ public class Script_PauseController : ScriptableObject
 
         m_UI.SetActive(true);
         m_Menu.SetActive(false);
+
+        m_PostProcessVolumePauseGame.enabled = false;
     }
 
     void SetActiveScripts(bool active)

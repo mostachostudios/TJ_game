@@ -49,7 +49,9 @@ public class Script_EnemyPerception : MonoBehaviour
 
 		m_Projectors = GetComponentsInChildren<Projector>();
 		GradientColorKey GCK1 = new GradientColorKey(m_Projectors[0].material.color, 0f);
-		GradientColorKey GCK2 = new GradientColorKey(m_Projectors[1].material.color, 1f);
+		GradientColorKey GCK2 = new GradientColorKey(
+			new Color(m_Projectors[1].material.color.r, m_Projectors[1].material.color.g * 2f, m_Projectors[1].material.color.b),
+			1f);
 		m_GradientHearFar.colorKeys = new GradientColorKey[] { GCK1, GCK2 };
 
 		m_Player = GameObject.FindGameObjectWithTag("Player");
