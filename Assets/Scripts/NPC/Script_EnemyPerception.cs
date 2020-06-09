@@ -31,8 +31,8 @@ public class Script_EnemyPerception : MonoBehaviour
 
 	[Tooltip("Is the player detected? For outside script checking purpose only (Required in Triggers in State Machine)")]
 	public bool m_PlayerDetected = false;
-	[Tooltip("Is enemy starting to hear the player? For outside script checking purpose only (Required in Triggers in State Machine)")]
-	public bool m_EnteredHearArea = false;
+	[Tooltip("Is the player inside the audible area? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	public bool m_PlayerInAudibleArea = false;
 
 	private float m_TimeHearFar = 0f;
 	private Material m_MaterialHearFar;
@@ -53,9 +53,7 @@ public class Script_EnemyPerception : MonoBehaviour
 
 		m_Projectors = GetComponentsInChildren<Projector>();
 		GradientColorKey GCK1 = new GradientColorKey(m_Projectors[0].material.color, 0f);
-		GradientColorKey GCK2 = new GradientColorKey(
-			new Color(m_Projectors[1].material.color.r, m_Projectors[1].material.color.g * 1f, m_Projectors[1].material.color.b),
-			1f);
+		GradientColorKey GCK2 = new GradientColorKey(m_Projectors[1].material.color, 1f);
 		m_GradientHearFar.colorKeys = new GradientColorKey[] { GCK1, GCK2 };
 
 		m_Player = GameObject.FindGameObjectWithTag("Player");
@@ -161,6 +159,7 @@ public class Script_EnemyPerception : MonoBehaviour
 					if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
 					{
 						GradientColorHearFar();
+						m_PlayerInAudibleArea = true;
 						m_PlayerDetected = true;
 						//Debug.Log("Player Detected in Inner Hear Area");
 					}
@@ -174,14 +173,14 @@ public class Script_EnemyPerception : MonoBehaviour
 								m_PlayerDetected = true;
 								//Debug.Log("Player Detected in Outer Hear Area");
 							}
-							m_EnteredHearArea = true;
+							m_PlayerInAudibleArea = true;
 							GradientColorHearFar();
 						}
 					}
 					else
 					{
 						m_TimeHearFar = 0;
-						m_EnteredHearArea = false;
+						m_PlayerInAudibleArea = false;
 						GradientColorHearFar();
 					}
 				}
@@ -211,7 +210,7 @@ public class Script_EnemyPerception : MonoBehaviour
 			{
 				m_TimeHearFar = 0;
 				GradientColorHearFar();
-				m_EnteredHearArea = false;
+				m_PlayerInAudibleArea = false;
 				m_PlayerDetected = false;
 				m_RenderArea = true;
 				m_Script_ConeOfSightRenderer.SetRenderingCone(true);

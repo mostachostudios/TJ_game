@@ -16,7 +16,6 @@ public class CheckPlayerDetectedCondition : Condition
             throw new UnityException("There is no Script_EnemyPerception component attached to the selected object");
         }
 
-        //return script_EnemyPerception.IsPlayerDetected() == expected; // TODO decide which option should be kept
         return script_EnemyPerception.m_PlayerDetected == expected;
     }
 
