@@ -27,16 +27,15 @@ public class Script_EnemyPerception : MonoBehaviour
 	[SerializeField] float m_HearDistanceFar = 2f;
 	[SerializeField] float m_DurationHearFar = 10f;
 
-	[SerializeField] Gradient m_GradientHearFar;
-	private bool m_EnteredHearFar = false;
-	private bool m_FinishedHearFar = false;
+	[SerializeField] Gradient m_GradientHearFar; // If set to private, this field will stop working! (Unity's bug?)
 
-	[Header("Debug (To be set to private)")]
-	[SerializeField] bool m_PlayerDetected;
+	[Tooltip("Is the player detected? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	public bool m_PlayerDetected = false;
+	[Tooltip("Is enemy starting to hear the player? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	public bool m_EnteredHearArea = false;
 
 	private float m_TimeHearFar = 0f;
 	private Material m_MaterialHearFar;
-	private IEnumerator m_CoroutineHearFar;
 
 	private SphereCollider m_SphereCollider;
 	private Projector[] m_Projectors;
@@ -55,7 +54,7 @@ public class Script_EnemyPerception : MonoBehaviour
 		m_Projectors = GetComponentsInChildren<Projector>();
 		GradientColorKey GCK1 = new GradientColorKey(m_Projectors[0].material.color, 0f);
 		GradientColorKey GCK2 = new GradientColorKey(
-			new Color(m_Projectors[1].material.color.r, m_Projectors[1].material.color.g * 2f, m_Projectors[1].material.color.b),
+			new Color(m_Projectors[1].material.color.r, m_Projectors[1].material.color.g * 1f, m_Projectors[1].material.color.b),
 			1f);
 		m_GradientHearFar.colorKeys = new GradientColorKey[] { GCK1, GCK2 };
 
@@ -161,44 +160,30 @@ public class Script_EnemyPerception : MonoBehaviour
 				{
 					if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
 					{
-						//if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
-						//{
-							m_PlayerDetected = true;
-							//Debug.Log("Player Hearing Close Detected");
-						//}
+						GradientColorHearFar();
+						m_PlayerDetected = true;
+						//Debug.Log("Player Detected in Inner Hear Area");
 					}
 					else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
 					{
-
-						if (!m_EnteredHearFar)
+						if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
 						{
-							m_EnteredHearFar = true;
-							m_CoroutineHearFar = EnteredHearFar();
-							StartCoroutine(m_CoroutineHearFar);
-							//Debug.Log("Player Entered Hear Far Circle");
-						}
-						if (m_FinishedHearFar)
-						{
-							if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
+							//Debug.Log("Player Entered Outer Hear Area");						
+							if(m_TimeHearFar >= m_DurationHearFar)
 							{
 								m_PlayerDetected = true;
-
-								//Debug.Log("Player Hearing Far Detected");
+								//Debug.Log("Player Detected in Outer Hear Area");
 							}
+							m_EnteredHearArea = true;
+							GradientColorHearFar();
 						}
 					}
 					else
 					{
 						m_TimeHearFar = 0;
-						m_FinishedHearFar = false;
-						if (m_EnteredHearFar)
-						{
-							StopCoroutine(m_CoroutineHearFar);
-							//Debug.Log("Stopped Hear Far Routine");
-							m_EnteredHearFar = false;
-						}
+						m_EnteredHearArea = false;
+						GradientColorHearFar();
 					}
-					GradientColorHearFar();
 				}
 
 				if (m_PlayerDetected)
@@ -226,8 +211,7 @@ public class Script_EnemyPerception : MonoBehaviour
 			{
 				m_TimeHearFar = 0;
 				GradientColorHearFar();
-				m_EnteredHearFar = false;
-				m_FinishedHearFar = false;
+				m_EnteredHearArea = false;
 				m_PlayerDetected = false;
 				m_RenderArea = true;
 				m_Script_ConeOfSightRenderer.SetRenderingCone(true);
@@ -236,18 +220,10 @@ public class Script_EnemyPerception : MonoBehaviour
 		}
 	}
 
-	IEnumerator EnteredHearFar()
-	{
-		yield return new WaitForSeconds(m_DurationHearFar);
-		m_FinishedHearFar = true;
-		//Debug.Log("Finished Hear Far Routine");
-		yield return null;
-	}
-
 	private void GradientColorHearFar()
 	{
-		float value = Mathf.Lerp(0f, 1f, m_TimeHearFar);
-		m_TimeHearFar += Time.deltaTime / m_DurationHearFar;
+		float value = Mathf.Lerp(0f, 1f, m_TimeHearFar / m_DurationHearFar);
+		m_TimeHearFar += Time.deltaTime;
 		Color color = m_GradientHearFar.Evaluate(value);
 		m_MaterialHearFar.color = color;
 	}
