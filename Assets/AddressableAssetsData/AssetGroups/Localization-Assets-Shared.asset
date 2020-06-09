@@ -17,22 +17,24 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d949916c4643e1e4197fa98dda447dfc
   m_SerializeEntries:
-  - m_GUID: 3b40f1a335b762d47949a79db1b6ccc9
-    m_Address: Tutorial1 Shared Data
+  - m_GUID: 68101d82e2c5a96478177c933b80ccac
+    m_Address: Gameplay Shared Data
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Locale
     - Locale-en
     - Locale-es
-    - Preload
+    - Locale
     m_mainAssetType: UnityEngine.Localization.Tables.SharedTableData, Unity.Localization,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_GUID: aa6bac0d12b41184ead04c31694dda52
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 95df029a5fa98c54f9f9082ed8db57ba
     m_Address: Tutorial1 Shared Data
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.Localization.Tables.SharedTableData, Unity.Localization,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_mainAssetType: 
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 0cbc179fedc056a46bbbd5abc88858fb, type: 2}
   m_SchemaSet:

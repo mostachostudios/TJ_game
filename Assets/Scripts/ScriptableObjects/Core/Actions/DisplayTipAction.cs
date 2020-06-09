@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class DisplayTipAction : Action
 {
-    public LocalizationTableKey tableKey;
-    public LocalizationAssetKey tip;
+    public LocalizedString localizedTip;
     public float timeSeconds = .0f;
     [Tooltip("Ignores 'timeSeconds'.")]
     public bool forceInteraction = false;
@@ -35,8 +35,8 @@ public class DisplayTipAction : Action
 
         script_UIController.ClearUI();
 
-        string message = FindObjectOfType<LocalizationManager>().GetStringAsset(tableKey, tip);
-        script_UIController.SetTextMessage(message, true);
+        localizedTip.RegisterChangeHandler(DisplayTip);
+        localizedTip.GetLocalizedString();
 
         currentTimeSeconds = .0f;
 
@@ -49,6 +49,11 @@ public class DisplayTipAction : Action
         return false;
     }
 
+    private void DisplayTip(string s)
+    {
+        script_UIController.SetTextMessage(s, true);
+    }
+
     protected override bool UpdateDerived()
     {
         currentTimeSeconds = Mathf.Min(currentTimeSeconds + (pauseGame ? Time.unscaledDeltaTime : Time.deltaTime), timeSeconds);
@@ -59,11 +64,12 @@ public class DisplayTipAction : Action
         {
             if (pauseGame)
             {
-                script_GameController.ResumeGame();
+                script_GameController.ResumeGame(false);
                 script_GameController.AllowPauseGame(true);
             }
 
-            script_UIController.EraseTextMessage(0);
+            script_UIController.EraseTextMessage(0, 0.5f);
+            localizedTip.ClearChangeHandler();
             return true;
         }
 
@@ -95,6 +101,7 @@ public class DisplayTipAction : Action
 
     public override void forceFinish()
     {
+        localizedTip.ClearChangeHandler();
         script_UIController.EraseTextMessage(0);
         if (pauseGame)
         {
@@ -107,8 +114,7 @@ public class DisplayTipAction : Action
     {
         DisplayTipAction clone = ScriptableObject.CreateInstance<DisplayTipAction>();
 
-        clone.tableKey = this.tableKey;
-        clone.tip = this.tip;
+        clone.localizedTip = this.localizedTip;
         clone.timeSeconds = this.timeSeconds;
         clone.forceInteraction = this.forceInteraction;
         clone.inputEvent = this.inputEvent;
