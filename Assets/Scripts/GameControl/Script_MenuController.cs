@@ -146,6 +146,10 @@ public class Script_MenuController : MonoBehaviour
     }
     void Quit()
     {
-        Application.Quit(); // Warning: this only works when the project is built. Won't work when playing in the editor
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 }
