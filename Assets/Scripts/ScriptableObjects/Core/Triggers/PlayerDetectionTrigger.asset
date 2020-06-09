@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3877891752076591302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ff18246f69e5a468ecc2b404362d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTrigger: {fileID: 11400000}
+  instance: {fileID: 0}
+  expected: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
+  m_Name: PlayerDetectionTrigger
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  conditions:
+  - {fileID: -3877891752076591302}

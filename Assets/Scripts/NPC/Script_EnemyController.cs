@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 
+// TO BE REMOVED. NO LONGER USED AFTER USING STATE MACHINE.
 public class Script_EnemyController : Script_NPCController
 {
     GameObject m_Player;
@@ -12,6 +14,7 @@ public class Script_EnemyController : Script_NPCController
         m_Script_EnemyPerception = GetComponent<Script_EnemyPerception>();
     }
 
+    
     void Update()
     {
         if (m_Script_EnemyPerception.IsPlayerDetected() && Vector3.Distance(this.transform.position, m_Player.transform.position) > m_Agent.stoppingDistance)
@@ -24,6 +27,7 @@ public class Script_EnemyController : Script_NPCController
             SetIdle();
         }
     }
+    
 
     public void SetChase()
     {
@@ -33,3 +37,4 @@ public class Script_EnemyController : Script_NPCController
     }
 
 }
+*/

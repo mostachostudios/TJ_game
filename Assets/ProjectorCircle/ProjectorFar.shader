@@ -13,7 +13,7 @@ Shader "Projector/CircleFar" {
 		Pass {
 			ZWrite Off
 			ColorMask RGB
-			Blend One OneMinusSrcAlpha
+			Blend OneMinusDstColor One
 			Offset -1, -1
 
 			CGPROGRAM
@@ -48,7 +48,7 @@ Shader "Projector/CircleFar" {
 				fixed4 outColor = _Color * texCookie.a;
 				// Attenuation
 				float depth = i.uvShadow.z; // [-1 (near), 1 (far)]
-				return outColor * clamp(1.0 - abs(depth) + _Attenuation, 0.0, 0.4);
+				return outColor * clamp(1.0 - abs(depth) + _Attenuation, 0.0, 1.0);
 			}
 			ENDCG
 		}

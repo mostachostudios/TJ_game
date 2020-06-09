@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 7156647110105112126}
   - component: {fileID: 6546832122255735115}
   - component: {fileID: 5731722952811587963}
-  - component: {fileID: -479987362559427467}
+  - component: {fileID: 8991446047205109309}
   - component: {fileID: 1785725507146582327}
   m_Layer: 17
   m_Name: Jasper
@@ -1782,7 +1782,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.48
   m_Center: {x: 0, y: 0.05, z: 0}
---- !u!114 &-479987362559427467
+--- !u!114 &8991446047205109309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1791,11 +1791,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4764964501925555444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2eaef4b7b07441a47d31182ba8fd7, type: 3}
+  m_Script: {fileID: 11500000, guid: e96d70ef9f5673d4ab04599e0881bfe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1
-  runSpeed: 1.6
+  runSpeed: 1.8
 --- !u!114 &1785725507146582327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,7 +1808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca3bbe1047ccb8499d1507e21a89b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerDetected: 0
+  m_GameOverDetection: 0
+  m_TimeGameOver: 6
   m_ViewDistance: 13.96
   m_ViewAngle: 100
   m_RenderHearingArea: 1
@@ -1816,8 +1817,6 @@ MonoBehaviour:
   m_HearDistanceClose: 1.73
   m_HearDistanceFar: 4.45
   m_DurationHearFar: 10
-  m_EnteredHearFar: 0
-  m_FinishedHearFar: 0
   m_GradientHearFar:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 0, a: 1}
@@ -1847,6 +1846,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  m_PlayerDetected: 0
 --- !u!1 &4832479636548784557
 GameObject:
   m_ObjectHideFlags: 0
