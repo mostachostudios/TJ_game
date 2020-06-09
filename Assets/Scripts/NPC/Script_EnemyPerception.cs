@@ -31,12 +31,12 @@ public class Script_EnemyPerception : MonoBehaviour
 
 	[Tooltip("Is the player detected? For outside script checking purpose only (Required in Triggers in State Machine)")]
 	public bool m_PlayerDetected = false;
-	[Tooltip("Is the player inside the audible area? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	[Tooltip("Is the player inside the audible area? For outside script checking purpose only")]
 	public bool m_PlayerInAudibleArea = false;
 
-	[Tooltip("Is the player detected? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	[Tooltip("Is the player detected by sight? For outside script checking purpose only")]
 	public bool m_PlayerDetectedInSight = false;
-	[Tooltip("Is the player detected? For outside script checking purpose only (Required in Triggers in State Machine)")]
+	[Tooltip("Is the player detected by audible area? For outside script checking purpose only")]
 	public bool m_PlayerDetectedInAudibleArea = false;
 
 	private float m_TimeHearFar = 0f;
