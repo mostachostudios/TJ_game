@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 1
   waitToFinish: 1
   targetEntity: {fileID: 0}
   targetPoint: {fileID: 0}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!114 &-291761678045973239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,10 +31,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 1
   waitToFinish: 1
   targetEntity: {fileID: 0}
   targetPoint: {fileID: 0}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,6 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
   m_Name: PatrolState
   m_EditorClassIdentifier: 
+  parentStateMachine: {fileID: 0}
+  enabled: 1
+  loop: 1
   onEnterActions: []
   actions:
   - {fileID: -5298371632787511313}
@@ -63,7 +72,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d43586ce1c1f240834b0cba3bd3b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentState: {fileID: 0}
+  enabled: 1
   waitToFinish: 1
   targetEntity: {fileID: 0}
   targetPoint: {fileID: 0}
-  speedMetersPerSecond: 1.4
+  timeSeconds: 1
+  lookAtTarget: 1
