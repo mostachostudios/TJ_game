@@ -10,6 +10,7 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] Text m_TextCountdown;
     [SerializeField] Image m_ImageCountdown;
     [SerializeField] RawImage m_backgroundCenter;
+    [SerializeField] RawImage m_intermediateBackgroundCenter;
 
     [SerializeField] Image m_Avatar1;
     [SerializeField] Text m_TextName1;
@@ -165,6 +166,10 @@ public class Script_UIController : MonoBehaviour
         m_backgroundCenter.gameObject.SetActive(true);
         m_TextMessage.text = text;
 
+        m_backgroundCenter.CrossFadeAlpha(1.0f, .0f, false);
+        m_TextMessage.CrossFadeAlpha(1.0f, .0f, false);
+        m_intermediateBackgroundCenter.CrossFadeAlpha(1.0f, .0f, false);
+
         if (isTip)
         {
             if (!m_AudioSource.isPlaying)
@@ -179,16 +184,19 @@ public class Script_UIController : MonoBehaviour
     /// Erase text linked to tips and notifications after 'time' seconds
     /// </summary>
     /// <param name="time"></param>
-    public void EraseTextMessage(float time = 0.0f)
+    public void EraseTextMessage(float time = 0.0f, float fadeSeconds = .0f)
     {
-        StartCoroutine(EraseText(time));
+        StartCoroutine(EraseText(time, fadeSeconds));
     }
 
-    IEnumerator EraseText(float time)
+    IEnumerator EraseText(float time, float fadeSeconds = .0f)
     {
         yield return new WaitForSeconds(time);
-        m_backgroundCenter.gameObject.SetActive(false);
-        m_TextMessage.text = "";
+
+        m_backgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
+        m_TextMessage.CrossFadeAlpha(0.0f, fadeSeconds, false);
+        m_intermediateBackgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
+
         yield return null;
     }
 

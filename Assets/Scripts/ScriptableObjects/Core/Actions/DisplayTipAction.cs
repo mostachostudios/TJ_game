@@ -64,11 +64,11 @@ public class DisplayTipAction : Action
         {
             if (pauseGame)
             {
-                script_GameController.ResumeGame();
+                script_GameController.ResumeGame(false);
                 script_GameController.AllowPauseGame(true);
             }
 
-            script_UIController.EraseTextMessage(0);
+            script_UIController.EraseTextMessage(0, 0.5f);
             localizedTip.ClearChangeHandler();
             return true;
         }
