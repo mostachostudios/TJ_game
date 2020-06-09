@@ -197,26 +197,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2606454}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4387517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1007881003}
-  enabled: 1
-  waitToFinish: 1
-  characterAvatar: {fileID: 21300000, guid: 8005fdd3e7a5e3449ad0134da6d28305, type: 3}
-  dialogPosition: 1
-  timeBetweenMessage: 4
-  messages:
-  - Oye chaval, vuelve a tu sitio!
 --- !u!1 &4418391
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +391,21 @@ MonoBehaviour:
   componentTypeName: Script_PlayerController
   fieldName: allowJump
   value: 1
+--- !u!114 &24394132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
+  m_Name: PlayerNotInHearingAreaTrigger
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1021013338}
+  conditions:
+  - {fileID: 1700082341}
 --- !u!1 &27761751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,26 +2719,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 140529662}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &141666021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
-  m_Name: InitialState
-  m_EditorClassIdentifier: 
-  parentStateMachine: {fileID: 568337840}
-  enabled: 1
-  loop: 0
-  onEnterActions: []
-  actions: []
-  onExitActions: []
-  triggers:
-  - {fileID: 1984361991}
 --- !u!1001 &144456034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5515,6 +5490,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 266954216}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &268454299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
+  m_Name: PlayerInHearingAreaTrigger
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1371710046}
+  conditions:
+  - {fileID: 1501097262}
+  - {fileID: 1682111268}
 --- !u!1001 &269717965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8873,41 +8864,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 440729481}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &452565523
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1845
-  m_Height: 1038
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &454345165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9350,21 +9306,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b499b3481794be4bba2b6488b835384, type: 3}
---- !u!114 &483920384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ff18246f69e5a468ecc2b404362d17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentTrigger: {fileID: 0}
-  instance: {fileID: 568337837}
-  expected: 0
 --- !u!1001 &485983674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10009,6 +9950,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 525907969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &531568750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fa5fd65e9b88746aade8d0bf89b28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1021013338}
+  enabled: 1
+  waitToFinish: 1
+  state: {fileID: 1371710046}
+  enable: 1
 --- !u!1 &533166387
 GameObject:
   m_ObjectHideFlags: 0
@@ -10549,7 +10507,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   m_PlayerDetected: 0
-  m_EnteredHearFar: 0
+  m_EnteredHearArea: 0
 --- !u!114 &568337839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10565,25 +10523,9 @@ MonoBehaviour:
   initialState: {fileID: 1021013338}
   states:
   - {fileID: 1021013338}
+  - {fileID: 1371710046}
   - {fileID: 1007881003}
   instanceID: -20978
---- !u!114 &568337840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568337837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b37d4963f797384490521ea2e064bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialState: {fileID: 141666021}
-  states:
-  - {fileID: 141666021}
-  - {fileID: 1902787951}
-  instanceID: -36294
 --- !u!135 &568337843
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11946,26 +11888,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1196905307}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &648063189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1902787951}
-  enabled: 1
-  waitToFinish: 1
-  characterAvatar: {fileID: 21300000, guid: 8005fdd3e7a5e3449ad0134da6d28305, type: 3}
-  dialogPosition: 1
-  timeBetweenMessage: 5
-  messages:
-  - "\xBFQuien se ha levantado de su silla?"
 --- !u!1001 &649595777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15044,8 +14966,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 831655714}
   outlineCamera: {fileID: 2117700344}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 1892188066}
-  extraRenderTexture: {fileID: 1796713607}
+  renderTexture: {fileID: 1618735051}
+  extraRenderTexture: {fileID: 1480843011}
 --- !u!20 &831655714
 Camera:
   m_ObjectHideFlags: 0
@@ -15164,6 +15086,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 833439975}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &839976425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1007881003}
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: 8005fdd3e7a5e3449ad0134da6d28305, type: 3}
+  dialogPosition: 1
+  timeBetweenMessage: 4
+  messages:
+  - Oye chaval, vuelve a tu sitio!
 --- !u!1001 &844391736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16970,10 +16912,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentStateMachine: {fileID: 568337839}
   enabled: 1
-  loop: 1
-  onEnterActions:
-  - {fileID: 4387517}
-  actions: []
+  loop: 0
+  onEnterActions: []
+  actions:
+  - {fileID: 839976425}
   onExitActions: []
   triggers:
   - {fileID: 1556062044}
@@ -17066,12 +17008,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentStateMachine: {fileID: 568337839}
   enabled: 1
-  loop: 1
-  onEnterActions: []
+  loop: 0
+  onEnterActions:
+  - {fileID: 531568750}
   actions: []
   onExitActions: []
   triggers:
-  - {fileID: 1061602096}
+  - {fileID: 24394132}
 --- !u!114 &1021621896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17628,21 +17571,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1052806665}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1061602096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
-  m_Name: PlayerDetectionTrigger
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1021013338}
-  conditions:
-  - {fileID: 483920384}
 --- !u!4 &1061661726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 498858, guid: 13b01f66b5834b54ab62e863b7018650,
@@ -20521,7 +20449,7 @@ PrefabInstance:
     - target: {fileID: 3430139422224594916, guid: d0280200669c3bd4da225a3713e098cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.001
+      value: 20.02
       objectReference: {fileID: 0}
     - target: {fileID: 3430139422224594916, guid: d0280200669c3bd4da225a3713e098cc,
         type: 3}
@@ -20661,6 +20589,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1267042734}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1272917725
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1845
+  m_Height: 1038
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!114 &1274239321 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3468032973711313511, guid: b792478ed3a7ac34b852dda99ee8a1d7,
@@ -21870,6 +21833,28 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   instance: {fileID: 1204485429}
+--- !u!114 &1371710046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
+  m_Name: PlayerInHearingAreaState
+  m_EditorClassIdentifier: 
+  parentStateMachine: {fileID: 568337839}
+  enabled: 0
+  loop: 0
+  onEnterActions:
+  - {fileID: 1628284530}
+  actions: []
+  onExitActions:
+  - {fileID: 2127328800}
+  triggers:
+  - {fileID: 268454299}
 --- !u!114 &1373941356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23922,6 +23907,41 @@ MonoBehaviour:
   timeBetweenMessage: 2
   messages:
   - Oye Guapo. Que haces tu aqui?
+--- !u!84 &1480843011
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1845
+  m_Height: 1038
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &1494663846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24082,6 +24102,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1499765444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1501097262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c634195e0dc19bf47b5841fb85132330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTrigger: {fileID: 268454299}
+  instance: {fileID: 568337837}
+  componentTypeName: Script_EnemyPerception
+  fieldName: m_EnteredHearArea
+  expectedValue: 1
 --- !u!1001 &1504690688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25685,21 +25722,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 204034472}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1583309869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
-  m_Name: PlayerFirstHeardTrigger
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 1902787951}
-  conditions:
-  - {fileID: 1607245913}
 --- !u!1001 &1583824345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26323,23 +26345,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1603538878}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1607245913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c634195e0dc19bf47b5841fb85132330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentTrigger: {fileID: 1583309869}
-  instance: {fileID: 568337837}
-  componentTypeName: Script_EnemyPerception
-  fieldName: m_EnteredHearFar
-  expectedValue: 1
 --- !u!1001 &1612912277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26512,6 +26517,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1618053481}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1618735051
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1845
+  m_Height: 1038
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!114 &1619132382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26703,6 +26743,26 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   timeSeconds: 0.1
+--- !u!114 &1628284530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1371710046}
+  enabled: 1
+  waitToFinish: 0
+  characterAvatar: {fileID: 21300000, guid: 8005fdd3e7a5e3449ad0134da6d28305, type: 3}
+  dialogPosition: 1
+  timeBetweenMessage: 4
+  messages:
+  - "\xBFQuien se ha levantado de su silla?"
 --- !u!1001 &1635462903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27174,41 +27234,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1658933578}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1663137524
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1845
-  m_Height: 1038
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1663760909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27576,6 +27601,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1671936887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1682111268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ff18246f69e5a468ecc2b404362d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTrigger: {fileID: 268454299}
+  instance: {fileID: 568337837}
+  expected: 0
 --- !u!1001 &1685147067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27712,7 +27752,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1663137524}
+      objectReference: {fileID: 1272917725}
     - target: {fileID: 5387479557381688073, guid: 1ea00d64991f34445b3584baea34c862,
         type: 3}
       propertyPath: m_Enabled
@@ -27894,6 +27934,23 @@ Transform:
   m_Father: {fileID: 130481992}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1700082341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c634195e0dc19bf47b5841fb85132330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTrigger: {fileID: 24394132}
+  instance: {fileID: 568337837}
+  componentTypeName: Script_EnemyPerception
+  fieldName: m_EnteredHearArea
+  expectedValue: 0
 --- !u!1001 &1702610698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29169,23 +29226,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1766240183}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1773021707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c634195e0dc19bf47b5841fb85132330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentTrigger: {fileID: 1984361991}
-  instance: {fileID: 568337837}
-  componentTypeName: Script_EnemyPerception
-  fieldName: m_EnteredHearFar
-  expectedValue: 0
 --- !u!1001 &1786160771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29384,41 +29424,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b01f66b5834b54ab62e863b7018650, type: 3}
---- !u!84 &1796713607
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1845
-  m_Height: 1038
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1797348161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30894,41 +30899,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 126704786}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1892188066
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 1845
-  m_Height: 1038
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1899258237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31078,27 +31048,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dccbf6d5d9e1cb40a817c7db39b4d11, type: 3}
---- !u!114 &1902787951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17ffe4486a330543bba79b2016f32c2, type: 3}
-  m_Name: PlayerFIrstHeardState
-  m_EditorClassIdentifier: 
-  parentStateMachine: {fileID: 568337840}
-  enabled: 1
-  loop: 0
-  onEnterActions:
-  - {fileID: 648063189}
-  actions: []
-  onExitActions: []
-  triggers:
-  - {fileID: 1583309869}
 --- !u!114 &1904366581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32027,6 +31976,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1963287862}
   m_PrefabAsset: {fileID: 0}
+--- !u!84 &1963565920
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 1845
+  m_Height: 1038
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &1964573945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32520,21 +32504,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1983877809}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1984361991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fdabed21df243f4bb08ace044c54340, type: 3}
-  m_Name: PlayerNotFirstHeardTrigger
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 141666021}
-  conditions:
-  - {fileID: 1773021707}
 --- !u!1001 &1986778329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35571,7 +35540,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 1892188066}
+  m_TargetTexture: {fileID: 1618735051}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -35748,6 +35717,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2125739171}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2127328800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fa5fd65e9b88746aade8d0bf89b28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentState: {fileID: 1371710046}
+  enabled: 1
+  waitToFinish: 1
+  state: {fileID: 1371710046}
+  enable: 0
 --- !u!1001 &2132050326
 PrefabInstance:
   m_ObjectHideFlags: 0
