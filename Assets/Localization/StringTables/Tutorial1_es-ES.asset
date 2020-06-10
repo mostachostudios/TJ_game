@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tutorial1_es-ES
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es-ES
+  m_SharedData: {fileID: 11400000, guid: 95df029a5fa98c54f9f9082ed8db57ba, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1
+    m_Localized: "Utiliza la RUEDA DEL RAT\xD3N para ACERCAR/ALEJAR la c\xE1mara"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2
+    m_Localized: Pulsa ESPACIO para SALTAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3
+    m_Localized: Ten cuidado con Bully, evita estar al alcance de su vista. Manten
+      pulsado CONTROL IZQUIERDO para andar de CUCLILLAS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4
+    m_Localized: "El profe no ve muy bien, pero tiene buen o\xEDdo y te escuchar\xE1
+      si caminas por la zona amarilla cuando se convierta en rosada. \xA1Pulsa el
+      bot\xF3n DERECHO del RAT\xD3N para moverte con sigilo y evitar ser escuchado!
+      \xA1NO entres en la zona roja!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5
+    m_Localized: Manten pulsado CONTROL IZQUIERDO + ESPACIO para gatear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6
+    m_Localized: "\xA1Pulsa el bot\xF3n IZQUIERDO del RAT\xD3N para interactuar con
+      puertas y otros objetos!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

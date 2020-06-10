@@ -40,12 +40,12 @@ public class State : ScriptableObject
         for (int i = 0; i < actions.Length; i++)
         {
             clone.actions[i] = actions[i].Clone();
-            clone.onEnterActions[i].parentState = clone;
+            clone.actions[i].parentState = clone;
         }
         for (int i = 0; i < onExitActions.Length; i++)
         {
             clone.onExitActions[i] = onExitActions[i].Clone();
-            clone.onEnterActions[i].parentState = clone;
+            clone.onExitActions[i].parentState = clone;
         }
         for (int i = 0; i < triggers.Length; i++)
         {

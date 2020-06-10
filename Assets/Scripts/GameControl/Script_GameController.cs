@@ -132,11 +132,14 @@ public class Script_GameController : MonoBehaviour
         m_Script_PauseController.PauseGame(showMenu);
     }
 
-    public void ResumeGame()
+    public void ResumeGame(bool eraseText = true)
     {
         m_paused = false;
         m_Script_PauseController.ResumeGame();
-        m_Script_UIController.EraseTextMessage();
+        if (eraseText)
+        {
+            m_Script_UIController.EraseTextMessage();
+        }
     }
 
     /// <summary>

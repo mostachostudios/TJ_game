@@ -17,38 +17,43 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: af2b13d85bd02284594e5c45ba140603
   m_SerializeEntries:
-  - m_GUID: 72bf0875088c19541a46475e77011b3a
+  - m_GUID: 107fd8f8d7d98e24883d76f52af9691f
     m_Address: Tutorial1_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 138793736e7e8b846a761c55b0933bce
+    m_Address: Gameplay_es-ES
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es-ES
+    m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 62657bbab3856a443a896c3140724005
+    m_Address: Gameplay_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
     m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_GUID: a86b06f64d5f2a6418bc238e418410f4
-    m_Address: Tutorial1_es
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8fc5a22c99c76644aac9aed5deb8fdb0
+    m_Address: Tutorial1_es-ES
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-es
-    - Preload
+    - Locale-es-ES
     m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_GUID: b9dfb6ab6aad6eb4697a880c5aee6093
-    m_Address: Tutorial1_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    - Preload
-    m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_GUID: e4a999b7f21ba994f80a04691b6cc562
-    m_Address: Tutorial1_es
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    - Preload
-    m_mainAssetType: UnityEngine.Localization.Tables.StringTable, Unity.Localization,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 0cbc179fedc056a46bbbd5abc88858fb, type: 2}
   m_SchemaSet:

@@ -9,18 +9,28 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] Text m_TextMessage;
     [SerializeField] Text m_TextCountdown;
     [SerializeField] Image m_ImageCountdown;
+    [SerializeField] RawImage m_backgroundCenter;
+    [SerializeField] RawImage m_intermediateBackgroundCenter;
 
     [SerializeField] Image m_Avatar1;
     [SerializeField] Text m_TextName1;
     [SerializeField] Text m_TextDialog1;
+    [SerializeField] RawImage m_backgroundName1;
+    [SerializeField] RawImage m_backgroundDialog1;
 
     [SerializeField] Image m_Avatar2;
     [SerializeField] Text m_TextName2;
     [SerializeField] Text m_TextDialog2;
+    [SerializeField] RawImage m_backgroundName2;
+    [SerializeField] RawImage m_backgroundDialog2;
 
     [SerializeField] Image m_Avatar3;
     [SerializeField] Text m_TextName3;
     [SerializeField] Text m_TextDialog3;
+    [SerializeField] RawImage m_backgroundName3;
+    [SerializeField] RawImage m_backgroundDialog3;
+
+    [SerializeField] Image m_FadeImage;
 
     [Header("SFX")]
     [SerializeField] AudioClip m_AudioDisplayDialog;
@@ -40,6 +50,7 @@ public class Script_UIController : MonoBehaviour
         m_AudioSource.loop = false;
         m_AudioSource.time = 0.0f;
 
+        
         PostProcessVolume m_PostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
         m_PostProcessVolume.isGlobal = true;
         m_PostProcessVolume.profile = m_PostProcessProfile;
@@ -54,8 +65,15 @@ public class Script_UIController : MonoBehaviour
 
     public void ShowCountdown(bool show)
     {
-        m_TextCountdown.enabled = show;
-        m_ImageCountdown.enabled = show;
+        // null check to avoid runtime error when shutdown
+        if (m_TextCountdown != null)
+        {
+            m_TextCountdown.enabled = show;
+        }
+        if (m_ImageCountdown != null)
+        {
+            m_ImageCountdown.enabled = show;
+        }
     }
 
     /// <summary>
@@ -68,18 +86,24 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
+                m_backgroundDialog1.gameObject.SetActive(true);
+                m_backgroundName1.gameObject.SetActive(true);
                 m_Avatar1.sprite = dialog.m_Avatar;
                 m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 1f);
                 m_TextDialog1.text = dialog.m_Text;
                 m_TextName1.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
+                m_backgroundDialog2.gameObject.SetActive(true);
+                m_backgroundName2.gameObject.SetActive(true);
                 m_Avatar2.sprite = dialog.m_Avatar;
                 m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 1f);
                 m_TextDialog2.text = dialog.m_Text;
                 m_TextName2.text = dialog.m_Avatar.name.ToUpper();
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
+                m_backgroundDialog3.gameObject.SetActive(true);
+                m_backgroundName3.gameObject.SetActive(true);
                 m_Avatar3.sprite = dialog.m_Avatar;
                 m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 1f);
                 m_TextDialog3.text = dialog.m_Text;
@@ -116,16 +140,22 @@ public class Script_UIController : MonoBehaviour
         switch (dialog.m_DialogPosition)
         {
             case Dialog.DialogPosition.UP_LEFT:
+                m_backgroundDialog1.gameObject.SetActive(false);
+                m_backgroundName1.gameObject.SetActive(false);
                 m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
                 m_TextDialog1.text = "";
                 m_TextName1.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_LEFT:
+                m_backgroundDialog2.gameObject.SetActive(false);
+                m_backgroundName2.gameObject.SetActive(false);
                 m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
                 m_TextDialog2.text = "";
                 m_TextName2.text = "";
                 break;
             case Dialog.DialogPosition.DOWN_RIGHT:
+                m_backgroundDialog3.gameObject.SetActive(false);
+                m_backgroundName3.gameObject.SetActive(false);
                 m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
                 m_TextDialog3.text = "";
                 m_TextName3.text = "";
@@ -142,7 +172,12 @@ public class Script_UIController : MonoBehaviour
     /// <param name="time"></param>
     public void SetTextMessage(string text, bool isTip = false)
     {
+        m_backgroundCenter.gameObject.SetActive(true);
         m_TextMessage.text = text;
+
+        m_backgroundCenter.CrossFadeAlpha(1.0f, .0f, false);
+        m_TextMessage.CrossFadeAlpha(1.0f, .0f, false);
+        m_intermediateBackgroundCenter.CrossFadeAlpha(1.0f, .0f, false);
 
         if (isTip)
         {
@@ -158,15 +193,40 @@ public class Script_UIController : MonoBehaviour
     /// Erase text linked to tips and notifications after 'time' seconds
     /// </summary>
     /// <param name="time"></param>
-    public void EraseTextMessage(float time = 0.0f)
+    public void EraseTextMessage(float time = 0.0f, float fadeSeconds = .0f)
     {
-        StartCoroutine(EraseText(time));
+        StartCoroutine(EraseText(time, fadeSeconds));
     }
 
-    IEnumerator EraseText(float time)
+    IEnumerator EraseText(float time, float fadeSeconds = .0f)
     {
         yield return new WaitForSeconds(time);
-        m_TextMessage.text = "";
+
+        m_backgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
+        m_TextMessage.CrossFadeAlpha(0.0f, fadeSeconds, false);
+        m_intermediateBackgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
+
+        yield return null;
+    }
+
+    private void OnDisable()
+    {
+        m_FadeImage.gameObject.SetActive(false);
+    }
+
+    public void FadeOff()
+    {
+        m_FadeImage.CrossFadeAlpha(1.0f, 0.0f, false);
+        m_FadeImage.gameObject.SetActive(true);
+        m_FadeImage.CrossFadeAlpha(0.0f, 2.0f, false);
+        StartCoroutine(FadeCamera(2.0f));
+    }
+
+    IEnumerator FadeCamera(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        m_FadeImage.gameObject.SetActive(false);
+
         yield return null;
     }
 
@@ -182,5 +242,13 @@ public class Script_UIController : MonoBehaviour
         m_Avatar1.color = new Color(m_Avatar1.color.r, m_Avatar1.color.g, m_Avatar1.color.b, 0f);
         m_Avatar2.color = new Color(m_Avatar2.color.r, m_Avatar2.color.g, m_Avatar2.color.b, 0f);
         m_Avatar3.color = new Color(m_Avatar3.color.r, m_Avatar3.color.g, m_Avatar3.color.b, 0f);
+
+        m_backgroundCenter.gameObject.SetActive(false);
+        m_backgroundDialog1.gameObject.SetActive(false);
+        m_backgroundDialog2.gameObject.SetActive(false);
+        m_backgroundDialog3.gameObject.SetActive(false);
+        m_backgroundName1.gameObject.SetActive(false);
+        m_backgroundName2.gameObject.SetActive(false);
+        m_backgroundName3.gameObject.SetActive(false);
     }
 }

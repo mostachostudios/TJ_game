@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
+using System.Collections;
 
 public class Script_MenuController : MonoBehaviour
 {
@@ -26,20 +27,19 @@ public class Script_MenuController : MonoBehaviour
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
     private Script_GameController m_Script_GameController;
+    public Script_UIController m_Script_UIController;
 
     //TODO Handle the following board messages in a proper way 
     private string m_INFO = "Messages info";
 
-    private string m_INPUT = "\n"+
-                                "ASWD or ARROW Buttons   ------------------   Movement\n" +
-                                "SPACE BAR  --------------------------------   Jump\n" +
-                                "SHIFT  -------------------------------------   Run\n" +
-                                "ALT + Move  --------------------------------   Crouch\n" +
-                                "CTRL + Move  ------------------------------   Crawl\n" +
-                                "TAB  ---------------------------------------   Stealth\n" +
-                                "INTRO or LEFT Mouse Button + Move  -------   Push\n" +
-                                "RIGHT Mouse Button  -----------------------   Change Camera Angle\n" +
-                                "M (ESC in Build)  ----------------------------   Pause and Resume Game";
+    private string m_INPUT =    "ASWD or ARROW Buttons   -------------------   Movement\n" +
+                                "SPACE BAR  --------------------------------------   Jump\n" +
+                                "SHIFT  ---------------------------------------------   Run\n" +
+                                "CTRL + Move  ------------------------------------  Crouch\n" +
+                                "CTRL + SPACE + Move  -------------------------  Crawl\n" +
+                                "RIGHT Mouse Button  ----------------------------  Stealth\n" +
+                                "INTRO or LEFT Mouse Button + Move  --------  Push\n" +
+                                "ESC   ------------------------------------------------  Pause and Resume Game";
 
     private string m_CREDITS = "                                      Mostacho Studios\n" +
                                 "\n" +
@@ -121,7 +121,6 @@ public class Script_MenuController : MonoBehaviour
         {
             var text = m_ButtonPlay.GetComponentInChildren<Text>();
             text.text = "RESUME!";
-            m_firstExec = false;
             m_ImageBackground.gameObject.SetActive(false);
             m_BlackBackground.gameObject.SetActive(false);
             m_ButtonRestartLevel.SetActive(true);
@@ -129,7 +128,14 @@ public class Script_MenuController : MonoBehaviour
             m_Script_GameController.AllowPauseGame(true);
         }
         m_Script_GameController.ResumeGame();
+
+        if(m_firstExec)
+        {
+            m_firstExec = false;
+            m_Script_UIController.FadeOff();
+        }
     }
+
     void WriteBoardMessage(string message)
     {
         m_TextBoard.text = message;
@@ -137,6 +143,7 @@ public class Script_MenuController : MonoBehaviour
     void RestartLevel()
     {
         //SetInfoMessage() // TODO reset initial info message
+
         m_Script_GameController.RestartLevel(); //TODO Check if switch order with next line (ResumeGame must be executed after next scene is fully loaded)
         m_Script_GameController.ResumeGame(); 
     }
@@ -148,6 +155,10 @@ public class Script_MenuController : MonoBehaviour
     }
     void Quit()
     {
-        Application.Quit(); // Warning: this only works when the project is built. Won't work when playing in the editor
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 }
