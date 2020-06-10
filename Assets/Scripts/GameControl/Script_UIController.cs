@@ -30,6 +30,8 @@ public class Script_UIController : MonoBehaviour
     [SerializeField] RawImage m_backgroundName3;
     [SerializeField] RawImage m_backgroundDialog3;
 
+    [SerializeField] Image m_FadeImage;
+
     [Header("SFX")]
     [SerializeField] AudioClip m_AudioDisplayDialog;
     [SerializeField] AudioClip m_AudioDisplayTip;
@@ -63,8 +65,15 @@ public class Script_UIController : MonoBehaviour
 
     public void ShowCountdown(bool show)
     {
-        m_TextCountdown.enabled = show;
-        m_ImageCountdown.enabled = show;
+        // null check to avoid runtime error when shutdown
+        if (m_TextCountdown != null)
+        {
+            m_TextCountdown.enabled = show;
+        }
+        if (m_ImageCountdown != null)
+        {
+            m_ImageCountdown.enabled = show;
+        }
     }
 
     /// <summary>
@@ -196,6 +205,27 @@ public class Script_UIController : MonoBehaviour
         m_backgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
         m_TextMessage.CrossFadeAlpha(0.0f, fadeSeconds, false);
         m_intermediateBackgroundCenter.CrossFadeAlpha(0.0f, fadeSeconds, false);
+
+        yield return null;
+    }
+
+    private void OnDisable()
+    {
+        m_FadeImage.gameObject.SetActive(false);
+    }
+
+    public void FadeOff()
+    {
+        m_FadeImage.CrossFadeAlpha(1.0f, 0.0f, false);
+        m_FadeImage.gameObject.SetActive(true);
+        m_FadeImage.CrossFadeAlpha(0.0f, 2.0f, false);
+        StartCoroutine(FadeCamera(2.0f));
+    }
+
+    IEnumerator FadeCamera(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        m_FadeImage.gameObject.SetActive(false);
 
         yield return null;
     }
