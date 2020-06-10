@@ -594,7 +594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 41.55005, y: 32.5}
+  m_AnchoredPosition: {x: 41.550293, y: 32.5}
   m_SizeDelta: {x: -1001.10004, y: -749.7999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390240075
@@ -3031,6 +3031,7 @@ MonoBehaviour:
   m_TextCountdown: {fileID: 627405057}
   m_ImageCountdown: {fileID: 1972174638}
   m_backgroundCenter: {fileID: 1156574128}
+  m_intermediateBackgroundCenter: {fileID: 1348794568}
   m_Avatar1: {fileID: 1700739439}
   m_TextName1: {fileID: 971150113}
   m_TextDialog1: {fileID: 1374031916}
