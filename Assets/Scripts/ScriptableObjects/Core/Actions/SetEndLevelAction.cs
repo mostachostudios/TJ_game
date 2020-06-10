@@ -4,6 +4,7 @@ public class SetEndLevelAction : Action
 {
     [Tooltip("Choose between win game, lose game, or go to the next level")]
     public Script_GameController.EndOption endOption;
+    public string text;
 
     private Script_GameController script_GameController;
 
@@ -16,7 +17,7 @@ public class SetEndLevelAction : Action
             throw new UnityException("There isn't a Script_GameController instance on the scene");
         }
 
-        script_GameController.EndLevel(endOption);
+        script_GameController.EndLevel(endOption, text);
 
         return true;
     }
