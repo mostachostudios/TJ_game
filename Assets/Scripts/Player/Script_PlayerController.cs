@@ -13,10 +13,10 @@ public class Script_PlayerController : MonoBehaviour
 
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;
-    [SerializeField] float m_runSpeed = 2f;
-    [SerializeField] float m_stealthSpeed = 0.15f;
-    [SerializeField] float m_crawlSpeed = 0.25f;
-    [SerializeField] float m_crouchSpeed = 0.4f;
+    [SerializeField] float m_runSpeed = 2.5f;
+    [SerializeField] float m_stealthSpeed = 0.4f;
+    [SerializeField] float m_crawlSpeed = 0.3f;
+    [SerializeField] float m_crouchSpeed = 0.43f;
     [SerializeField] float m_dodgeSpeed = 1.3f;
     [SerializeField] float m_backwardWalkSpeed = 0.3f;
     [SerializeField] float m_pushSpeed = 0.6f;
@@ -221,10 +221,15 @@ public class Script_PlayerController : MonoBehaviour
                     m_AudioSource.clip = m_StepFootClip;
                     m_AudioSource.PlayDelayed(0.3f);
                 }
+                else if (m_Speed >= (m_stealthSpeed - 0.01f))
+                {
+                    m_AudioSource.clip = m_StepFootClip;
+                    m_AudioSource.PlayDelayed(0.46f);
+                }
                 else
                 {
                     m_AudioSource.clip = m_StepFootClip;
-                    m_AudioSource.PlayDelayed(1.7f);
+                    m_AudioSource.PlayDelayed(0.48f);
                 }
             }
         }
