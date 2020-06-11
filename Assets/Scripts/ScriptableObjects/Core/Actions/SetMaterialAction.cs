@@ -24,6 +24,9 @@ public class SetMaterialAction : Action
     protected override Action CloneDerived()
     {
         SetMaterialAction clone = ScriptableObject.CreateInstance<SetMaterialAction>();
+        clone.meshRenderer = this.meshRenderer;
+        clone.materialIndex = this.materialIndex;
+        clone.material = this.material;
 
         return clone;
     }
