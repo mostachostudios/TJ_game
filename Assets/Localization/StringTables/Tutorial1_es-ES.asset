@@ -47,5 +47,66 @@ MonoBehaviour:
       puertas y otros objetos!"
     m_Metadata:
       m_Items: []
+  - m_Id: 7
+    m_Localized: "Hola,\r\n\r\nNo s\xE9 si alguna vez has pensado en lo que pasa
+      por la cabeza de los dem\xE1s en cada momento."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9
+    m_Localized: "Tenemos al profesor, no creo que pueda llegar a entender en qu\xE9
+      piensa mientras imparte una clase que lleva dando durante a\xF1os. Quiz\xE1s,
+      solo est\xE9 pensando en lo que va a hacer despu\xE9s del trabajo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8
+    m_Localized: "Por ejemplo, ahora mismo, a tu alrededor, en tu c\xEDrculo de amigos,
+      familia o, directamente, en esta clase de colegio que est\xE1s viendo ahora
+      mismo, cada persona es un mundo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10
+    m_Localized: "Ah si, \xE9sta es Amy, la m\xE1s lista de la clase, no he hablado
+      nunca con ella, bueno, en verdad, con casi ninguno."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11
+    m_Localized: "El que est\xE1 a la izquierda es Jasper, un obsesionado de las
+      redes sociales y las fotos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12
+    m_Localized: "Y junto a \xE9l, Boy, para el que la realidad es una m\xE1quina."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17
+    m_Localized: "\xC9sta... es la m\xEDa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16
+    m_Localized: Seguro que hay muchas historias que escuchar en esta clase.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15
+    m_Localized: "Las dos principales razones por las que no quiero vestirme cada
+      d\xEDa y por las que no quiero venir al colegio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14
+    m_Localized: "Y luego... bueno, \xE9se es Sporty y \xE9ste es Bully"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13
+    m_Localized: "Le siguen Claire y Ty, dos personas que siempre est\xE1n para lo
+      que necesites"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18
+    m_Localized: 'Por favor, introduce tu nombre:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19
+    m_Localized: Luisito
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

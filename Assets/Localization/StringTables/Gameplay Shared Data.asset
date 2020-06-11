@@ -17,7 +17,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 68101d82e2c5a96478177c933b80ccac
   m_Entries:
   - m_Id: 1
-    m_Key: MOUSE_WHEEL_ZOOM_CAMERA
+    m_Key: OK
     m_Metadata:
       m_Items: []
   m_Metadata:

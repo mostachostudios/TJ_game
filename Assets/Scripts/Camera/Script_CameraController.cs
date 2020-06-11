@@ -12,6 +12,7 @@ public class Script_CameraController : MonoBehaviour
 
     [SerializeField] float m_FlatDistance = 2.0f;
     private Script_PlayerController m_Script_PlayerController;
+    private Script_UIController m_Script_UIController;
 
     private GameObject m_Player;
 

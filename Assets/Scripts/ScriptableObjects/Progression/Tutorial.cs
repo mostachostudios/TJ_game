@@ -5,4 +5,5 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     public bool done = false;
+    public bool cutsceneSeen = false;
 }

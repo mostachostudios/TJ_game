@@ -32,6 +32,18 @@ public class Script_UIController : MonoBehaviour
 
     [SerializeField] Image m_FadeImage;
 
+    [SerializeField] RawImage m_narrativeBackground;
+    [SerializeField] Text m_narrativeText;
+
+    [SerializeField] RawImage m_inputNameBackground;
+    [SerializeField] RawImage m_inputNameCenterBackground;
+    [SerializeField] InputField m_inputNameInputField;
+    [SerializeField] Text m_inputNameLabel;
+    [SerializeField] Text m_inputNamePlaceholder;
+    [SerializeField] Text m_inputNameText;
+    [SerializeField] Button m_btnSetName;
+    [SerializeField] Text m_txtBtnSetName;
+
     [Header("SFX")]
     [SerializeField] AudioClip m_AudioDisplayDialog;
     [SerializeField] AudioClip m_AudioDisplayTip;
@@ -56,6 +68,8 @@ public class Script_UIController : MonoBehaviour
         m_PostProcessVolume.profile = m_PostProcessProfile;
         m_PostProcessVolume.weight = 0.8f;
         m_PostProcessVolume.enabled = false;
+
+        m_btnSetName.onClick.AddListener(NameOk);
     }
 
     public void SetTextCountdown(string text)
@@ -230,6 +244,116 @@ public class Script_UIController : MonoBehaviour
         yield return null;
     }
 
+    public void SetNarrative(string text)
+    {
+        m_narrativeBackground.gameObject.SetActive(true);
+        m_narrativeText.gameObject.SetActive(true);
+        m_narrativeText.text = text;
+    }
+
+    public void HideNarrative(float fadeOffSeconds)
+    {
+        m_narrativeText.CrossFadeAlpha(0.0f, fadeOffSeconds, false);
+        m_narrativeBackground.CrossFadeAlpha(0.0f, fadeOffSeconds, false);
+        StartCoroutine(FadeNarrative(fadeOffSeconds));
+    }
+    IEnumerator FadeNarrative(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        m_narrativeText.gameObject.SetActive(false);
+        m_narrativeBackground.gameObject.SetActive(false);
+
+        yield return null;
+    }
+
+    public void ShowInputName(float fadeSeconds)
+    {
+        m_inputNameBackground.CrossFadeAlpha(0.0f, 0.0f, false);
+        m_inputNameCenterBackground.CrossFadeAlpha(0.0f, 0.0f, false);
+        m_inputNameInputField.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+        m_inputNameLabel.CrossFadeAlpha(0.0f, 0.0f, false);
+        m_inputNamePlaceholder.CrossFadeAlpha(0.0f, 0.0f, false);
+        m_inputNameText.CrossFadeAlpha(0.0f, 0.0f, false);
+        m_btnSetName.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+        m_txtBtnSetName.CrossFadeAlpha(0.0f, 0.0f, false);
+
+        StartCoroutine(ProcessInputNameFade(1.0f, fadeSeconds));
+    }
+
+    public void HideInputName(float fadeSeconds)
+    {
+        StartCoroutine(ProcessInputNameFade(0.0f, fadeSeconds));
+    }
+
+    public bool IsInputNameShowing()
+    {
+        return m_inputNameBackground.color.a > .0f;
+    }
+
+    void NameOk()
+    {
+        Script_PlayerController player = FindObjectOfType<Script_PlayerController>();
+        if(m_inputNameInputField.text.Length > 3)
+        {
+            player.m_playerName = m_inputNameInputField.text;
+            StartCoroutine(ProcessInputNameFade(0.0f, 0.5f));
+            Tutorial tutorial1 = FindObjectOfType<Tutorial>();
+            tutorial1.cutsceneSeen = true;
+        }
+    }
+
+    private IEnumerator ProcessInputNameFade(float alpha, float fadeSeconds)
+    {
+        m_inputNameBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameCenterBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameInputField.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameLabel.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNamePlaceholder.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameText.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_btnSetName.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_txtBtnSetName.CrossFadeAlpha(alpha, fadeSeconds, false);
+
+        yield return new WaitForSeconds(fadeSeconds);
+
+        if(alpha > .0f)
+        {
+            Script_CameraController cameraController = FindObjectOfType<Script_CameraController>();
+            cameraController.ReadInput(false);
+            m_inputNameBackground.gameObject.SetActive(true);
+            m_inputNameCenterBackground.gameObject.SetActive(true);
+            m_inputNameInputField.gameObject.SetActive(true);
+            m_inputNameLabel.gameObject.SetActive(true);
+            m_inputNamePlaceholder.gameObject.SetActive(true);
+            m_inputNameText.gameObject.SetActive(true);
+            m_btnSetName.gameObject.SetActive(true);
+            m_txtBtnSetName.gameObject.SetActive(true);
+
+            m_inputNameInputField.Select();
+            m_inputNameInputField.ActivateInputField();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            m_inputNameBackground.gameObject.SetActive(false);
+            m_inputNameCenterBackground.gameObject.SetActive(false);
+            m_inputNameInputField.gameObject.SetActive(false);
+            m_inputNameLabel.gameObject.SetActive(false);
+            m_inputNamePlaceholder.gameObject.SetActive(false);
+            m_inputNameText.gameObject.SetActive(false);
+            m_btnSetName.gameObject.SetActive(false);
+            m_txtBtnSetName.gameObject.SetActive(false);
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Script_CameraController cameraController = FindObjectOfType<Script_CameraController>();
+            cameraController.ReadInput(true);
+        }
+
+        yield return null;
+    }
+
     public void ClearUI()
     {
         m_TextMessage.text = "";
@@ -250,5 +374,8 @@ public class Script_UIController : MonoBehaviour
         m_backgroundName1.gameObject.SetActive(false);
         m_backgroundName2.gameObject.SetActive(false);
         m_backgroundName3.gameObject.SetActive(false);
+
+        m_narrativeBackground.gameObject.SetActive(false);
+        m_narrativeText.gameObject.SetActive(false);
     }
 }

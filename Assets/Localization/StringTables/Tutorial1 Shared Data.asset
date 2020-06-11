@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: Tutorial1 Shared Data
   m_EditorClassIdentifier: 
-  m_NextAvailableId: 7
+  m_NextAvailableId: 21
   m_TableCollectionName: Tutorial1
   m_TableCollectionNameGuidString: 95df029a5fa98c54f9f9082ed8db57ba
   m_Entries:
@@ -38,6 +38,58 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6
     m_Key: LMB_TO_INTERACT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7
+    m_Key: INTRO_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8
+    m_Key: INTRO_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9
+    m_Key: INTRO_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10
+    m_Key: INTRO_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11
+    m_Key: INTRO_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12
+    m_Key: INTRO_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13
+    m_Key: INTRO_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14
+    m_Key: INTRO_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15
+    m_Key: INTRO_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16
+    m_Key: INTRO_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17
+    m_Key: INTRO_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18
+    m_Key: INPUT_YOUR_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19
+    m_Key: DEFAULT_PLAYER_NAME
     m_Metadata:
       m_Items: []
   m_Metadata:

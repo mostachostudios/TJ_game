@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 1
-    m_Localized: "Utiliza la rueda del rat\xF3n para acercar/alejar la c\xE1mara"
+    m_Localized: OK
     m_Metadata:
       m_Items: []
   references:

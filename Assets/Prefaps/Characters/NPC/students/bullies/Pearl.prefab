@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_ViewDistance: 11.87
   m_ViewAngle: 114
   m_RenderHearingArea: 1
-  m_HearMinSpeed: 0.31
+  m_HearMinSpeed: 0.41
   m_HearDistanceClose: 1.63
   m_HearDistanceFar: 6.66
   m_DurationHearFar: 10
