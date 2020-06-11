@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1
-  runSpeed: 1.6
+  runSpeed: 1.8
 --- !u!114 &8446353895341828616
 MonoBehaviour:
   m_ObjectHideFlags: 0
