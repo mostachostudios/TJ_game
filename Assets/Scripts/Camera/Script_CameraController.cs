@@ -78,7 +78,7 @@ public class Script_CameraController : MonoBehaviour
             {
                 ZenitCameraControl();
             }
-            ViewObstructed(); 
+            //ViewObstructed(); 
         }
     }
 

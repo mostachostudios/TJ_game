@@ -1551,10 +1551,10 @@ MonoBehaviour:
   m_ViewDistance: 11.87
   m_ViewAngle: 114
   m_RenderHearingArea: 1
-  m_HearMinSpeed: 0.41
+  m_HearMinSpeed: 0.44
   m_HearDistanceClose: 1.63
   m_HearDistanceFar: 6.66
-  m_DurationHearFar: 10
+  m_DurationHearFar: 2
   m_GradientHearFar:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 0, a: 1}
