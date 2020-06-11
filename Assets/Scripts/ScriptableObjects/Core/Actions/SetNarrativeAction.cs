@@ -18,8 +18,16 @@ public class SetNarrativeAction : Action
             throw new UnityException("There isn't a Script_UIController instance on the scene");
         }
 
-        m_narrativeLocalizedText.RegisterChangeHandler(DisplayNarrative);
-        m_narrativeLocalizedText.GetLocalizedString();
+        var localizedString = m_narrativeLocalizedText.GetLocalizedString();
+
+        if(localizedString.IsDone)
+        {
+            DisplayNarrative(localizedString.Result);
+        }
+        else
+        {
+            m_narrativeLocalizedText.RegisterChangeHandler(DisplayNarrative);
+        }
 
         return false;
     }

@@ -35,8 +35,16 @@ public class DisplayTipAction : Action
 
         script_UIController.ClearUI();
 
-        localizedTip.RegisterChangeHandler(DisplayTip);
-        localizedTip.GetLocalizedString();
+        var localizedString = localizedTip.GetLocalizedString();
+
+        if (localizedString.IsDone)
+        {
+            DisplayTip(localizedString.Result);
+        }
+        else
+        {
+            localizedTip.RegisterChangeHandler(DisplayTip);
+        }
 
         currentTimeSeconds = .0f;
 
