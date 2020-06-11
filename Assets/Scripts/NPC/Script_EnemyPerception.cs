@@ -162,34 +162,37 @@ public class Script_EnemyPerception : MonoBehaviour
 					}
 				}
 
-				if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
+				if (m_RenderHearingArea)
 				{
-					GradientColorHearFar();
-					m_PlayerInAudibleArea = true;
-					m_PlayerDetected = true;
-					m_PlayerDetectedInAudibleArea = true;
-					//Debug.Log("Player Detected in Inner Hear Area");
-				}
-				else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
-				{
-					if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
+					if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceClose * transform.localScale.x))
 					{
-						//Debug.Log("Player Entered Outer Hear Area");						
-						if (m_TimeHearFar >= m_DurationHearFar)
-						{
-							m_PlayerDetected = true;
-							m_PlayerDetectedInAudibleArea = true;
-							//Debug.Log("Player Detected in Outer Hear Area");
-						}
+						GradientColorHearFar();
 						m_PlayerInAudibleArea = true;
+						m_PlayerDetected = true;
+						m_PlayerDetectedInAudibleArea = true;
+						//Debug.Log("Player Detected in Inner Hear Area");
+					}
+					else if (Vector3.Distance(transform.position, m_Player.transform.position) <= (m_HearDistanceFar * transform.localScale.x))
+					{
+						if (m_Script_PlayerController.CurrentSpeed() >= m_HearMinSpeed)
+						{
+							//Debug.Log("Player Entered Outer Hear Area");						
+							if (m_TimeHearFar >= m_DurationHearFar)
+							{
+								m_PlayerDetected = true;
+								m_PlayerDetectedInAudibleArea = true;
+								//Debug.Log("Player Detected in Outer Hear Area");
+							}
+							m_PlayerInAudibleArea = true;
+							GradientColorHearFar();
+						}
+					}
+					else
+					{
+						m_TimeHearFar = 0;
+						m_PlayerInAudibleArea = false;
 						GradientColorHearFar();
 					}
-				}
-				else
-				{
-					m_TimeHearFar = 0;
-					m_PlayerInAudibleArea = false;
-					GradientColorHearFar();
 				}
 
 				if (m_PlayerDetected)
