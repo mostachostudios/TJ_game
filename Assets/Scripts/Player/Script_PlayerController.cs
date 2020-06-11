@@ -8,7 +8,9 @@ using System.Collections;
 using UnityEngine;
 
 public class Script_PlayerController : MonoBehaviour
-{    
+{
+    [SerializeField] public string m_playerName;
+
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;
     [SerializeField] float m_runSpeed = 2f;

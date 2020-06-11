@@ -45,5 +45,71 @@ MonoBehaviour:
     m_Localized: Press LEFT MOUSE BUTTON to INTERACT with objects
     m_Metadata:
       m_Items: []
+  - m_Id: 7
+    m_Localized: 'Hi,
+
+
+
+      I don''t know if you might have ever thought of what
+      goes around on someone''s else mind every second. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8
+    m_Localized: For example, right now, around you, in your friend's circle, in
+      your family or, directly, in this school classroom that you are seeing at this
+      momment, every person is a different world.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9
+    m_Localized: 'We have the teacher, I don''t believe I can even understand what
+      he''s thinking while giving the same class year after year. Or maybe he is
+      just thinking what he will do after work. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10
+    m_Localized: 'Oh yes, this is Amy, the most intelligent girl in the class, I''ve
+      never talked to her. Well, to be honest, I have hardly ever talked to anyone
+      here. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11
+    m_Localized: "The one on the left is Jasper, a social-media and photographs obsessed
+      guy.\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12
+    m_Localized: Next to him, we can see Boy, to whom reality is just a machine.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13
+    m_Localized: He is followed by Claire and Ty, two persons that are always willing
+      to help.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14
+    m_Localized: And then... well, that one is Sporty, and this one is Bully.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15
+    m_Localized: The two main reasons why I do NOT want to get up every day and why
+      I do NOT want to come to school.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16
+    m_Localized: 'I''m sure there are many stories to hear within this class. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17
+    m_Localized: This one, is mine.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18
+    m_Localized: 'Please, enter your name:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19
+    m_Localized: Tommy
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

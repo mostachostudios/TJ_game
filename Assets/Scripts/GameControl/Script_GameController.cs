@@ -86,6 +86,11 @@ public class Script_GameController : MonoBehaviour
     {
         if (m_allow_pause)
         {
+            if(m_Script_UIController.IsInputNameShowing())
+            {
+                return;
+            }
+
             //TODO change this by using conditional compilation such as #if UNITY_EDITOR #endif or another one for better performance 
             if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
             {

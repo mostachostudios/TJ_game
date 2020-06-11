@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 1
-    m_Localized: Use mouse wheel to zoom in/out the camera
+    m_Localized: OK
     m_Metadata:
       m_Items: []
   references:

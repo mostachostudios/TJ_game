@@ -28,7 +28,7 @@ public class PlayAudioAction : Action
 
     protected override Action CloneDerived()
     {
-        PlayAudioAction clone = new PlayAudioAction();
+        PlayAudioAction clone = ScriptableObject.CreateInstance<PlayAudioAction>();
         clone.audioSource = this.audioSource;
         clone.audioClip = this.audioClip;
         clone.loop = this.loop;
