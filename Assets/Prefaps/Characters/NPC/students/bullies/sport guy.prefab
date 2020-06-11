@@ -1774,7 +1774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GameOverDetection: 0
   m_TimeGameOver: 6
-  m_ViewDistance: 79.7
+  m_ViewDistance: 55
   m_ViewAngle: 139
   m_RenderHearingArea: 1
   m_HearMinSpeed: 0.44
