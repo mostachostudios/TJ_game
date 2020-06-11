@@ -649,11 +649,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16984b9fa9841e8449bd42278b72a417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerName: 
   m_walkSpeed: 1
   m_runSpeed: 2.5
   m_stealthSpeed: 0.4
-  m_crawlSpeed: 0.25
-  m_crouchSpeed: 0.4
+  m_crawlSpeed: 0.3
+  m_crouchSpeed: 0.43
   m_dodgeSpeed: 1.3
   m_backwardWalkSpeed: 0.3
   m_pushSpeed: 0.6
