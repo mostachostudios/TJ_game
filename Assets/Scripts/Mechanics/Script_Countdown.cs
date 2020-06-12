@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Localization.Settings;
 
 public class Script_Countdown : MonoBehaviour
 {
@@ -105,8 +107,9 @@ public class Script_Countdown : MonoBehaviour
         }
         else
         {
+            m_Frozen = true;
             m_Script_GameController.m_soundManager.ChangeMode(SoundManager.Mode.GAMEOVER, false, 1.0f);
-            m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose);
+            StartCoroutine(WaitAndSetGameOver());
         }
     }
     void SetIntensity(AudioClip audioClip,  int saturation)
@@ -134,6 +137,14 @@ public class Script_Countdown : MonoBehaviour
     public void Freeze(bool active)
     {
         m_Frozen = active;
+    }
+
+    IEnumerator WaitAndSetGameOver()
+    {
+        yield return new WaitForSeconds(1f);
+        m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose);
+
+        yield return null;
     }
 
     private void OnEnable()

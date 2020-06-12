@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//https://forum.unity.com/threads/simple-ui-animation-fade-in-fade-out-c.439825/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,7 +60,6 @@ public class Script_CheckpointsManager : MonoBehaviour
         }
     }
 
-
     IEnumerator FadeOutAndDisable(GameObject checkpoint)
     {
         var mat = checkpoint.GetComponent<MeshRenderer>().material;
@@ -69,7 +69,6 @@ public class Script_CheckpointsManager : MonoBehaviour
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, i);
             yield return null;
         }
-        //checkpoints[currentCheckpoint].SetActive(false);
         checkpoint.SetActive(false);
         yield return null;
     }

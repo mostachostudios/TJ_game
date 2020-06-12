@@ -126,11 +126,10 @@ MonoBehaviour:
   endOption: 2
   localizedText:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:68101d82e2c5a96478177c933b80ccac
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 20
       m_Key: 
-  text: 
 --- !u!114 &5872709370632416079
 MonoBehaviour:
   m_ObjectHideFlags: 0
