@@ -77,7 +77,10 @@ public class Script_EnemyPerception : MonoBehaviour
 		{
 			projector.enabled = m_RenderHearingArea;
 		}
-
+		m_PlayerDetected = false;
+		m_PlayerInAudibleArea = false;
+		m_PlayerDetectedInSight = false;
+		m_PlayerDetectedInAudibleArea = false;
 	}
 
 	//TODO to be removed for better performance once parameter adjustment, or just make sure this executes in Build environment, not in release.

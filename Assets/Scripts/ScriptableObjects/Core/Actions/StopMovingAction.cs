@@ -4,11 +4,15 @@ using UnityEngine.AI;
 public class StopMovingAction : Action
 {    
     public NavMeshAgent agent;
+    public float timeSeconds = .0f;
+    private float currentTimeSeconds;
 
     private Script_NPCController NPCController;
 
     protected override bool StartDerived()
-    {        
+    {
+        currentTimeSeconds = .0f;
+
         if (!agent)
         {
             return true;
@@ -24,27 +28,22 @@ public class StopMovingAction : Action
         {            
             agent.SetDestination(agent.transform.position);
         }
-        return true;
 
-        //return false;       
+        return false;       
     }
 
     protected override bool UpdateDerived()
     {
-        //if(agent.remainingDistance <= agent.stoppingDistance)
-        //{
-        //    return true;
-        //}
-        //return false;
+        currentTimeSeconds = Mathf.Min(currentTimeSeconds + Time.deltaTime, timeSeconds);
 
-        return true;
-
+        return currentTimeSeconds == timeSeconds;
     }
 
     protected override Action CloneDerived()
     {
         StopMovingAction clone = new StopMovingAction();
         clone.agent = null;
+        clone.timeSeconds = this.timeSeconds;
 
         return clone;
     }
