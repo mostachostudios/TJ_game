@@ -2,8 +2,10 @@
 //https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager-sceneLoaded.html
 //https://forum.unity.com/threads/detect-when-scene-has-fully-loaded.532558/
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class Script_GameController : MonoBehaviour
@@ -218,8 +220,35 @@ public class Script_GameController : MonoBehaviour
         RestartLevel();
     }
 
+    IEnumerator PostRequest(int time, int level_number, string name)
+    {
+        var url = "http://mostacho.rafacode.com:5000/finish_stats";
+        var json = "{\"level\":" + level_number.ToString() + ", \"player_name\": \"" + name + "\", \"time\": " + time.ToString() + "}";
+        var uwr = new UnityWebRequest(url, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+        
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError)
+        {
+            Debug.Log("Error while consulting Rest API: " + uwr.error);
+        }
+        else
+        {
+            Debug.Log("Received form  Rest API: " + uwr.downloadHandler.text);
+        }
+    }
+
     public void GoNextLevel()
     {
+        var countdown = m_World.GetComponent<Script_Countdown>();
+        var name = FindObjectOfType<Script_PlayerController>().m_playerName;
+        var time = countdown.GetElapsedTime();
+        StartCoroutine(PostRequest((int)time, currentLevel, name));
+
         currentLevel++;
         if (currentLevel >= numLevels)
         {
