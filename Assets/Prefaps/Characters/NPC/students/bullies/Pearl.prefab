@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1
-  runSpeed: 1.8
+  runSpeed: 2
 --- !u!114 &5383945372082945049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,10 +1551,10 @@ MonoBehaviour:
   m_ViewDistance: 11.87
   m_ViewAngle: 114
   m_RenderHearingArea: 1
-  m_HearMinSpeed: 0.41
+  m_HearMinSpeed: 0.44
   m_HearDistanceClose: 1.63
   m_HearDistanceFar: 6.66
-  m_DurationHearFar: 10
+  m_DurationHearFar: 2
   m_GradientHearFar:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 0, a: 1}

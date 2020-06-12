@@ -24,6 +24,7 @@ MonoBehaviour:
     - Locale-en
     - Locale-es
     - Locale
+    - Locale-es-ES
     m_mainAssetType: UnityEngine.Localization.Tables.SharedTableData, Unity.Localization,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
@@ -31,8 +32,13 @@ MonoBehaviour:
   - m_GUID: 95df029a5fa98c54f9f9082ed8db57ba
     m_Address: Tutorial1 Shared Data
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: 
+    m_SerializedLabels:
+    - Locale
+    - Locale-en
+    - Locale-es-ES
+    - Locale-es
+    m_mainAssetType: UnityEngine.Localization.Tables.SharedTableData, Unity.Localization,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1

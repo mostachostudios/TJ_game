@@ -1,13 +1,10 @@
-﻿using System.Collections;
+﻿//https://forum.unity.com/threads/simple-ui-animation-fade-in-fade-out-c.439825/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Script_CheckpointsManager : MonoBehaviour
-{
-    [Tooltip("Time added to TimeLeft each time user gets to a at check point")]
-    [SerializeField] float m_IncreaseTime = 40.0f;
-
-    [SerializeField] float m_CheckpointRewardDuration = 5f;
+{    
     [SerializeField] AudioClip m_AudioReward;
 
     private List<GameObject> checkpoints;
@@ -43,15 +40,11 @@ public class Script_CheckpointsManager : MonoBehaviour
         {
             checkpoints[currentCheckpoint].SetActive(true);
         }
-        else
-        {
-            Debug.LogError("There are no checkpoints in the scene. Please, make sure there is always at least one checkpoint in the scene");
-        }
     }
 
-    public void CheckAndGoNext()
+    public void CheckAndGoNext(float increaseTime = 20f)
     {
-        checkpoints[currentCheckpoint].SetActive(false);
+        StartCoroutine(FadeOutAndDisable(checkpoints[currentCheckpoint]));
 
         currentCheckpoint++;
 
@@ -60,25 +53,23 @@ public class Script_CheckpointsManager : MonoBehaviour
             m_Script_GameController.GoNextLevel();
         }
         else
-        {
-            string rewardMessage; //TODO handle messages properly
-            if(checkpoints.Count - currentCheckpoint == 1)
-            {
-                rewardMessage = "Almost there!! Only one place to go!";
-            }
-            else if (checkpoints.Count - currentCheckpoint <= 3)
-            {
-                rewardMessage = "Keep going!! You are about to make it!";
-            }
-            else
-            {
-                rewardMessage = "Great!! You can do it!";
-            }
-
-            m_Script_GameController.DisplayMessage(rewardMessage, m_CheckpointRewardDuration);
-            m_Script_Countdown.IncreaseTime(m_IncreaseTime);
+        {           
+            m_Script_Countdown.IncreaseTime(increaseTime);
             m_AudioSourceReward.Play();
             checkpoints[currentCheckpoint].SetActive(true);
         }
+    }
+
+    IEnumerator FadeOutAndDisable(GameObject checkpoint)
+    {
+        var mat = checkpoint.GetComponent<MeshRenderer>().material;
+
+        for (float i = mat.color.a; i > 0f; i -= Time.deltaTime / 6f)
+        {
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, i);
+            yield return null;
+        }
+        checkpoint.SetActive(false);
+        yield return null;
     }
 }

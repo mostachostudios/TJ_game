@@ -2,9 +2,14 @@
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using System.Collections;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class Script_MenuController : MonoBehaviour
 {
+    public enum Mode { INPUT, MOUSTACHO, LANGUAGE, WIN, LOSE, FINAL_WIN, CUSTOM };
+
     [Header("Background Image Texture")]
     [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_ImageBackground;
     [Tooltip("Reference to Raw Image component")] [SerializeField] RawImage m_BlackBackground;
@@ -19,36 +24,29 @@ public class Script_MenuController : MonoBehaviour
     [SerializeField] GameObject m_ButtonRestartGame;
     [SerializeField] GameObject m_ButtonQuit;
 
+    [SerializeField] Text m_textPlay;
+    [SerializeField] Text m_textResume;
+
+    [SerializeField] GameObject m_ButtonSpanishFlag;
+    [SerializeField] GameObject m_ButtonEnglishFlag;
+
     [Header("Text Board")]
-    [SerializeField] Text m_TextBoard;
+    [SerializeField] Text m_Title;
+    [SerializeField] Text m_TextBoardInput;
+    [SerializeField] Text m_TextBoardMoustacho;
+    [SerializeField] Text m_TextBoardWin;
+    [SerializeField] Text m_TextBoardLose;
+    [SerializeField] Text m_TextBoardFinalWin;
+    [SerializeField] Text m_TextBoardCustom;
 
     [Header("Effects")]
     [Tooltip("A post process effect applied when the menu window pops up (Game is paused).")]
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
+    private Mode m_currentMode = Mode.INPUT;
+
     private Script_GameController m_Script_GameController;
     public Script_UIController m_Script_UIController;
-
-    //TODO Handle the following board messages in a proper way 
-    private string m_INFO = "Messages info";
-
-    private string m_INPUT =    "ASWD or ARROW Buttons   -------------------   Movement\n" +
-                                "SPACE BAR  --------------------------------------   Jump\n" +
-                                "SHIFT  ---------------------------------------------   Run\n" +
-                                "CTRL + Move  ------------------------------------  Crouch\n" +
-                                "CTRL + SPACE + Move  -------------------------  Crawl\n" +
-                                "RIGHT Mouse Button  ----------------------------  Stealth\n" +
-                                "INTRO or LEFT Mouse Button + Move  --------  Push\n" +
-                                "ESC   ------------------------------------------------  Pause and Resume Game";
-
-    private string m_CREDITS = "                                      Mostacho Studios\n" +
-                                "\n" +
-                                "Twitter: @StudiosMostacho\n" +
-                                "Itchio: mostachostudios\n" +
-                                "Github: mostachostudios\n" +
-                                "\n" +
-                                "Made with Unity\n" +
-                                "Thanks to all the 3D community for  providing some free wonderful assets. Resources are: (to be completed)";
     
     private bool m_firstExec = true;
 
@@ -63,24 +61,112 @@ public class Script_MenuController : MonoBehaviour
         m_ButtonPlay.GetComponent<Button>().onClick.AddListener(Play);
         m_ButtonNextLevel.GetComponent<Button>().onClick.AddListener(RestartLevel);
 
-        m_ButtonInfo.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_INFO));
-        m_ButtonInput.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_INPUT));
-        m_ButtonCredits.GetComponent<Button>().onClick.AddListener(() => WriteBoardMessage(m_CREDITS));
+        m_ButtonInfo.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.LANGUAGE));
+        m_ButtonInput.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.INPUT));
+        m_ButtonCredits.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.MOUSTACHO));
+        m_ButtonEnglishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.Locales[1]));
+        m_ButtonSpanishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.Locales[0]));
+
 
         m_ButtonRestartLevel.GetComponent<Button>().onClick.AddListener(RestartLevel);
         m_ButtonRestartGame.GetComponent<Button>().onClick.AddListener(RestartGame);
 
         m_ButtonQuit.GetComponent<Button>().onClick.AddListener(Quit);
+
+        SetInfoMessage(Mode.INPUT);
     }
 
-    public void SetInfoMessage(string message)
+    private void SelectLocale(Locale locale)
     {
-        m_TextBoard.text = message;
+        LocalizationSettings.SelectedLocale = locale;
     }
 
-    public void ResetMenu()
+    public void SetInfoMessage(Mode mode, string text = null)
     {
-        SetInfoMessage(m_INPUT);
+        if(mode == Mode.MOUSTACHO)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(true);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(false);
+        }
+        else if(mode == Mode.INPUT)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(true);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(false);
+        }
+        else if(mode == Mode.LANGUAGE)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(true);
+            m_ButtonSpanishFlag.gameObject.SetActive(true);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(false);
+        }
+        else if(mode == Mode.FINAL_WIN)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(true);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(false);
+        }
+        else if (mode == Mode.WIN)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(true);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(false);
+
+        }
+        else if (mode == Mode.LOSE)
+        {
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(true);
+            m_TextBoardCustom.gameObject.SetActive(false);
+        }
+        else if (mode == Mode.CUSTOM)
+        {
+            m_TextBoardCustom.text = text;
+            m_TextBoardFinalWin.gameObject.SetActive(false);
+            m_TextBoardMoustacho.gameObject.SetActive(false);
+            m_TextBoardInput.gameObject.SetActive(false);
+            m_ButtonEnglishFlag.gameObject.SetActive(false);
+            m_ButtonSpanishFlag.gameObject.SetActive(false);
+            m_TextBoardWin.gameObject.SetActive(false);
+            m_TextBoardLose.gameObject.SetActive(false);
+            m_TextBoardCustom.gameObject.SetActive(true);
+        }
+    }
+
+    public void ResetMenu(Mode mode = Mode.INPUT)
+    {
+        SetInfoMessage(mode);
         m_ButtonPlay.SetActive(true);
         m_ButtonNextLevel.SetActive(false);
         m_ButtonInfo.SetActive(true);
@@ -119,15 +205,16 @@ public class Script_MenuController : MonoBehaviour
     {
         if (m_firstExec)
         {
-            var text = m_ButtonPlay.GetComponentInChildren<Text>();
-            text.text = "RESUME!";
+            m_ButtonPlay.GetComponentsInChildren<Text>();
+            m_textPlay.gameObject.SetActive(false);
+            m_textResume.gameObject.SetActive(true);
             m_ImageBackground.gameObject.SetActive(false);
             m_BlackBackground.gameObject.SetActive(false);
             m_ButtonRestartLevel.SetActive(true);
             m_ButtonRestartGame.SetActive(true);
             m_Script_GameController.AllowPauseGame(true);
         }
-        m_Script_GameController.ResumeGame();
+        m_Script_GameController.ResumeGame(true, m_firstExec);
 
         if(m_firstExec)
         {
@@ -136,22 +223,15 @@ public class Script_MenuController : MonoBehaviour
         }
     }
 
-    void WriteBoardMessage(string message)
-    {
-        m_TextBoard.text = message;
-    }
     void RestartLevel()
     {
-        //SetInfoMessage() // TODO reset initial info message
-
-        m_Script_GameController.RestartLevel(); //TODO Check if switch order with next line (ResumeGame must be executed after next scene is fully loaded)
-        m_Script_GameController.ResumeGame(); 
+        m_Script_GameController.RestartLevel();
+        m_Script_GameController.ResumeGame();
     }
     void RestartGame()
     {
-        //SetInfoMessage() // TODO reset initial info message
-        m_Script_GameController.RestartGame(); //TODO Check if switch order
-        m_Script_GameController.ResumeGame(); 
+        m_Script_GameController.RestartGame();
+        m_Script_GameController.ResumeGame();
     }
     void Quit()
     {

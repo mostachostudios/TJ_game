@@ -15,27 +15,7 @@ MonoBehaviour:
   parentTrigger: {fileID: 555599348516699097}
   origin: {fileID: 0}
   target: {fileID: 0}
-  radius: 0.8
---- !u!114 &-3474345405536941986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075848f1bfab78447b735b71946d52c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentState: {fileID: 11400000}
-  enabled: 1
-  waitToFinish: 0
-  characterAvatar: {fileID: 0}
-  dialogPosition: 0
-  timeBetweenMessage: 0
-  messages:
-  - 
+  radius: 1.2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,7 +37,6 @@ MonoBehaviour:
   - {fileID: 5872709370632416079}
   - {fileID: 1111803050011790117}
   - {fileID: 1672242251842068140}
-  - {fileID: -3474345405536941986}
   onExitActions:
   - {fileID: 6991100927296362979}
   - {fileID: 3127681453993411717}
@@ -94,6 +73,7 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   agent: {fileID: 0}
+  timeSeconds: 0
 --- !u!114 &1672242251842068140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +124,12 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   endOption: 2
-  text: 
+  localizedText:
+    m_TableReference:
+      m_TableCollectionName: GUID:68101d82e2c5a96478177c933b80ccac
+    m_TableEntryReference:
+      m_KeyId: 20
+      m_Key: 
 --- !u!114 &5872709370632416079
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Localization.Settings;
 
 public class Script_Countdown : MonoBehaviour
 {
@@ -18,15 +20,18 @@ public class Script_Countdown : MonoBehaviour
     [SerializeField] PostProcessProfile m_PostProcessProfile;
 
     [Header("Slot values for different fatigue/anxiety levels according to remaining time. (To be refactored by using triggers and conditions)")]
-    [SerializeField] float m_Slot3 = 90.0f;
-    [SerializeField] float m_Slot2 = 60.0f;
-    [SerializeField] float m_Slot1 = 30.0f;
+    [SerializeField] float m_Slot3 = 10.0f;
+    [SerializeField] float m_Slot2 = 6.0f;
+    [SerializeField] float m_Slot1 = 3.0f;
     [SerializeField] float m_Slot0 = 0.0f;
 
     [Header("Color saturation in Post-Process effect. (To be refactored by using triggers and conditions)")]
     [SerializeField] int m_SaturationSlot3 = 0;
     [SerializeField] int m_SaturationSlot2 = 50;
     [SerializeField] int m_SaturationSlot1 = 100;
+
+    [Header("Time between each tick tock")]
+    [SerializeField] float m_TimeBetweenTicks = 25f;
 
     private AudioSource m_AudioSourceHeartBeat;
     private AudioSource m_AudioSourceTickTock;
@@ -35,6 +40,8 @@ public class Script_Countdown : MonoBehaviour
     
     private Script_GameController m_Script_GameController;
 
+    private float timeNextTick = 0f;
+
     private bool m_Frozen = false;
 
     void Start()
@@ -42,10 +49,11 @@ public class Script_Countdown : MonoBehaviour
         m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
         m_AudioSourceTickTock.playOnAwake = false;
         m_AudioSourceTickTock.clip = m_TickTock;
-        m_AudioSourceTickTock.volume = 0.2f;
+        m_AudioSourceTickTock.volume = 0.6f;
 
         m_AudioSourceHeartBeat = gameObject.AddComponent<AudioSource>();
         m_AudioSourceHeartBeat.playOnAwake = false;
+        m_AudioSourceHeartBeat.volume = 1f;
 
         m_PostProcessVolume = gameObject.AddComponent<PostProcessVolume>();
         m_PostProcessVolume.isGlobal = true;
@@ -56,6 +64,8 @@ public class Script_Countdown : MonoBehaviour
         m_PostProcessVolume.profile.TryGetSettings<ColorGrading>(out m_ColorGrading);
 
         m_Script_GameController = FindObjectOfType<Script_GameController>();
+
+        m_Script_GameController.ShowCountdown(true);
     }
 
     void Update()
@@ -63,6 +73,7 @@ public class Script_Countdown : MonoBehaviour
         if (!m_Frozen)
         {
             m_TimeLeft -= Time.deltaTime;
+            timeNextTick += Time.deltaTime;
             m_Script_GameController.DisplayCountdown((m_TimeLeft).ToString("0"));
 
             CheckRemainingTime();
@@ -71,6 +82,12 @@ public class Script_Countdown : MonoBehaviour
 
     void CheckRemainingTime()
     {
+        if (!m_AudioSourceTickTock.isPlaying && timeNextTick > m_TimeBetweenTicks) // play one clock tick
+        {
+            timeNextTick = 0f;
+            m_AudioSourceTickTock.Play();
+        }
+
         if (m_TimeLeft > m_Slot3)
         {
             m_PostProcessVolume.enabled = false;
@@ -90,7 +107,9 @@ public class Script_Countdown : MonoBehaviour
         }
         else
         {
-            m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose);
+            m_Frozen = true;
+            m_Script_GameController.m_soundManager.ChangeMode(SoundManager.Mode.GAMEOVER, false, 1.0f);
+            StartCoroutine(WaitAndSetGameOver());
         }
     }
     void SetIntensity(AudioClip audioClip,  int saturation)
@@ -120,8 +139,17 @@ public class Script_Countdown : MonoBehaviour
         m_Frozen = active;
     }
 
+    IEnumerator WaitAndSetGameOver()
+    {
+        yield return new WaitForSeconds(1f);
+        m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose);
+
+        yield return null;
+    }
+
     private void OnEnable()
     {
+        timeNextTick = 0f;
         if (m_Script_GameController && m_AudioSourceTickTock) 
         {
             m_Script_GameController.ShowCountdown(true);
