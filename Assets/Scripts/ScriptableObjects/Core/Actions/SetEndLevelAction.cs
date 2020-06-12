@@ -5,8 +5,7 @@ public class SetEndLevelAction : Action
 {
     [Tooltip("Choose between win game, lose game, or go to the next level")]
     public Script_GameController.EndOption endOption;
-    public LocalizedString localizedText; //TODO(ADRIAN): change on editor
-    public string text;
+    public LocalizedString localizedText;
 
     private Script_GameController script_GameController;
 

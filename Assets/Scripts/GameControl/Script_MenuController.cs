@@ -226,11 +226,12 @@ public class Script_MenuController : MonoBehaviour
     void RestartLevel()
     {
         m_Script_GameController.RestartLevel();
-
+        m_Script_GameController.ResumeGame();
     }
     void RestartGame()
     {
         m_Script_GameController.RestartGame();
+        m_Script_GameController.ResumeGame();
     }
     void Quit()
     {

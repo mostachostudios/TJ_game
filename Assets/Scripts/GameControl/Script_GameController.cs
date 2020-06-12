@@ -120,6 +120,7 @@ public class Script_GameController : MonoBehaviour
                     currentLevel = 1;
                 }
                 RestartLevel();
+                ResumeGame();
             }
             else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadMinus) || Input.GetKeyUp(KeyCode.Minus)))
             {
@@ -129,6 +130,7 @@ public class Script_GameController : MonoBehaviour
                     currentLevel = numLevels - 1;
                 }
                 RestartLevel();
+                ResumeGame();
             }
         }
     }
@@ -284,7 +286,6 @@ public class Script_GameController : MonoBehaviour
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
-            ResumeGame();
         }     
     }
 }
