@@ -2,9 +2,12 @@
 //https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager-sceneLoaded.html
 //https://forum.unity.com/threads/detect-when-scene-has-fully-loaded.532558/
 
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Script_GameController : MonoBehaviour
 {
@@ -13,6 +16,10 @@ public class Script_GameController : MonoBehaviour
     [SerializeField] GameObject m_UI;
     [SerializeField] GameObject m_Menu;
     [SerializeField] public SoundManager m_soundManager;
+    [SerializeField] public RawImage splashScreenBackground;
+    [SerializeField] public RawImage splashScreenLogo;
+    [SerializeField] public RawImage blackSplashBackground;
+
 
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
@@ -36,6 +43,8 @@ public class Script_GameController : MonoBehaviour
     private int numLevels;
     private int currentLevel;
 
+    private bool firstTime = true;
+
     public enum EndOption
     {
         Win, // Last level is completed
@@ -48,6 +57,13 @@ public class Script_GameController : MonoBehaviour
         m_EventSystem.SetActive(true);
         m_UI.SetActive(true);
         m_Menu.SetActive(true);
+
+        if (firstTime && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            blackSplashBackground.gameObject.SetActive(true);
+            splashScreenLogo.gameObject.SetActive(false);
+            splashScreenBackground.gameObject.SetActive(false);
+        }
 
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(m_EventSystem);
@@ -76,13 +92,58 @@ public class Script_GameController : MonoBehaviour
         currentLevel = GameObject.FindWithTag("Starter").GetComponent<Script_Starter>().StartSceneIndex();
 
         Debug.Log("Starting from level: " + currentLevel);
-        if(currentLevel <= 0)
+        if (currentLevel <= 0)
         {
             currentLevel = 1; // Scene 0 is initial start-up Scene with no world in it
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += ShowSplash;
+
         RestartLevel(true);
+    }
+
+    void ShowSplash(Scene scene, LoadSceneMode mode)
+    {
+        if (firstTime && scene.buildIndex == 1)
+        {
+            firstTime = false;
+
+            StartCoroutine(StartAsyncSplash());
+        }
+    }
+
+    IEnumerator StartAsyncSplash()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        splashScreenLogo.CrossFadeAlpha(0.0f, 0.0f, true);
+        splashScreenBackground.CrossFadeAlpha(0.0f, 0.0f, true);
+        splashScreenLogo.gameObject.SetActive(true);
+        splashScreenBackground.gameObject.SetActive(true);
+
+        splashScreenLogo.CrossFadeAlpha(1.0f, 2.0f, true);
+        splashScreenBackground.CrossFadeAlpha(1.0f, 2.0f, true);
+
+        yield return new WaitForSecondsRealtime(4.0f);
+
+        blackSplashBackground.CrossFadeAlpha(1.0f, 0.0f, true);
+        splashScreenLogo.CrossFadeAlpha(0.0f, 2.0f, true);
+        splashScreenBackground.CrossFadeAlpha(0.0f, 2.0f, true);
+
+        yield return new WaitForSecondsRealtime(2.0f);
+
+        splashScreenLogo.gameObject.SetActive(false);
+        splashScreenBackground.gameObject.SetActive(false);
+        blackSplashBackground.CrossFadeAlpha(0.0f, 1.0f, true);
+
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        blackSplashBackground.gameObject.SetActive(false);
+
+        m_soundManager.ChangeMode(SoundManager.Mode.MENU, true, 0);
+
+        yield return null;
     }
 
     void Start()
@@ -94,7 +155,7 @@ public class Script_GameController : MonoBehaviour
     {
         if (m_allow_pause)
         {
-            if(m_Script_UIController.IsInputNameShowing())
+            if (m_Script_UIController.IsInputNameShowing())
             {
                 return;
             }
@@ -112,10 +173,10 @@ public class Script_GameController : MonoBehaviour
                 SetPauseResume();
             }
             // TODO TO BE REMOVED ONCE DEVELOPMENT IS FINISHED OR KEEP IF ENABLING A CHEATING MODE
-            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus))) 
+            else if (Debug.isDebugBuild && (Input.GetKeyUp(KeyCode.KeypadPlus) || Input.GetKeyUp(KeyCode.Plus)))
             {
                 currentLevel++;
-                if(currentLevel == numLevels)
+                if (currentLevel == numLevels)
                 {
                     currentLevel = 1;
                 }
@@ -162,7 +223,7 @@ public class Script_GameController : MonoBehaviour
             m_Script_UIController.EraseTextMessage();
         }
 
-        if(firstExecution)
+        if (firstExecution)
         {
             m_soundManager.ChangeMode(currentLevel == 1 ? SoundManager.Mode.MANUAL : SoundManager.Mode.GAMEPLAY, true, 0.5f);
         }
@@ -200,7 +261,7 @@ public class Script_GameController : MonoBehaviour
 
         m_UI.SetActive(true);
         m_Menu.SetActive(true);
-       
+
         m_Script_UIController.ClearUI();
 
         if (!firstExec)
@@ -209,7 +270,7 @@ public class Script_GameController : MonoBehaviour
             m_soundManager.ChangeMode(SoundManager.Mode.GAMEPLAY, true, 1.0f);
         }
 
-        SceneManager.LoadScene(currentLevel);    
+        SceneManager.LoadScene(currentLevel);
     }
 
     public void RestartGame()
@@ -251,7 +312,7 @@ public class Script_GameController : MonoBehaviour
                 break;
         }
 
-        
+
         m_Script_MenuController.SetEndingLevelWindow(endOption);
         PauseGame();
 
@@ -262,13 +323,13 @@ public class Script_GameController : MonoBehaviour
     {
         m_World = GameObject.FindWithTag("World");
         Debug.Log("current scene: " + SceneManager.GetActiveScene().name);
-        if(m_World == null)
+        if (m_World == null)
         {
             Debug.Log("Problem: World null");
         }
         else
         {
-          //  Debug.Log("World OK");
+            //  Debug.Log("World OK");
         }
         m_Script_PauseController.Init(m_UI, m_Menu, m_World);
     }
@@ -278,14 +339,19 @@ public class Script_GameController : MonoBehaviour
         //Debug.Log("OnSceneLoaded: " + scene.name);
         //Debug.Log(mode);
 
-        if (scene.buildIndex == 0)
+        if (scene.buildIndex == 0 && splashScreenLogo.gameObject.activeSelf == false)
         {
-            m_soundManager.ChangeMode(SoundManager.Mode.MENU, true, 0);
+            //m_soundManager.ChangeMode(SoundManager.Mode.MENU, true, 0);
         }
 
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
-        }     
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex > 1)
+        {
+            blackSplashBackground.gameObject.SetActive(false);
+        }
     }
 }
