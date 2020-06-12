@@ -162,6 +162,8 @@ public class Script_MenuController : MonoBehaviour
             m_TextBoardLose.gameObject.SetActive(false);
             m_TextBoardCustom.gameObject.SetActive(true);
         }
+
+        m_currentMode = mode;
     }
 
     public void ResetMenu(Mode mode = Mode.INPUT)
