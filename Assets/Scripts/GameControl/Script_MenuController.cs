@@ -64,8 +64,9 @@ public class Script_MenuController : MonoBehaviour
         m_ButtonInfo.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.LANGUAGE));
         m_ButtonInput.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.INPUT));
         m_ButtonCredits.GetComponent<Button>().onClick.AddListener(() => SetInfoMessage(Mode.MOUSTACHO));
-        m_ButtonEnglishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.Locales[1]));
-        m_ButtonSpanishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.Locales[0]));
+
+        m_ButtonEnglishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.GetLocale("en")));
+        m_ButtonSpanishFlag.GetComponent<Button>().onClick.AddListener(() => SelectLocale(LocalizationSettings.AvailableLocales.GetLocale("es-ES")));
 
 
         m_ButtonRestartLevel.GetComponent<Button>().onClick.AddListener(RestartLevel);
@@ -162,6 +163,8 @@ public class Script_MenuController : MonoBehaviour
             m_TextBoardLose.gameObject.SetActive(false);
             m_TextBoardCustom.gameObject.SetActive(true);
         }
+
+        m_currentMode = mode;
     }
 
     public void ResetMenu(Mode mode = Mode.INPUT)
