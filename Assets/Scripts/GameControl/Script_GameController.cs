@@ -160,9 +160,9 @@ public class Script_GameController : MonoBehaviour
             m_Script_UIController.EraseTextMessage();
         }
 
-        if(firstExecution && currentLevel == 1)
+        if(firstExecution)
         {
-            m_soundManager.ChangeMode(SoundManager.Mode.MANUAL, true, 0.5f);
+            m_soundManager.ChangeMode(currentLevel == 1 ? SoundManager.Mode.MANUAL : SoundManager.Mode.GAMEPLAY, true, 0.5f);
         }
     }
 
