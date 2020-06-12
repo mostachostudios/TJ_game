@@ -3739,6 +3739,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_02_Snaps014 (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 2968572523784372517, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4893,6 +4898,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}
@@ -9764,6 +9774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}
 --- !u!4 &618080000428349969 stripped
@@ -12479,6 +12494,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_02_Snaps014 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2968572523784372517, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14158,6 +14178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}
@@ -16934,6 +16959,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}
 --- !u!4 &618080000757003842 stripped
@@ -18289,6 +18319,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_02_Snaps014 (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 2968572523784372517, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19029,6 +19064,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}
 --- !u!4 &618080000851171865 stripped
@@ -19178,6 +19218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Restroom_Floor_04_Snaps014 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202451857048553505, guid: 6e380f534330da04bba824f3c282727f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e380f534330da04bba824f3c282727f, type: 3}

@@ -10515,6 +10515,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_01_Snaps014 (132)
       objectReference: {fileID: 0}
+    - target: {fileID: 6367530337809960180, guid: a98399bc0a2bb044e9c7a40b0cd9a81d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98399bc0a2bb044e9c7a40b0cd9a81d, type: 3}
 --- !u!4 &1285982076716374466 stripped
@@ -11265,6 +11270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_01_Snaps014 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 6367530337809960180, guid: a98399bc0a2bb044e9c7a40b0cd9a81d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98399bc0a2bb044e9c7a40b0cd9a81d, type: 3}
 --- !u!4 &1285982076558676045 stripped
@@ -11340,6 +11350,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_01_Snaps014 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 6367530337809960180, guid: a98399bc0a2bb044e9c7a40b0cd9a81d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98399bc0a2bb044e9c7a40b0cd9a81d, type: 3}
 --- !u!4 &1285982076560237142 stripped
@@ -11359,6 +11374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor_02_Snaps014 (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2968572523784372517, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
@@ -12339,6 +12359,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor_02_Snaps014 (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2968572523784372517, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7108802488592778655, guid: f041d2d39ebbcc04eaf2decf950c4a8e,
         type: 3}
@@ -14194,6 +14219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor_01_Snaps014 (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367530337809960180, guid: a98399bc0a2bb044e9c7a40b0cd9a81d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a98399bc0a2bb044e9c7a40b0cd9a81d, type: 3}
