@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Localization.Settings;
 
 //https://www.youtube.com/watch?v=mBGUY7EUxXQ&list=PLX2vGYjWbI0QGyfO8PKY1pC8xcRb0X-nP&index=21&t=0s
 //https://gitlab.science.ru.nl/ru/NDL-OVR/-/tree/0191c3cfc079d79230989c5a3a01c487c3441d54/Assets%2FScripts%2FEnemy
@@ -112,6 +113,8 @@ public class Script_EnemyPerception : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
+		bool alreadyDetected = m_PlayerDetected;
+
 		if (m_Script_ConeOfSightRenderer.enabled || this.enabled)
 		{
 			if (other.gameObject == m_Player)
@@ -205,7 +208,11 @@ public class Script_EnemyPerception : MonoBehaviour
 					// set here chase state or end game
 					if (m_GameOverDetection)
 					{
-						m_Script_PlayerController.SetTerrified();
+						if (!alreadyDetected)
+						{
+							m_Script_PlayerController.SetTerrified();
+							m_Script_GameController.m_soundManager.ChangeMode(SoundManager.Mode.GAMEOVER, false, 1.0f);
+						}
 						StartCoroutine(WaitAndSetGameOver());
 					}
 				}
@@ -250,8 +257,13 @@ public class Script_EnemyPerception : MonoBehaviour
 	IEnumerator WaitAndSetGameOver()
 	{
 		yield return new WaitForSeconds(m_TimeGameOver);
-		string text = "GAME OVER\n\nSorry. You have been caught up.";
-		m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose, text);
+		var op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("Gameplay", "GAME_OVER_CAUGHT");
+		yield return new WaitForSeconds(0.1f);
+		if (op.IsDone)
+		{
+			m_Script_GameController.EndLevel(Script_GameController.EndOption.Lose, op.Result);
+		}
+		
 		yield return null;
 	}
 

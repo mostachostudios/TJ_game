@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class PlayDialogAction : Action
 {
@@ -8,6 +9,7 @@ public class PlayDialogAction : Action
     public Dialog.DialogPosition dialogPosition;
     public float timeBetweenMessage = .0f;
     public List<string> messages;
+    public List<LocalizedString> localizedMessages;
 
     private Dialog dialog;
     private float currentTimeSeconds = .0f;
@@ -18,7 +20,7 @@ public class PlayDialogAction : Action
 
     protected override bool StartDerived()
     {
-        if(messages.Count == 0) // No messages
+        if(localizedMessages.Count == 0) // No messages
         {
             return true;
         }
@@ -29,8 +31,20 @@ public class PlayDialogAction : Action
 
         dialog = ScriptableObject.CreateInstance<Dialog>();
         dialog.m_Avatar = characterAvatar;
-        dialog.m_Text = messages[currentMessage];
         dialog.m_DialogPosition = dialogPosition;
+        //dialog.m_Text = messages[currentMessage];
+
+        var localizedString = localizedMessages[currentMessage].GetLocalizedString();
+
+        if (localizedString.IsDone)
+        {
+            DisplayDialog(localizedString.Result);
+        }
+        else
+        {
+            localizedMessages[currentMessage].RegisterChangeHandler(DisplayDialog);
+        }
+
 
         // Write Dialog. Needs to set time here in case Action gets interrupted. Besides, a small epsilon value has been substracted from time
         // in order to prevent overlapping with the next dialogue, (Text might be deleted just after it was written, depending on execution order of coroutines in SetDialog) 
@@ -47,21 +61,43 @@ public class PlayDialogAction : Action
 
         if (currentTimeSeconds == timeBetweenMessage)
         {
-            if (currentMessage == messages.Count) // No remaining messages
+            if (currentMessage == localizedMessages.Count) // No remaining messages
             {
+                localizedMessages[currentMessage - 1].ClearChangeHandler();
                 return true;
             }
             else
             {
                 currentTimeSeconds = .0f;
 
-                dialog.m_Text = messages[currentMessage];
+                var localizedString = localizedMessages[currentMessage].GetLocalizedString();
+
+                if (localizedString.IsDone)
+                {
+                    DisplayDialog(localizedString.Result);
+                }
+                else
+                {
+                    localizedMessages[currentMessage].RegisterChangeHandler(DisplayDialog);
+                }
+
                 script_UIController.SetDialog(dialog, timeBetweenMessage - epsilon);
+                localizedMessages[currentMessage].ClearChangeHandler();
                 currentMessage++;
             }
         }
 
         return false;
+    }
+
+    private void DisplayDialog(string s)
+    {
+        dialog.m_Text = s;
+    }
+
+    public override void forceFinish()
+    {
+        localizedMessages[currentMessage -1].ClearChangeHandler();
     }
 
     protected override Action CloneDerived()
@@ -71,7 +107,7 @@ public class PlayDialogAction : Action
         clone.characterAvatar = this.characterAvatar;
         clone.dialogPosition = this.dialogPosition;
         clone.timeBetweenMessage = this.timeBetweenMessage;
-        clone.messages = new List<string>(this.messages);
+        clone.localizedMessages = new List<LocalizedString>(this.localizedMessages);
 
         return clone;
     }

@@ -57,7 +57,7 @@ public class Script_UIController : MonoBehaviour
     private void Awake()
     {
         m_AudioSource = gameObject.AddComponent<AudioSource>();
-        m_AudioSource.volume = 0.2f;
+        m_AudioSource.volume = 0.6f;
         m_AudioSource.playOnAwake = false;
         m_AudioSource.loop = false;
         m_AudioSource.time = 0.0f;
@@ -287,7 +287,7 @@ public class Script_UIController : MonoBehaviour
 
     public bool IsInputNameShowing()
     {
-        return m_inputNameBackground.color.a > .0f;
+        return m_inputNameBackground.IsActive();
     }
 
     void NameOk()
@@ -304,18 +304,7 @@ public class Script_UIController : MonoBehaviour
 
     private IEnumerator ProcessInputNameFade(float alpha, float fadeSeconds)
     {
-        m_inputNameBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_inputNameCenterBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_inputNameInputField.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_inputNameLabel.CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_inputNamePlaceholder.CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_inputNameText.CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_btnSetName.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
-        m_txtBtnSetName.CrossFadeAlpha(alpha, fadeSeconds, false);
-
-        yield return new WaitForSeconds(fadeSeconds);
-
-        if(alpha > .0f)
+        if (alpha > .0f)
         {
             Script_CameraController cameraController = FindObjectOfType<Script_CameraController>();
             cameraController.ReadInput(false);
@@ -350,6 +339,15 @@ public class Script_UIController : MonoBehaviour
             Script_CameraController cameraController = FindObjectOfType<Script_CameraController>();
             cameraController.ReadInput(true);
         }
+
+        m_inputNameBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameCenterBackground.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameInputField.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameLabel.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNamePlaceholder.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_inputNameText.CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_btnSetName.GetComponent<Image>().CrossFadeAlpha(alpha, fadeSeconds, false);
+        m_txtBtnSetName.CrossFadeAlpha(alpha, fadeSeconds, false);
 
         yield return null;
     }

@@ -3,6 +3,7 @@
 //https://forum.unity.com/threads/detect-when-scene-has-fully-loaded.532558/
 
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 
 public class Script_GameController : MonoBehaviour
@@ -11,6 +12,7 @@ public class Script_GameController : MonoBehaviour
     [SerializeField] GameObject m_EventSystem;
     [SerializeField] GameObject m_UI;
     [SerializeField] GameObject m_Menu;
+    [SerializeField] public SoundManager m_soundManager;
 
     [Header("Audio")]
     [Tooltip("Audio clip to be played when player wins the game")]
@@ -20,6 +22,7 @@ public class Script_GameController : MonoBehaviour
     [Tooltip("Audio clip to be played when player loses the game")]
     [SerializeField] AudioClip m_AudioLose;
     private AudioSource m_AudioSource;
+    private AudioSource m_BackgroundMusicAudioSource;
 
     private bool m_allow_pause = false;
     private bool m_paused = true; // switch values for showing menu (game is paused) and closing menu (game is playing) 
@@ -53,7 +56,12 @@ public class Script_GameController : MonoBehaviour
 
         m_AudioSource = gameObject.AddComponent<AudioSource>();
         m_AudioSource.playOnAwake = false;
-        m_AudioSource.volume = 0.1f;
+        m_AudioSource.volume = 0.8f;
+
+        m_BackgroundMusicAudioSource = gameObject.AddComponent<AudioSource>();
+        m_BackgroundMusicAudioSource.playOnAwake = false;
+        m_soundManager.m_musicAudioSource = m_BackgroundMusicAudioSource;
+        m_soundManager.enabled = true;
 
         m_Script_MenuController = m_Menu.GetComponent<Script_MenuController>();
         m_Script_MenuController.Init(this);
@@ -91,8 +99,14 @@ public class Script_GameController : MonoBehaviour
                 return;
             }
 
-            //TODO change this by using conditional compilation such as #if UNITY_EDITOR #endif or another one for better performance 
-            if ((Debug.isDebugBuild && Input.GetKeyUp(KeyCode.M)) || (!Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Escape)))
+            KeyCode pauseMenuKey;
+#if UNITY_EDITOR
+            pauseMenuKey = KeyCode.M;
+#else
+            pauseMenuKey = KeyCode.Escape;
+#endif
+
+            if (Input.GetKeyUp(pauseMenuKey))
             {
                 m_paused = !m_paused;
                 SetPauseResume();
@@ -137,13 +151,18 @@ public class Script_GameController : MonoBehaviour
         m_Script_PauseController.PauseGame(showMenu);
     }
 
-    public void ResumeGame(bool eraseText = true)
+    public void ResumeGame(bool eraseText = true, bool firstExecution = false)
     {
         m_paused = false;
         m_Script_PauseController.ResumeGame();
         if (eraseText)
         {
             m_Script_UIController.EraseTextMessage();
+        }
+
+        if(firstExecution && currentLevel == 1)
+        {
+            m_soundManager.ChangeMode(SoundManager.Mode.MANUAL, true, 0.5f);
         }
     }
 
@@ -153,16 +172,6 @@ public class Script_GameController : MonoBehaviour
     public void AllowPauseGame(bool value)
     {
         m_allow_pause = value;
-    }
-
-    /// <summary>
-    /// Allows sending generic messages (info, level description, current quest, etc) during game play. Game will get paused
-    /// </summary>
-    /// <param name="message"></param>
-    public void DisplayMenuInfoMessage(string message)
-    {
-        m_Script_MenuController.SetInfoMessage(message);
-        PauseGame(); 
     }
 
     public void DisplayCountdown(string text)
@@ -195,6 +204,7 @@ public class Script_GameController : MonoBehaviour
         if (!firstExec)
         {
             m_Script_MenuController.ResetMenu();
+            m_soundManager.ChangeMode(SoundManager.Mode.GAMEPLAY, true, 1.0f);
         }
 
         SceneManager.LoadScene(currentLevel);    
@@ -219,36 +229,27 @@ public class Script_GameController : MonoBehaviour
         }
     }
 
-    public void EndLevel(EndOption endOption, string text = "")
+    public void EndLevel(EndOption endOption, string localizedText = null)
     {
         m_allow_pause = false;
 
         switch (endOption)
         {
             case EndOption.Win:
-                if(text == "")
-                {
-                    text = "Congratulations\n\nYou made it.";
-                }
+                m_Script_MenuController.SetInfoMessage(localizedText == null ? Script_MenuController.Mode.FINAL_WIN : Script_MenuController.Mode.CUSTOM, localizedText);
                 m_AudioSource.clip = m_AudioWin;
                 break;
             case EndOption.NextLevel:
-                if (text == "")
-                {
-                    text = "Congratulations\n\nYou managed to escape on time.";
-                }
+                m_Script_MenuController.SetInfoMessage(localizedText == null ? Script_MenuController.Mode.WIN : Script_MenuController.Mode.CUSTOM, localizedText);
                 m_AudioSource.clip = m_AudioNextLevel;
                 break;
             case EndOption.Lose:
-                if (text == "")
-                {
-                    text = "GAME OVER\n\nSorry. You could not make it.";
-                }
+                m_Script_MenuController.SetInfoMessage(localizedText == null ? Script_MenuController.Mode.LOSE : Script_MenuController.Mode.CUSTOM, localizedText);
                 m_AudioSource.clip = m_AudioLose;
                 break;
         }
 
-        m_Script_MenuController.SetInfoMessage(text);
+        
         m_Script_MenuController.SetEndingLevelWindow(endOption);
         PauseGame();
 
@@ -274,10 +275,18 @@ public class Script_GameController : MonoBehaviour
     {
         //Debug.Log("OnSceneLoaded: " + scene.name);
         //Debug.Log(mode);
+
+        if (scene.buildIndex == 0)
+        {
+            m_soundManager.ChangeMode(SoundManager.Mode.MENU, true, 0);
+        }
+
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
             SetPauseResume();
         }
+        
+
     }
 }
