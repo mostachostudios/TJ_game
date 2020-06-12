@@ -225,16 +225,12 @@ public class Script_MenuController : MonoBehaviour
 
     void RestartLevel()
     {
-        //SetInfoMessage() // TODO reset initial info message
+        m_Script_GameController.RestartLevel();
 
-        m_Script_GameController.RestartLevel(); //TODO Check if switch order with next line (ResumeGame must be executed after next scene is fully loaded)
-        m_Script_GameController.ResumeGame(); 
     }
     void RestartGame()
     {
-        //SetInfoMessage() // TODO reset initial info message
-        m_Script_GameController.RestartGame(); //TODO Check if switch order
-        m_Script_GameController.ResumeGame(); 
+        m_Script_GameController.RestartGame();
     }
     void Quit()
     {

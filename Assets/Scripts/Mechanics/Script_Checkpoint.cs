@@ -19,7 +19,9 @@ public class Script_Checkpoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            StartCoroutine(FadeOutAndGoNext());
+            m_Script_CheckpointManager.CheckAndGoNext(m_IncreaseTime);
+
+//            StartCoroutine(FadeOutAndGoNext());
         }
     }
 
@@ -27,7 +29,7 @@ public class Script_Checkpoint : MonoBehaviour
     {
         var mat = gameObject.GetComponent<MeshRenderer>().material;
 
-        for (float i = mat.color.a; i >= 0.0f; i -= Time.deltaTime / 6f)
+        for (float i = mat.color.a; i > 0f; i -= Time.deltaTime / 6f)
         {
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, i);
             yield return null;

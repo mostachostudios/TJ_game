@@ -284,9 +284,7 @@ public class Script_GameController : MonoBehaviour
         if (scene.buildIndex != 0) // Avoid loading world in start-up scene
         {
             ReloadWorld();
-            SetPauseResume();
-        }
-        
-
+            ResumeGame();
+        }     
     }
 }

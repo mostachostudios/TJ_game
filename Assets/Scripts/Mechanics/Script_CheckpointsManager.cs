@@ -43,7 +43,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
     public void CheckAndGoNext(float increaseTime = 20f)
     {
-        checkpoints[currentCheckpoint].SetActive(false);
+        StartCoroutine(FadeOutAndDisable(checkpoints[currentCheckpoint]));
 
         currentCheckpoint++;
 
@@ -57,5 +57,20 @@ public class Script_CheckpointsManager : MonoBehaviour
             m_AudioSourceReward.Play();
             checkpoints[currentCheckpoint].SetActive(true);
         }
+    }
+
+
+    IEnumerator FadeOutAndDisable(GameObject checkpoint)
+    {
+        var mat = checkpoint.GetComponent<MeshRenderer>().material;
+
+        for (float i = mat.color.a; i > 0f; i -= Time.deltaTime / 6f)
+        {
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, i);
+            yield return null;
+        }
+        //checkpoints[currentCheckpoint].SetActive(false);
+        checkpoint.SetActive(false);
+        yield return null;
     }
 }

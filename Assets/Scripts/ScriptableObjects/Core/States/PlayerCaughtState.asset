@@ -15,7 +15,7 @@ MonoBehaviour:
   parentTrigger: {fileID: 555599348516699097}
   origin: {fileID: 0}
   target: {fileID: 0}
-  radius: 0.8
+  radius: 1.2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   agent: {fileID: 0}
+  timeSeconds: 0
 --- !u!114 &1672242251842068140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +124,12 @@ MonoBehaviour:
   enabled: 1
   waitToFinish: 1
   endOption: 2
+  localizedText:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
   text: 
 --- !u!114 &5872709370632416079
 MonoBehaviour:
