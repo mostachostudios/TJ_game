@@ -7,7 +7,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 {    
     [SerializeField] AudioClip m_AudioReward;
 
-    private List<GameObject> checkpoints;
+    [SerializeField] private GameObject[] checkpoints;
     private int currentCheckpoint;
 
     private AudioSource m_AudioSourceReward;
@@ -18,16 +18,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
     void Start()
     {
-        checkpoints = new List<GameObject>();
         currentCheckpoint = 0;
-
-        var checkpointList = GameObject.FindGameObjectsWithTag("Checkpoint");
-
-        foreach (var checkpoint in checkpointList)
-        {
-            checkpoint.SetActive(false);
-            checkpoints.Add(checkpoint);
-        }
 
         m_AudioSourceReward = gameObject.AddComponent<AudioSource>();
         m_AudioSourceReward.playOnAwake = false;
@@ -37,7 +28,7 @@ public class Script_CheckpointsManager : MonoBehaviour
         m_Script_GameController = FindObjectOfType<Script_GameController>();
         m_Script_Countdown = FindObjectOfType<Script_Countdown>();
 
-        if (checkpoints.Count > 0)
+        if (checkpoints.Length > 0)
         {
             checkpoints[currentCheckpoint].SetActive(true);
         }
@@ -53,7 +44,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
             currentCheckpoint++;
 
-            if (currentCheckpoint >= checkpoints.Count)
+            if (currentCheckpoint >= checkpoints.Length)
             {
                 m_Script_GameController.GoNextLevel();
             }
