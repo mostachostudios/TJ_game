@@ -14,6 +14,7 @@ public class Script_CheckpointsManager : MonoBehaviour
 
     private Script_GameController m_Script_GameController;
     private Script_Countdown m_Script_Countdown;
+    private HashSet<Script_Checkpoint> m_enabledCheckpoints = new HashSet<Script_Checkpoint>();
 
     void Start()
     {
@@ -42,21 +43,26 @@ public class Script_CheckpointsManager : MonoBehaviour
         }
     }
 
-    public void CheckAndGoNext(float increaseTime = 20f)
+    public void CheckAndGoNext(float increaseTime, Script_Checkpoint checkpoint)
     {
-        StartCoroutine(FadeOutAndDisable(checkpoints[currentCheckpoint]));
-
-        currentCheckpoint++;
-
-        if (currentCheckpoint >= checkpoints.Count)
+        if(m_enabledCheckpoints.Contains(checkpoint) == false)
         {
-            m_Script_GameController.GoNextLevel();
-        }
-        else
-        {           
-            m_Script_Countdown.IncreaseTime(increaseTime);
-            m_AudioSourceReward.Play();
-            checkpoints[currentCheckpoint].SetActive(true);
+            m_enabledCheckpoints.Add(checkpoint);
+
+            StartCoroutine(FadeOutAndDisable(checkpoints[currentCheckpoint]));
+
+            currentCheckpoint++;
+
+            if (currentCheckpoint >= checkpoints.Count)
+            {
+                m_Script_GameController.GoNextLevel();
+            }
+            else
+            {
+                m_Script_Countdown.IncreaseTime(increaseTime);
+                m_AudioSourceReward.Play();
+                checkpoints[currentCheckpoint].SetActive(true);
+            }
         }
     }
 

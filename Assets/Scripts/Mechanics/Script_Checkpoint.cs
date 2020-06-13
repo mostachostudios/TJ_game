@@ -16,7 +16,7 @@ public class Script_Checkpoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            m_Script_CheckpointManager.CheckAndGoNext(m_IncreaseTime);
+            m_Script_CheckpointManager.CheckAndGoNext(m_IncreaseTime, this);
         }
     }
 }

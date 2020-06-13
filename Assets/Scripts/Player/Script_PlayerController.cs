@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class Script_PlayerController : MonoBehaviour
 {
-    [SerializeField] public string m_playerName;
+    [SerializeField] public string m_playerName = "DefaultName";  // For debugging purposes
 
     [Header("Speed values")]
     [SerializeField] float m_walkSpeed = 1f;

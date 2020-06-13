@@ -43,9 +43,12 @@ public class Script_Countdown : MonoBehaviour
     private float timeNextTick = 0f;
 
     private bool m_Frozen = false;
+    private float m_total_time;
 
     void Start()
     {
+        m_total_time = m_TimeLeft;
+
         m_AudioSourceTickTock = gameObject.AddComponent<AudioSource>();
         m_AudioSourceTickTock.playOnAwake = false;
         m_AudioSourceTickTock.clip = m_TickTock;
@@ -124,8 +127,14 @@ public class Script_Countdown : MonoBehaviour
         }
     }
 
+    public float GetElapsedTime()
+    {
+        return m_total_time - m_TimeLeft;
+    }
+
     public void IncreaseTime(float time)
     {
+        m_total_time += time;
         m_TimeLeft += time;
     }
 
